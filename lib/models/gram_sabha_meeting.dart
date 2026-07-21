@@ -1,0 +1,198 @@
+/// Types of Gram Sabha meetings
+/// Aligned with FRA provisions
+enum MeetingType {
+  /// Regular Gram Sabha meeting (नियमित)
+  regular,
+
+  /// Special meeting called for specific agenda (विशेष)
+  special,
+
+  /// Consent resolution meeting — requires enhanced quorum
+  /// Per 2009 MoEFCC Circular: consent before forest diversion under FCA 1980
+  consentResolution,
+}
+
+extension MeetingTypeExtension on MeetingType {
+  String get displayNameEn {
+    switch (this) {
+      case MeetingType.regular:
+        return 'Regular Meeting';
+      case MeetingType.special:
+        return 'Special Meeting';
+      case MeetingType.consentResolution:
+        return 'Consent Resolution Meeting';
+    }
+  }
+
+  String get displayNameMr {
+    switch (this) {
+      case MeetingType.regular:
+        return 'नियमित सभा';
+      case MeetingType.special:
+        return 'विशेष सभा';
+      case MeetingType.consentResolution:
+        return 'संमती ठराव सभा';
+    }
+  }
+
+  /// Whether this meeting type requires enhanced quorum checks
+  bool get requiresEnhancedQuorum => this == MeetingType.consentResolution;
+}
+
+/// Status of a Gram Sabha meeting
+enum MeetingStatus {
+  /// Meeting is scheduled but not yet started
+  scheduled,
+
+  /// Meeting is currently in progress (attendance being marked)
+  inProgress,
+
+  /// Meeting completed, resolutions recorded
+  completed,
+
+  /// Meeting cancelled
+  cancelled,
+}
+
+/// Gram Sabha meeting record
+class GramSabhaMeeting {
+  final String id;
+  final String villageId;
+  final DateTime scheduledDate;
+  final DateTime? startedAt;
+  final DateTime? completedAt;
+  final MeetingType type;
+  final MeetingStatus status;
+  final String venue;
+  final double venueLat;
+  final double venueLng;
+  final String? agenda;
+  final String createdByUserId;
+  final List<String> resolutionIds; // References to resolutions recorded
+  final int totalAttendees;
+  final int womenAttendees;
+  final int stAttendees;
+  final int pvtgAttendees;
+  final bool quorumValid;
+
+  const GramSabhaMeeting({
+    required this.id,
+    required this.villageId,
+    required this.scheduledDate,
+    this.startedAt,
+    this.completedAt,
+    required this.type,
+    required this.status,
+    required this.venue,
+    required this.venueLat,
+    required this.venueLng,
+    this.agenda,
+    required this.createdByUserId,
+    this.resolutionIds = const [],
+    this.totalAttendees = 0,
+    this.womenAttendees = 0,
+    this.stAttendees = 0,
+    this.pvtgAttendees = 0,
+    this.quorumValid = false,
+  });
+
+  /// Whether this meeting is currently accepting attendance
+  bool get isAcceptingAttendance =>
+      status == MeetingStatus.scheduled || status == MeetingStatus.inProgress;
+
+  /// Whether this meeting is active today
+  bool get isToday {
+    final now = DateTime.now();
+    return scheduledDate.year == now.year &&
+        scheduledDate.month == now.month &&
+        scheduledDate.day == now.day;
+  }
+
+  /// Whether this is an upcoming meeting
+  bool get isUpcoming =>
+      status == MeetingStatus.scheduled &&
+      scheduledDate.isAfter(DateTime.now());
+
+  GramSabhaMeeting copyWith({
+    DateTime? startedAt,
+    DateTime? completedAt,
+    MeetingStatus? status,
+    String? agenda,
+    List<String>? resolutionIds,
+    int? totalAttendees,
+    int? womenAttendees,
+    int? stAttendees,
+    int? pvtgAttendees,
+    bool? quorumValid,
+  }) {
+    return GramSabhaMeeting(
+      id: id,
+      villageId: villageId,
+      scheduledDate: scheduledDate,
+      startedAt: startedAt ?? this.startedAt,
+      completedAt: completedAt ?? this.completedAt,
+      type: type,
+      status: status ?? this.status,
+      venue: venue,
+      venueLat: venueLat,
+      venueLng: venueLng,
+      agenda: agenda ?? this.agenda,
+      createdByUserId: createdByUserId,
+      resolutionIds: resolutionIds ?? this.resolutionIds,
+      totalAttendees: totalAttendees ?? this.totalAttendees,
+      womenAttendees: womenAttendees ?? this.womenAttendees,
+      stAttendees: stAttendees ?? this.stAttendees,
+      pvtgAttendees: pvtgAttendees ?? this.pvtgAttendees,
+      quorumValid: quorumValid ?? this.quorumValid,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'villageId': villageId,
+    'scheduledDate': scheduledDate.toIso8601String(),
+    'startedAt': startedAt?.toIso8601String(),
+    'completedAt': completedAt?.toIso8601String(),
+    'type': type.name,
+    'status': status.name,
+    'venue': venue,
+    'venueLat': venueLat,
+    'venueLng': venueLng,
+    'agenda': agenda,
+    'createdByUserId': createdByUserId,
+    'resolutionIds': resolutionIds,
+    'totalAttendees': totalAttendees,
+    'womenAttendees': womenAttendees,
+    'stAttendees': stAttendees,
+    'pvtgAttendees': pvtgAttendees,
+    'quorumValid': quorumValid,
+  };
+
+  factory GramSabhaMeeting.fromJson(Map<String, dynamic> json) =>
+      GramSabhaMeeting(
+        id: json['id'] as String,
+        villageId: json['villageId'] as String,
+        scheduledDate: DateTime.parse(json['scheduledDate'] as String),
+        startedAt: json['startedAt'] != null
+            ? DateTime.parse(json['startedAt'] as String)
+            : null,
+        completedAt: json['completedAt'] != null
+            ? DateTime.parse(json['completedAt'] as String)
+            : null,
+        type: MeetingType.values.byName(json['type'] as String),
+        status: MeetingStatus.values.byName(json['status'] as String),
+        venue: json['venue'] as String,
+        venueLat: (json['venueLat'] as num).toDouble(),
+        venueLng: (json['venueLng'] as num).toDouble(),
+        agenda: json['agenda'] as String?,
+        createdByUserId: json['createdByUserId'] as String,
+        resolutionIds: (json['resolutionIds'] as List<dynamic>?)
+                ?.cast<String>() ??
+            const [],
+        totalAttendees: json['totalAttendees'] as int? ?? 0,
+        womenAttendees: json['womenAttendees'] as int? ?? 0,
+        stAttendees: json['stAttendees'] as int? ?? 0,
+        pvtgAttendees: json['pvtgAttendees'] as int? ?? 0,
+        quorumValid: json['quorumValid'] as bool? ?? false,
+      );
+}

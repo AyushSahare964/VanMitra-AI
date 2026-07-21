@@ -1,0 +1,266 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>VanMitra-AI - Digital Fencing</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Noto+Sans:wght@100..900&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#e0e0ff",
+                      "inverse-surface": "#2e3132",
+                      "primary-container": "#138808",
+                      "outline": "#6f7a68",
+                      "background": "#f8f9fa",
+                      "outline-variant": "#becab5",
+                      "surface-tint": "#056e00",
+                      "on-tertiary-fixed": "#00006e",
+                      "secondary-fixed-dim": "#ffb77a",
+                      "on-primary": "#ffffff",
+                      "on-surface-variant": "#3f4a3a",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed-dim": "#bfc2ff",
+                      "surface-container-high": "#e7e8e9",
+                      "on-secondary-container": "#683700",
+                      "surface-container": "#edeeef",
+                      "status-success": "#138808",
+                      "tertiary-container": "#636ad5",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed-variant": "#035300",
+                      "on-tertiary-fixed-variant": "#3239a3",
+                      "on-background": "#191c1d",
+                      "primary-fixed-dim": "#72de5c",
+                      "surface-container-low": "#f3f4f5",
+                      "status-warning": "#FFB800",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-variant": "#e1e3e4",
+                      "inverse-primary": "#72de5c",
+                      "status-error": "#D32F2F",
+                      "on-secondary-fixed": "#2e1500",
+                      "error": "#ba1a1a",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-primary-container": "#fbfff3",
+                      "on-error-container": "#93000a",
+                      "inverse-on-surface": "#f0f1f2",
+                      "error-container": "#ffdad6",
+                      "primary-fixed": "#8dfc75",
+                      "on-primary-fixed": "#012200",
+                      "on-secondary-fixed-variant": "#6d3a00",
+                      "on-surface": "#191c1d",
+                      "surface-dim": "#d9dadb",
+                      "secondary-fixed": "#ffdcc2",
+                      "secondary-container": "#fe9832",
+                      "secondary": "#8f4e00",
+                      "emblem-gold": "#B38B34",
+                      "tertiary": "#4951ba",
+                      "on-tertiary-container": "#fffdff",
+                      "primary": "#056c00",
+                      "surface": "#f8f9fa",
+                      "on-secondary": "#ffffff",
+                      "surface-bright": "#f8f9fa",
+                      "surface-white": "#FFFFFF"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "touch-target-min": "48px",
+                      "stack-sm": "8px",
+                      "gutter": "16px",
+                      "margin-mobile": "16px",
+                      "stack-md": "16px",
+                      "stack-lg": "24px",
+                      "margin-desktop": "32px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Noto Sans"],
+                      "label-md": ["Inter"],
+                      "headline-lg": ["Noto Sans"],
+                      "headline-md": ["Noto Sans"],
+                      "body-md": ["Noto Sans"],
+                      "legal-print": ["Noto Sans"],
+                      "label-xl": ["Inter"],
+                      "headline-lg-mobile": ["Noto Sans"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "18px", "fontWeight": "500"}],
+                      "headline-lg": ["30px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "legal-print": ["14px", {"lineHeight": "22px", "fontWeight": "400"}],
+                      "label-xl": ["16px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Base material icon styles for consistent alignment */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+        }
+        
+        /* Map overlay pulse animation */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            80% { transform: scale(2); opacity: 0; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        .pulse-marker::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            background-color: var(--color-status-error, #D32F2F);
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+            z-index: -1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md h-screen w-screen overflow-hidden flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface-container-highest flex justify-between items-center px-margin-mobile w-full h-touch-target-min border-b border-outline-variant shadow-sm shrink-0 z-40 relative top-0">
+<button aria-label="Menu" class="w-[48px] h-[48px] flex items-center justify-center text-primary active:scale-95 transition-transform duration-150 hover:bg-surface-container-low rounded-full">
+<span class="material-symbols-outlined">account_balance</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary flex-1 text-center">
+            VanMitra-AI
+        </h1>
+<button aria-label="Language" class="w-[48px] h-[48px] flex items-center justify-center text-primary active:scale-95 transition-transform duration-150 hover:bg-surface-container-low rounded-full">
+<span class="material-symbols-outlined">language</span>
+</button>
+</header>
+<!-- Main Map Canvas -->
+<main class="flex-grow relative w-full overflow-hidden bg-surface-dim">
+<!-- Map Background Placeholder -->
+<div class="absolute inset-0 w-full h-full bg-cover bg-center" data-alt="High-resolution satellite view of Ozhar village, India. The map displays a mix of dense green forest cover, agricultural patches, and dirt roads. The style is reminiscent of modern geographic information systems (GIS) with clear terrain rendering, neutral atmospheric lighting, and high contrast for digital overlays. The mood is technical and observational." data-location="Ozhar, Maharashtra" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDIyczBmexdb64GZ8l7Xu9qrFz1PlY7p8zYm6Nd7W-sh6eBl3ZnfPVCDL9861gL_VUkN6UVQ3JLLOp3_GRBfsxMQ5D7tjPRQzLetZk3d4QS6qs2GddcvgiIOsr8RmaoEUdVQlHcbwszhtPbPtwMvvFWnvdKZ0hHfZzFlFkRDbAvPJV-WBEq81JpizD7MvvcGpdyAxB5DstZX3tIPAEZJcko1lq2bN4da31y3aIOA8IE5MfJ8Z-jyWmr9YjuNb5zlBscHLx3lVTD2Rl9')">
+<!-- Map Overlay: CFR Boundary & Alerts -->
+<div class="absolute inset-0 w-full h-full pointer-events-none">
+<svg class="absolute inset-0" height="100%" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1000 1000" width="100%">
+<!-- CFR Boundary Polygon (Simulated) -->
+<polygon fill="rgba(19, 136, 8, 0.15)" points="300,200 700,150 850,500 600,800 200,750 150,400" stroke="#138808" stroke-dasharray="10, 5" stroke-width="3"></polygon>
+</svg>
+<!-- Alert Cluster Highlight -->
+<div class="absolute top-[60%] left-[65%] transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-auto cursor-pointer group">
+<div class="relative pulse-marker flex items-center justify-center w-6 h-6 bg-status-error rounded-full border-2 border-surface-white shadow-md">
+<span class="material-symbols-outlined text-white text-[14px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+</div>
+<!-- Village Label -->
+<div class="absolute top-[35%] left-[45%] bg-surface-white/80 backdrop-blur-sm px-2 py-1 rounded shadow-sm border border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface">Ozhar CFR</span>
+</div>
+</div>
+</div>
+<!-- Floating Map Controls -->
+<div class="absolute right-margin-mobile top-margin-mobile flex flex-col gap-stack-sm z-10">
+<div class="bg-surface-white shadow-sm rounded-lg flex flex-col overflow-hidden border border-outline-variant/30">
+<button class="w-[48px] h-[48px] flex items-center justify-center text-on-surface hover:bg-surface-container active:bg-surface-variant transition-colors border-b border-outline-variant/30">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="w-[48px] h-[48px] flex items-center justify-center text-on-surface hover:bg-surface-container active:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">remove</span>
+</button>
+</div>
+<button class="w-[48px] h-[48px] bg-surface-white shadow-sm rounded-lg flex items-center justify-center text-on-surface hover:bg-surface-container active:bg-surface-variant transition-colors border border-outline-variant/30 mt-2">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+<button class="w-[48px] h-[48px] bg-surface-white shadow-sm rounded-lg flex items-center justify-center text-on-surface hover:bg-surface-container active:bg-surface-variant transition-colors border border-outline-variant/30">
+<span class="material-symbols-outlined">layers</span>
+</button>
+</div>
+<!-- Slide-up Alert Panel -->
+<div class="absolute bottom-margin-mobile left-margin-mobile right-margin-mobile z-20 bg-surface-white rounded-xl shadow-lg border-t-4 border-status-error overflow-hidden md:w-[400px] md:left-auto md:right-margin-desktop md:bottom-margin-desktop">
+<!-- Panel Header -->
+<div class="p-stack-md border-b border-outline-variant bg-error-container/20 flex items-center gap-3">
+<span class="material-symbols-outlined text-status-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+<h2 class="font-headline-md text-[18px] leading-[24px] font-bold text-on-surface">Change Alert Detected</h2>
+<div class="ml-auto bg-status-error text-on-error px-2 py-0.5 rounded text-[12px] font-bold tracking-wide uppercase">High</div>
+</div>
+<!-- Panel Body -->
+<div class="p-stack-md flex flex-col gap-stack-md">
+<div class="grid grid-cols-2 gap-y-stack-sm gap-x-4">
+<div class="flex flex-col">
+<span class="font-label-md text-[12px] text-on-surface-variant uppercase tracking-wider">Area Affected</span>
+<span class="font-body-lg text-body-lg text-on-surface font-semibold">0.5 ha</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-[12px] text-on-surface-variant uppercase tracking-wider">Detected</span>
+<span class="font-body-lg text-body-lg text-on-surface font-semibold">July 10, 2024</span>
+</div>
+<div class="flex flex-col col-span-2">
+<span class="font-label-md text-[12px] text-on-surface-variant uppercase tracking-wider">Likely Cause</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-status-warning text-[20px]">forest</span>
+<span class="font-body-md text-body-md text-on-surface">Illegal Clearing / Logging</span>
+</div>
+</div>
+<div class="flex flex-col col-span-2 mt-1">
+<span class="font-label-md text-[12px] text-on-surface-variant uppercase tracking-wider">Sensor Data</span>
+<div class="bg-surface-container-low p-2 rounded mt-1 flex items-center justify-between border border-outline-variant/50">
+<span class="font-label-md text-label-md text-on-surface">ΔNDVI Drop</span>
+<span class="font-body-md text-status-error font-bold">&lt; -0.2</span>
+</div>
+</div>
+</div>
+<!-- Action Area -->
+<button class="w-full h-touch-target-min bg-primary text-on-primary rounded-full font-label-xl text-label-xl flex items-center justify-center gap-2 mt-2 hover:bg-surface-tint active:scale-[0.98] transition-all shadow-sm">
+<span class="material-symbols-outlined text-[20px]">report</span>
+                    Report to FRC
+                </button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="bg-surface-white shadow-[0_-2px_8px_rgba(0,0,0,0.1)] docked full-width bottom-0 rounded-t-xl fixed left-0 w-full z-50 flex justify-around items-center px-2 py-2 pb-safe md:hidden">
+<!-- Home (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container active:scale-90 transition-all duration-200 rounded-2xl w-16" href="#">
+<span class="material-symbols-outlined text-[24px]">dashboard</span>
+<span class="font-label-md text-[12px] mt-1">Home</span>
+</a>
+<!-- Claims (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container active:scale-90 transition-all duration-200 rounded-2xl w-16" href="#">
+<span class="material-symbols-outlined text-[24px]">description</span>
+<span class="font-label-md text-[12px] mt-1">Claims</span>
+</a>
+<!-- Map (ACTIVE) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1 active:scale-90 transition-all duration-200 w-16 shadow-sm" href="#">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">map</span>
+<span class="font-label-md text-[12px] mt-1 font-bold">Map</span>
+</a>
+<!-- Ledger (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container active:scale-90 transition-all duration-200 rounded-2xl w-16" href="#">
+<span class="material-symbols-outlined text-[24px]">history_edu</span>
+<span class="font-label-md text-[12px] mt-1">Ledger</span>
+</a>
+<!-- Profile (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container active:scale-90 transition-all duration-200 rounded-2xl w-16" href="#">
+<span class="material-symbols-outlined text-[24px]">person</span>
+<span class="font-label-md text-[12px] mt-1">Profile</span>
+</a>
+</nav>
+<!-- Spacer for Mobile Bottom Nav to prevent content overlap -->
+<div class="h-[72px] md:hidden shrink-0 bg-surface-dim"></div>
+</body></html>

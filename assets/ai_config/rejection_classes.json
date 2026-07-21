@@ -1,0 +1,55 @@
+{
+  "classes": [
+    "procedural_defect",
+    "insufficient_evidence",
+    "boundary_dispute",
+    "occupation_not_proven",
+    "wrong_jurisdiction",
+    "beyond_time_limit",
+    "duplicate_claim",
+    "valid_rejection",
+    "invalid_rejection"
+  ],
+  "keywords": {
+    "procedural_defect": [
+      "signature",
+      "unsigned",
+      "incomplete form",
+      "स्वाक्षरी"
+    ],
+    "insufficient_evidence": [
+      "evidence",
+      "proof",
+      "पुरावा",
+      "documents lacking"
+    ],
+    "boundary_dispute": [
+      "boundary",
+      "overlap",
+      "सीमा",
+      "adjoining claim"
+    ],
+    "occupation_not_proven": [
+      "occupation",
+      "2005",
+      "ताबा",
+      "residence not proven"
+    ],
+    "wrong_jurisdiction": [
+      "jurisdiction",
+      "wrong committee",
+      "अधिकार क्षेत्र"
+    ],
+    "beyond_time_limit": [
+      "time limit",
+      "late",
+      "deadline",
+      "मुदत"
+    ],
+    "duplicate_claim": [
+      "duplicate",
+      "already filed",
+      "पुनरावृत्ती"
+    ]
+  }
+}

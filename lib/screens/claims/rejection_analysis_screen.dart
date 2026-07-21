@@ -1,0 +1,456 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
+import '../../core/theme/app_colors.dart';
+import '../../core/routes/app_router.dart';
+import '../../models/claim.dart';
+import '../../providers/claims_provider.dart';
+import '../../providers/module_a_provider.dart';
+import '../../services/module_a_service.dart';
+import '../../widgets/portal_frame_scaffold.dart';
+
+/// Rejection Analysis Screen — uploads rejection order photo for OCR+AI analysis.
+///
+/// Calls RejectionAgent via FastAPI /api/v1/analyze-rejection.
+/// Shows classification result (rejection reason + validity assessment).
+/// One-tap → Appeal Draft screen.
+class RejectionAnalysisScreen extends ConsumerStatefulWidget {
+  const RejectionAnalysisScreen({super.key});
+
+  @override
+  ConsumerState<RejectionAnalysisScreen> createState() =>
+      _RejectionAnalysisScreenState();
+}
+
+class _RejectionAnalysisScreenState
+    extends ConsumerState<RejectionAnalysisScreen> {
+  String? _claimId;
+  Claim? _claim;
+  RejectionAnalysis? _analysis;
+  bool _isAnalyzing = false;
+  String? _imagePath;
+
+  final _picker = ImagePicker();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final args = ModalRoute.of(context)?.settings.arguments;
+    if (args is String && _claimId == null) {
+      _claimId = args;
+      _loadClaim();
+    }
+  }
+
+  void _loadClaim() {
+    final claims = ref.read(claimsProvider);
+    setState(() {
+      _claim = claims.claims
+          .cast<Claim?>()
+          .firstWhere((c) => c?.id == _claimId, orElse: () => null);
+    });
+  }
+
+  Future<void> _captureAndAnalyze() async {
+    final imageFile = await _picker.pickImage(
+      source: ImageSource.camera,
+      imageQuality: 85,
+      maxWidth: 2000,
+    );
+    if (imageFile == null) return;
+
+    setState(() {
+      _isAnalyzing = true;
+      _imagePath = imageFile.path;
+    });
+
+    final service = ref.read(moduleAProvider);
+
+    try {
+      final bytes = await imageFile.readAsBytes();
+      final analysis = await service.analyzeRejection(bytes);
+      setState(() {
+        _analysis = analysis;
+        _isAnalyzing = false;
+      });
+
+      // Auto-trigger appeal deadline notice
+      if (analysis.appealRecommended && _claim != null) {
+        final rejectionDate = analysis.rejectionDate ?? DateTime.now();
+        final updatedClaim = _claim!.copyWith(
+          status: ClaimStatus.rejected,
+          rejectedAt: rejectionDate,
+          appealDeadline: rejectionDate.add(const Duration(days: 60)),
+          rejectionReason: analysis.rejectionReason,
+        );
+        await ref
+            .read(claimsProvider.notifier)
+            .updateClaim(updatedClaim);
+        setState(() => _claim = updatedClaim);
+      }
+    } on ModuleAServiceException catch (e) {
+      setState(() => _isAnalyzing = false);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'ऑफलाइन — विश्लेषण नंतर करा: ${e.message}',
+              style: const TextStyle(fontFamily: 'NotoSansDevanagari'),
+            ),
+            backgroundColor: AppColors.warningAmber,
+          ),
+        );
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PortalFrameScaffold(
+      breadcrumbs: const [
+        'मुख्यपृष्ठ',
+        'माझे दावे',
+        'नामंजुरी विश्लेषण'
+      ],
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // ── Info banner ─────────────────────────────────────────────
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: AppColors.alertRed.withOpacity(0.06),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                    color: AppColors.alertRed.withOpacity(0.2)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Row(
+                    children: [
+                      Icon(Icons.gavel_rounded,
+                          color: AppColors.alertRed, size: 18),
+                      SizedBox(width: 8),
+                      Text(
+                        'नामंजुरी आदेश विश्लेषण',
+                        style: TextStyle(
+                          fontFamily: 'NotoSansDevanagari',
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14,
+                          color: AppColors.alertRed,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    _claim != null
+                        ? 'दावेदार: ${_claim!.claimantName} (${_claim!.id.substring(0, 12)}…)'
+                        : 'नामंजुरी आदेशाचा फोटो काढा, AI नामंजुरीचे कारण ओळखेल.',
+                    style: const TextStyle(
+                      fontFamily: 'NotoSansDevanagari',
+                      fontSize: 12,
+                      color: Color(0xFF7F1D1D),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  const Text(
+                    'अपील मुदत: नामंजुरी आदेशापासून 60 दिवस (FRA Sec. 6)',
+                    style: TextStyle(
+                      fontFamily: 'NotoSansDevanagari',
+                      fontSize: 11,
+                      color: Color(0xFF9CA3AF),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            // ── Upload Order button ──────────────────────────────────────
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: _isAnalyzing ? null : _captureAndAnalyze,
+                icon: _isAnalyzing
+                    ? const SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: AppColors.alertRed,
+                        ),
+                      )
+                    : const Icon(Icons.camera_alt_rounded),
+                label: Text(
+                  _isAnalyzing
+                      ? 'AI विश्लेषण करत आहे…'
+                      : 'नामंजुरी आदेशाचा फोटो काढा',
+                  style: const TextStyle(
+                      fontFamily: 'NotoSansDevanagari'),
+                ),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: AppColors.alertRed,
+                  side: const BorderSide(color: AppColors.alertRed),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4)),
+                ),
+              ),
+            ),
+
+            // ── Analysis result ──────────────────────────────────────────
+            if (_analysis != null) ...[
+              const SizedBox(height: 24),
+              _buildAnalysisResult(),
+            ],
+
+            if (_analysis == null && !_isAnalyzing) ...[
+              const SizedBox(height: 24),
+              const Text(
+                'किंवा नामंजुरीचे कारण मॅन्युअली प्रविष्ट करा:',
+                style: TextStyle(
+                  fontFamily: 'NotoSansDevanagari',
+                  fontSize: 12,
+                  color: Color(0xFF6B7280),
+                ),
+              ),
+              const SizedBox(height: 8),
+              _ManualRejectionForm(
+                onSubmit: (reason) {
+                  setState(() {
+                    _analysis = RejectionAnalysis(
+                      isOCRProcessed: false,
+                      rejectionReason: reason,
+                      validityExplanation:
+                          'Manual entry — appeal recommended.',
+                      appealRecommended: true,
+                    );
+                  });
+                },
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAnalysisResult() {
+    final analysis = _analysis!;
+    final color = analysis.appealRecommended
+        ? AppColors.accentSaffron
+        : AppColors.alertRed;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'AI विश्लेषण परिणाम',
+          style: TextStyle(
+            fontFamily: 'NotoSansDevanagari',
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+            color: AppColors.govtBlue,
+          ),
+        ),
+        const SizedBox(height: 10),
+
+        // Rejection reason card
+        Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: color.withOpacity(0.4)),
+            boxShadow: [
+              BoxShadow(
+                  color: color.withOpacity(0.08),
+                  blurRadius: 8,
+                  offset: const Offset(0, 3))
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _ResultRow(
+                label: 'नामंजुरीचे कारण',
+                value: analysis.rejectionReason ?? 'अज्ञात',
+                color: AppColors.alertRed,
+              ),
+              const Divider(),
+              _ResultRow(
+                label: 'नामंजुरी वैध आहे का?',
+                value: analysis.isRejectionValid == true
+                    ? 'होय'
+                    : analysis.isRejectionValid == false
+                        ? 'नाही — अपील करा'
+                        : 'अनिश्चित',
+                color: analysis.isRejectionValid == true
+                    ? AppColors.alertRed
+                    : AppColors.successGreen,
+              ),
+              const Divider(),
+              Text(
+                analysis.validityExplanation,
+                style: const TextStyle(
+                  fontFamily: 'NotoSansDevanagari',
+                  fontSize: 12,
+                  color: Color(0xFF374151),
+                  height: 1.6,
+                ),
+              ),
+              if (!analysis.isOCRProcessed) ...[
+                const SizedBox(height: 8),
+                const Text(
+                  '* ऑफलाइन मोड — OCR उपलब्ध नाही',
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Color(0xFF9CA3AF),
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+
+        if (analysis.appealRecommended) ...[
+          const SizedBox(height: 16),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: () => Navigator.pushNamed(
+                context,
+                AppRouter.appealDraft,
+                arguments: {
+                  'claimId': _claimId,
+                  'analysis': analysis,
+                },
+              ),
+              icon: const Icon(Icons.gavel_rounded),
+              label: const Text(
+                'अपील मसुदा तयार करा (Sec. 6)',
+                style: TextStyle(fontFamily: 'NotoSansDevanagari'),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.accentSaffron,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4)),
+              ),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+class _ResultRow extends StatelessWidget {
+  final String label;
+  final String value;
+  final Color color;
+  const _ResultRow(
+      {required this.label, required this.value, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 140,
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontFamily: 'NotoSansDevanagari',
+                fontSize: 12,
+                color: Color(0xFF6B7280),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyle(
+                fontFamily: 'NotoSansDevanagari',
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: color,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ManualRejectionForm extends StatefulWidget {
+  final void Function(String reason) onSubmit;
+  const _ManualRejectionForm({required this.onSubmit});
+
+  @override
+  State<_ManualRejectionForm> createState() =>
+      _ManualRejectionFormState();
+}
+
+class _ManualRejectionFormState extends State<_ManualRejectionForm> {
+  final _ctrl = TextEditingController();
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TextFormField(
+          controller: _ctrl,
+          maxLines: 3,
+          style: const TextStyle(
+              fontFamily: 'NotoSansDevanagari', fontSize: 13),
+          decoration: const InputDecoration(
+            hintText: 'नामंजुरीचे कारण प्रविष्ट करा…',
+            hintStyle: TextStyle(
+                fontFamily: 'NotoSansDevanagari', fontSize: 12),
+            border: OutlineInputBorder(),
+            contentPadding:
+                EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          ),
+        ),
+        const SizedBox(height: 10),
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () {
+              if (_ctrl.text.trim().isNotEmpty) {
+                widget.onSubmit(_ctrl.text.trim());
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.govtBlue,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4)),
+            ),
+            child: const Text(
+              'सादर करा',
+              style: TextStyle(fontFamily: 'NotoSansDevanagari'),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

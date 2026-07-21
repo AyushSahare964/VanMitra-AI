@@ -1,4 +1,4 @@
-# 🌿 VanMitra-AI
+# 🌿 VanMitra-AI — वन मित्र AI
 
 > **Gram Sabha Transparency & Forest Rights Platform** for ओझर (Ozhar) village, जव्हार, पालघर — Powered by AI
 
@@ -6,6 +6,25 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?logo=fastapi)](https://fastapi.tiangolo.com)
 [![Firebase](https://img.shields.io/badge/Firebase-Enabled-FFCA28?logo=firebase)](https://firebase.google.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+---
+
+## 🏆 Hackathon Info
+
+| | |
+|---|---|
+| **Team** | Gangs Of Kondhwa |
+| **Track** | AI for Societal Good |
+| **Pilot Village** | Ozhar, Jawhar Taluka, Palghar District, Maharashtra |
+
+### 👥 Team Members
+
+| Name | Role |
+|------|------|
+| Sanskruti Ruyarkar | Team Member |
+| Ayush Sahare | Team Member |
+| Piyush Dhane | Team Member |
+| Samrudhhi Shinde | Team Member |
 
 ---
 

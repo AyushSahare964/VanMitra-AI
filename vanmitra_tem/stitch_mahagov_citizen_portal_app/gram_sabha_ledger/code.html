@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Gram Sabha Ledger - Attendance &amp; Quorum</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Design System Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#e0e0ff",
+                    "inverse-surface": "#2e3132",
+                    "primary-container": "#138808",
+                    "outline": "#6f7a68",
+                    "background": "#f8f9fa",
+                    "outline-variant": "#becab5",
+                    "surface-tint": "#056e00",
+                    "on-tertiary-fixed": "#00006e",
+                    "secondary-fixed-dim": "#ffb77a",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#3f4a3a",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#bfc2ff",
+                    "surface-container-high": "#e7e8e9",
+                    "on-secondary-container": "#683700",
+                    "surface-container": "#edeeef",
+                    "status-success": "#138808",
+                    "tertiary-container": "#636ad5",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#035300",
+                    "on-tertiary-fixed-variant": "#3239a3",
+                    "on-background": "#191c1d",
+                    "primary-fixed-dim": "#72de5c",
+                    "surface-container-low": "#f3f4f5",
+                    "status-warning": "#FFB800",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-variant": "#e1e3e4",
+                    "inverse-primary": "#72de5c",
+                    "status-error": "#D32F2F",
+                    "on-secondary-fixed": "#2e1500",
+                    "error": "#ba1a1a",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-primary-container": "#fbfff3",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#f0f1f2",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#8dfc75",
+                    "on-primary-fixed": "#012200",
+                    "on-secondary-fixed-variant": "#6d3a00",
+                    "on-surface": "#191c1d",
+                    "surface-dim": "#d9dadb",
+                    "secondary-fixed": "#ffdcc2",
+                    "secondary-container": "#fe9832",
+                    "secondary": "#8f4e00",
+                    "emblem-gold": "#B38B34",
+                    "tertiary": "#4951ba",
+                    "on-tertiary-container": "#fffdff",
+                    "primary": "#056c00",
+                    "surface": "#f8f9fa",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#f8f9fa",
+                    "surface-white": "#FFFFFF"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "touch-target-min": "48px",
+                    "stack-sm": "8px",
+                    "gutter": "16px",
+                    "margin-mobile": "16px",
+                    "stack-md": "16px",
+                    "stack-lg": "24px",
+                    "margin-desktop": "32px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Noto Sans"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Noto Sans"],
+                    "headline-md": ["Noto Sans"],
+                    "body-md": ["Noto Sans"],
+                    "legal-print": ["Noto Sans"],
+                    "label-xl": ["Inter"],
+                    "headline-lg-mobile": ["Noto Sans"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "18px", "fontWeight": "500"}],
+                    "headline-lg": ["30px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "legal-print": ["14px", {"lineHeight": "22px", "fontWeight": "400"}],
+                    "label-xl": ["16px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom scrollbar for clean UI */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background-color: #becab5; border-radius: 10px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-surface-container-highest border-b border-outline-variant shadow-sm flex justify-between items-center px-margin-mobile w-full h-touch-target-min fixed top-0 left-0 z-40 transition-transform duration-150 active:scale-95">
+<button class="flex items-center justify-center w-touch-target-min h-touch-target-min text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined fill">account_balance</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary truncate px-2">VanMitra-AI</h1>
+<button class="flex items-center justify-center w-touch-target-min h-touch-target-min text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined">language</span>
+</button>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow pt-[calc(48px+16px)] pb-[calc(72px+80px)] px-margin-mobile md:px-margin-desktop md:max-w-3xl md:mx-auto w-full flex flex-col gap-stack-lg relative">
+<!-- Meeting Context Card -->
+<section class="bg-surface-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.1)] overflow-hidden border border-surface-container">
+<div class="bg-cover bg-center w-full h-32 opacity-90" data-alt="A wide-angle, high-quality photograph of a bustling village gathering space under a large banyan tree in rural Maharashtra. Dappled sunlight filters through the leaves, casting soft shadows on the ground. The mood is communal and official, with a subtle modern aesthetic overlaid through natural, vibrant earthy tones and deep greens. The image serves as an establishing shot for a digital ledger." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB9jfdAIdRK7_PwBSKzp1iNLdTeYgDCmGIdfFWKbErFDAoGcoms64h_OM_61VfaM_YoVLjmViDPeOkJMrkKM8cv1ZivBt7bCK9azHFKoAhbMAtmkLOC5pVAPMD-wHlPpuKUZ4BVhQAz8IXmcj_-TebejW5gSkflvnWTBAx0Jb4IjwQl8gAQ5RLxNMfAianlqRYwRNeeVXz3aED5WE2FQpoN6VBeEj9ALlBUgPzdEWolxKb_AYBk3zI75sDAthuRR_IxZQD2NzFG0n6F')"></div>
+<div class="p-gutter flex flex-col gap-stack-sm relative">
+<!-- Integrity Badge (Absolute positioned on image border) -->
+<div class="absolute -top-4 right-4 bg-surface-container-high rounded-full px-3 py-1 flex items-center gap-1 shadow-inner border border-outline-variant backdrop-blur-sm">
+<span class="material-symbols-outlined text-[16px] text-status-success fill">verified</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Hash-Chain Integrity: Verified</span>
+</div>
+<div class="flex items-start justify-between mt-2">
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Monthly FRA Review</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+                            July 2026
+                        </p>
+</div>
+<div class="bg-surface-container rounded-lg p-2 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">history_edu</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Live Quorum Tracker -->
+<section class="bg-surface-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.1)] p-gutter flex flex-col gap-stack-md border-l-4 border-status-success relative overflow-hidden">
+<!-- Subtle background pattern for data card -->
+<div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[120px] fill">groups</span>
+</div>
+<div class="flex items-center justify-between">
+<h3 class="font-label-xl text-label-xl text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary fill">vital_signs</span>
+                    Live Quorum Tracker
+                </h3>
+<!-- Quorum Status Badge -->
+<div class="bg-primary-container text-on-primary-container font-label-md text-label-md px-3 py-1.5 rounded-full flex items-center gap-2 shadow-sm font-bold">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-fixed-dim animate-pulse"></span>
+                    VALID QUORUM
+                </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mt-2">
+<!-- Total Adults Metric -->
+<div class="bg-surface flex flex-col p-3 rounded-lg border border-surface-container-highest">
+<span class="font-label-md text-label-md text-on-surface-variant mb-1">Total Adults</span>
+<div class="flex items-end gap-2 mb-2">
+<span class="font-headline-md text-headline-md text-on-surface font-bold">145</span>
+<span class="font-body-md text-body-md text-on-surface-variant pb-0.5">/ 280 (52%)</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden">
+<div class="bg-primary h-2 rounded-full" style="width: 52%"></div>
+</div>
+</div>
+<!-- Women Metric -->
+<div class="bg-surface flex flex-col p-3 rounded-lg border border-surface-container-highest">
+<span class="font-label-md text-label-md text-on-surface-variant mb-1">Women Attendance</span>
+<div class="flex items-end gap-2 mb-2">
+<span class="font-headline-md text-headline-md text-on-surface font-bold">52</span>
+<span class="font-body-md text-body-md text-on-surface-variant pb-0.5">/ 145 (35%)</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden">
+<div class="bg-status-success h-2 rounded-full" style="width: 35%"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Attendance List -->
+<section class="flex flex-col gap-stack-sm">
+<div class="flex items-center justify-between px-1 mb-2">
+<h3 class="font-label-xl text-label-xl text-on-surface">Verified Attendees</h3>
+<span class="font-label-md text-label-md text-primary flex items-center gap-1 cursor-pointer">
+<span class="material-symbols-outlined text-[18px]">filter_list</span> Filter
+                </span>
+</div>
+<!-- List Items -->
+<div class="bg-surface-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.1)] divide-y divide-surface-container">
+<!-- Attendee 1 -->
+<div class="flex items-center p-3 gap-3 hover:bg-surface-container-low transition-colors min-h-touch-target-min">
+<img class="w-12 h-12 rounded-full object-cover border-2 border-primary-container" data-alt="A close-up portrait of an elderly tribal man in rural Maharashtra, wearing a traditional white turban. His face is weathered with deep wrinkles, showing wisdom. Natural daylight, shallow depth of field, high-contrast crisp modern aesthetic, set against a blurred green foliage background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-T94pGb7Q8OVDFjcajQ7j0ZVYTvgoe9OZwIEtS_oEItTC63HWBxgQQoKmJlrh_UA4BSXhaNn9ZcgN4BQYA7GJWIsFPf-vFVZXfS1pePP-k1eID-UqnBtlZuqRhQI81Rbh1JXfy1gfVGPEpfDptCDoAhM799W2igNkNQdoLI2NrdzHRgA7xpTJ7QykmiluN5cSMKeltP2dBmj6-2A2FcfGnGxIxOfi5DXcAjTkxQ_QCwbfpFcdRPNwyQCriJ1_zEbDSU6gRsutaCuw">
+<div class="flex-grow flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Ramrao Gond</span>
+<span class="font-legal-print text-legal-print text-on-surface-variant">ID: FRA-MH-7892</span>
+</div>
+<div class="flex items-center gap-2 text-status-success">
+<span class="material-symbols-outlined fill" title="Face Recognized">face</span>
+<span class="material-symbols-outlined fill" title="Verified">verified</span>
+</div>
+</div>
+<!-- Attendee 2 -->
+<div class="flex items-center p-3 gap-3 hover:bg-surface-container-low transition-colors min-h-touch-target-min">
+<img class="w-12 h-12 rounded-full object-cover border-2 border-primary-container" data-alt="A close-up portrait of a middle-aged tribal woman in rural Maharashtra, wearing a vibrant patterned saree. She has a subtle smile and a bindi on her forehead. Natural daylight, crisp modern photographic style, high-key lighting, set against a blurred rural village background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7JBXgloZs-V1ClwKjtNxzaJ6A5pbaa04INwOCwJrnPgBAkrjOFChX9br3-llvgMb5hJ1WAXVxcduGR1CGqpuQLi5p0f4_kNGFqlIJSxdSJWRrQ4xlj5fsnIYA7K46N0CnUTyrxWrPKqpuw8fp0YnW1Vhnw5a8trIuXEs4wp7XQ1Cte2QIuaxfhIQj7wcQUU4H3HwYH0vMudzPbeEXLrNdmE_CqoZ33gqEui93O-1EgUPx4wPbNRNbvlSEDNTLTqIv12RkLnLiOWAI">
+<div class="flex-grow flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Sunita Munda</span>
+<span class="font-legal-print text-legal-print text-on-surface-variant">ID: FRA-MH-7893</span>
+</div>
+<div class="flex items-center gap-2 text-status-success">
+<span class="material-symbols-outlined fill" title="Face Recognized">face</span>
+<span class="material-symbols-outlined fill" title="Verified">verified</span>
+</div>
+</div>
+<!-- Attendee 3 -->
+<div class="flex items-center p-3 gap-3 hover:bg-surface-container-low transition-colors min-h-touch-target-min">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant font-label-xl text-label-xl border border-outline-variant">
+                        VK
+                    </div>
+<div class="flex-grow flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Vishal Kokate</span>
+<span class="font-legal-print text-legal-print text-on-surface-variant">ID: FRA-MH-7894</span>
+</div>
+<div class="flex items-center gap-2 text-status-success">
+<span class="material-symbols-outlined fill" title="Face Recognized">face</span>
+<span class="material-symbols-outlined fill" title="Verified">verified</span>
+</div>
+</div>
+</div>
+<button class="w-full py-3 mt-2 border-2 border-outline-variant border-dashed rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-primary transition-colors flex justify-center items-center gap-2 min-h-touch-target-min">
+<span class="material-symbols-outlined">expand_more</span>
+                View All 145 Attendees
+            </button>
+</section>
+</main>
+<!-- Floating Action Button (FAB) -->
+<button class="fixed bottom-[calc(72px+16px)] right-margin-mobile z-40 bg-secondary-container text-on-secondary-container shadow-lg rounded-2xl flex items-center gap-2 px-5 py-4 hover:shadow-xl active:scale-95 transition-all duration-200">
+<span class="material-symbols-outlined fill">edit_document</span>
+<span class="font-label-xl text-label-xl font-bold">Record Resolution</span>
+</button>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-surface-white shadow-lg fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-2 pb-safe rounded-t-xl bg-surface-white shadow-[0_-2px_8px_rgba(0,0,0,0.1)]">
+<!-- Home (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container active:scale-90 transition-all duration-200 min-w-[64px] min-h-touch-target-min">
+<span class="material-symbols-outlined mb-1">dashboard</span>
+<span class="font-label-md text-label-md text-[12px]">Home</span>
+</button>
+<!-- Claims (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container active:scale-90 transition-all duration-200 min-w-[64px] min-h-touch-target-min">
+<span class="material-symbols-outlined mb-1">description</span>
+<span class="font-label-md text-label-md text-[12px]">Claims</span>
+</button>
+<!-- Map (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container active:scale-90 transition-all duration-200 min-w-[64px] min-h-touch-target-min">
+<span class="material-symbols-outlined mb-1">map</span>
+<span class="font-label-md text-label-md text-[12px]">Map</span>
+</button>
+<!-- Ledger (ACTIVE) -->
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1 active:scale-90 transition-all duration-200 min-w-[64px] min-h-touch-target-min">
+<span class="material-symbols-outlined fill mb-1">history_edu</span>
+<span class="font-label-md text-label-md text-[12px] font-bold">Ledger</span>
+</button>
+<!-- Profile (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container active:scale-90 transition-all duration-200 min-w-[64px] min-h-touch-target-min">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-md text-label-md text-[12px]">Profile</span>
+</button>
+</nav>
+</body></html>

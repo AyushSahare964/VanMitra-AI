@@ -1,0 +1,15 @@
+# Build & IDE artifacts
+build/
+.dart_tool/
+.idea/
+.vscode/
+*.iml
+.DS_Store
+
+# Exclude raw root large media and model weights
+*.apk
+*.pptx
+*.zip
+WhatsApp Video*.mp4
+*.safetensors
+*.bin

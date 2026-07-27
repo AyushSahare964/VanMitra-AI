@@ -1,0 +1,198 @@
+import '../../models/claim.dart';
+
+/// Real approved FRA claims for ओझर (Ozhar) village
+/// Source: Government FRA claims datasheet (2020120760) + Product Requirements
+///
+/// Village: ओझर (Ozhar), Taluka: जव्हार (Jawhar), District: पालघर (Palghar)
+/// Right Type: Individual Forest Rights (IFR) — अनुसूचित जमाती (ST)
+class OzharClaimsSeed {
+  OzharClaimsSeed._();
+
+  static const String villageId = 'ozhar_jawhar_palghar';
+
+  /// 10 real approved claimant records from the government datasheet
+  static List<Claim> get approvedClaims => [
+    Claim(
+      id: 'CLM-OZH-001',
+      claimantUserId: 'system_seed',
+      villageId: villageId,
+      type: ClaimType.formA,
+      status: ClaimStatus.approved,
+      nature: ClaimNature.cultivation,
+      claimantName: 'शेवंती बोंगे',
+      claimantNameEn: 'Shevanti Bonge',
+      surveyNumber: '463',
+      areaSqMeters: 10000,
+      occupationBefore2005: true,
+      evidenceScore: 1.0,
+      createdAt: DateTime(2019, 6, 15),
+      submittedAt: DateTime(2019, 7, 1),
+      reviewedAt: DateTime(2020, 3, 15),
+    ),
+    Claim(
+      id: 'CLM-OZH-002',
+      claimantUserId: 'system_seed',
+      villageId: villageId,
+      type: ClaimType.formA,
+      status: ClaimStatus.approved,
+      nature: ClaimNature.cultivation,
+      claimantName: 'देऊ लक्ष्या फडवळे',
+      claimantNameEn: 'Deu Lakshya Phadwale',
+      surveyNumber: '224',
+      areaSqMeters: 8000,
+      occupationBefore2005: true,
+      evidenceScore: 1.0,
+      createdAt: DateTime(2019, 6, 15),
+      submittedAt: DateTime(2019, 7, 1),
+      reviewedAt: DateTime(2020, 3, 15),
+    ),
+    Claim(
+      id: 'CLM-OZH-003',
+      claimantUserId: 'system_seed',
+      villageId: villageId,
+      type: ClaimType.formA,
+      status: ClaimStatus.approved,
+      nature: ClaimNature.cultivation,
+      claimantName: 'चुनीलाल बाचू फडवळे',
+      claimantNameEn: 'Chunilal Bachu Phadwale',
+      surveyNumber: '324',
+      areaSqMeters: 14000,
+      occupationBefore2005: true,
+      evidenceScore: 1.0,
+      createdAt: DateTime(2019, 6, 15),
+      submittedAt: DateTime(2019, 7, 1),
+      reviewedAt: DateTime(2020, 3, 15),
+    ),
+    Claim(
+      id: 'CLM-OZH-004',
+      claimantUserId: 'system_seed',
+      villageId: villageId,
+      type: ClaimType.formA,
+      status: ClaimStatus.approved,
+      nature: ClaimNature.cultivation,
+      claimantName: 'सता शंकर गुरव',
+      claimantNameEn: 'Sata Shankar Gurav',
+      surveyNumber: '324',
+      areaSqMeters: 10000,
+      occupationBefore2005: true,
+      evidenceScore: 1.0,
+      createdAt: DateTime(2019, 6, 15),
+      submittedAt: DateTime(2019, 7, 1),
+      reviewedAt: DateTime(2020, 3, 15),
+    ),
+    Claim(
+      id: 'CLM-OZH-005',
+      claimantUserId: 'system_seed',
+      villageId: villageId,
+      type: ClaimType.formA,
+      status: ClaimStatus.approved,
+      nature: ClaimNature.cultivation,
+      claimantName: 'किसन गरेल',
+      claimantNameEn: 'Kisan Garel',
+      surveyNumber: '324',
+      areaSqMeters: 20000,
+      occupationBefore2005: true,
+      evidenceScore: 1.0,
+      createdAt: DateTime(2019, 6, 15),
+      submittedAt: DateTime(2019, 7, 1),
+      reviewedAt: DateTime(2020, 3, 15),
+    ),
+    Claim(
+      id: 'CLM-OZH-006',
+      claimantUserId: 'system_seed',
+      villageId: villageId,
+      type: ClaimType.formA,
+      status: ClaimStatus.approved,
+      nature: ClaimNature.cultivation,
+      claimantName: 'काशीराम देऊ दिवा',
+      claimantNameEn: 'Kashiram Deu Diwa',
+      surveyNumber: '324',
+      areaSqMeters: 5000,
+      occupationBefore2005: true,
+      evidenceScore: 1.0,
+      createdAt: DateTime(2019, 6, 15),
+      submittedAt: DateTime(2019, 7, 1),
+      reviewedAt: DateTime(2020, 3, 15),
+    ),
+    Claim(
+      id: 'CLM-OZH-007',
+      claimantUserId: 'system_seed',
+      villageId: villageId,
+      type: ClaimType.formA,
+      status: ClaimStatus.approved,
+      nature: ClaimNature.cultivation,
+      claimantName: 'शांताराम दिवा',
+      claimantNameEn: 'Shantaram Diwa',
+      surveyNumber: '324',
+      areaSqMeters: 20000,
+      occupationBefore2005: true,
+      evidenceScore: 1.0,
+      createdAt: DateTime(2019, 6, 15),
+      submittedAt: DateTime(2019, 7, 1),
+      reviewedAt: DateTime(2020, 3, 15),
+    ),
+    Claim(
+      id: 'CLM-OZH-008',
+      claimantUserId: 'system_seed',
+      villageId: villageId,
+      type: ClaimType.formA,
+      status: ClaimStatus.approved,
+      nature: ClaimNature.cultivation,
+      claimantName: 'शांताराम धर्मा काटेला',
+      claimantNameEn: 'Shantaram Dharma Katela',
+      surveyNumber: '324',
+      areaSqMeters: 13000,
+      occupationBefore2005: true,
+      evidenceScore: 1.0,
+      createdAt: DateTime(2019, 6, 15),
+      submittedAt: DateTime(2019, 7, 1),
+      reviewedAt: DateTime(2020, 3, 15),
+    ),
+    Claim(
+      id: 'CLM-OZH-009',
+      claimantUserId: 'system_seed',
+      villageId: villageId,
+      type: ClaimType.formA,
+      status: ClaimStatus.approved,
+      nature: ClaimNature.cultivation,
+      claimantName: 'रामदास बेंडू नडगे',
+      claimantNameEn: 'Ramdas Bendu Nadge',
+      surveyNumber: '324',
+      areaSqMeters: 13000,
+      occupationBefore2005: true,
+      evidenceScore: 1.0,
+      createdAt: DateTime(2019, 6, 15),
+      submittedAt: DateTime(2019, 7, 1),
+      reviewedAt: DateTime(2020, 3, 15),
+    ),
+    Claim(
+      id: 'CLM-OZH-010',
+      claimantUserId: 'system_seed',
+      villageId: villageId,
+      type: ClaimType.formA,
+      status: ClaimStatus.approved,
+      nature: ClaimNature.cultivation,
+      claimantName: 'रामजी लक्ष्मण वांगड',
+      claimantNameEn: 'Ramji Laxman Wangad',
+      surveyNumber: '324',
+      areaSqMeters: 7000,
+      occupationBefore2005: true,
+      evidenceScore: 1.0,
+      createdAt: DateTime(2019, 6, 15),
+      submittedAt: DateTime(2019, 7, 1),
+      reviewedAt: DateTime(2020, 3, 15),
+    ),
+  ];
+
+  /// Summary statistics
+  static int get totalApprovedClaims => approvedClaims.length;
+
+  static double get totalApprovedAreaSqm =>
+      approvedClaims.fold<double>(0, (sum, c) => sum + (c.areaSqMeters ?? 0));
+
+  static double get totalApprovedAreaHectares => totalApprovedAreaSqm / 10000;
+
+  /// Unique survey numbers
+  static Set<String> get uniqueSurveyNumbers =>
+      approvedClaims.map((c) => c.surveyNumber ?? '').where((s) => s.isNotEmpty).toSet();
+}

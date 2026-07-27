@@ -1,0 +1,22 @@
+:root {
+  /* Primary Accent Color (Mint Green/Teal) */
+  --primary: #4CAF50;           /* Main button and highlight color */
+  --primary-dark: #388E3C;      /* Hover state for primary elements */
+  --primary-light: #E8F5E9;     /* Light background for sections */
+  
+  /* Text Colors */
+  --text-primary: #212121;      /* Main heading and body text */
+  --text-secondary: #616161;    {/* Paragraph and subtitle text */
+  
+  /* Background Colors */
+  --bg-white: #FFFFFF;          /* Main page background */
+  --bg-light: #F5F5F5;          /* Alternative section backgrounds */
+  
+  /* Navigation */
+  --nav-bg: #FFFFFF;            /* Navigation bar background */
+  --nav-text: #212121;          /* Navigation text color */
+  
+  /* Additional Accents */
+  --accent: #4CAF50;            /* Same as primary for consistency */
+  --accent-light: #A5D6A7;      /* Lighter accent for subtle highlights */
+}

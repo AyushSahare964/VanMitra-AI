@@ -1,0 +1,20 @@
+# VanMitra-AI Model A — FastAPI Backend Dependencies
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.9
+pydantic>=2.5.0
+
+# Agent dependencies
+sentence-transformers>=2.6.0
+faiss-cpu>=1.8.0
+rapidfuzz>=3.8.0
+Pillow>=10.2.0
+
+# OCR (requires system: apt-get install tesseract-ocr tesseract-ocr-mar tesseract-ocr-hin)
+pytesseract>=0.3.10
+
+# Voice transcription (optional — required for /api/v1/transcribe)
+# openai-whisper>=20231117
+
+# Serialization helpers
+numpy>=1.26.0

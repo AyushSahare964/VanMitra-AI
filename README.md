@@ -13,20 +13,10 @@
 
 | | |
 |---|---|
-| **Team** | Gangs Of Kondhwa |
+| **Team** | Forest Nexus |
 | **Track** | AI for Societal Good |
 | **Pilot Village** | Ozhar, Jawhar Taluka, Palghar District, Maharashtra |
 
-### 👥 Team Members
-
-| Name | Role |
-|------|------|
-| Sanskruti Ruyarkar | Team Member |
-| Ayush Sahare | Team Member |
-| Piyush Dhane | Team Member |
-| Samrudhhi Shinde | Team Member |
-
----
 
 ## 📖 Overview
 
@@ -341,7 +331,7 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 
 ## 👨‍💻 Author
 
-**Ayush Sahare** — Hack4Humanity Hackathon  
+**Ayush Sahare** & **Sanskruti Ruyarkar** — Hack4Humanity Hackathon  
 Village Focus: Ozhar, Jawhar Tehsil, Palghar District, Maharashtra
 
 ---

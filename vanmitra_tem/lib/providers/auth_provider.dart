@@ -4,6 +4,8 @@ import '../data/local/hive_database.dart';
 import '../models/user.dart';
 import '../models/user_role.dart';
 import '../services/firebase_auth_service.dart';
+import '../services/firestore_initialization_service.dart';
+import '../services/cloud_sync_service.dart';
 
 // ─── Auth State ────────────────────────────────────────────────────────────
 
@@ -130,6 +132,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
         isLoading: false,
       );
 
+      // Seed all 12 schema collections for this user's village
+      _initializeAndSync(user);
+
       return user.role.name;
     } on Exception catch (e) {
       state = state.copyWith(
@@ -169,6 +174,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
         isAuthenticated: true,
         isLoading: false,
       );
+
+      // Seed all 12 schema collections for this user's village
+      _initializeAndSync(user);
 
       return user.role.name;
     } on Exception catch (e) {
@@ -230,7 +238,18 @@ class AuthNotifier extends StateNotifier<AuthState> {
     await box.clear();
     await box.add(user.toJson());
   }
-}
+
+  /// Seeds all 12 Firestore collections for the user's specific village
+  /// then flushes the offline sync queue. Safe to call multiple times — idempotent.
+  void _initializeAndSync(User user) {
+    // Initialize all 12 schema collections for this user's village
+    FirestoreInitializationService()
+        .initializeForUser(user)
+        .catchError((_) {});
+    // Also flush any locally queued offline items
+    CloudSyncService().syncPendingItems().catchError((_) {});
+  }
+} // end AuthNotifier
 
 // ─── Provider ──────────────────────────────────────────────────────────────
 

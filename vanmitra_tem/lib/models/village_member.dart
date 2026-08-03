@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 /// Gender categories for quorum tracking
 enum Gender { male, female, other }
 
@@ -86,6 +88,7 @@ class VillageMember {
     );
   }
 
+  /// Serialise for **Hive** local storage (keeps faceEmbedding for on-device use).
   Map<String, dynamic> toJson() => {
     'id': id,
     'nameMarathi': nameMarathi,
@@ -98,9 +101,29 @@ class VillageMember {
     'hasSmartphone': hasSmartphone,
     'faceEmbeddingId': faceEmbeddingId,
     'isActive': isActive,
-    // Module C face enrolment fields
+    // Module C face enrolment fields (stored locally only)
     'faceEmbedding': faceEmbedding,
     'enrolledAt': enrolledAt?.toIso8601String(),
+  };
+
+  /// Serialise for **Firestore** `village_members` collection.
+  /// IMPORTANT: `faceEmbedding` is intentionally excluded — the 128-dim
+  /// vector is only stored in `gram_sabha_face_enrollments` (via syncFaceEnrollment).
+  /// Raw face data must never be written to this collection.
+  Map<String, dynamic> toFirestore() => {
+    'id': id,
+    'nameMarathi': nameMarathi,
+    'nameEnglish': nameEnglish,
+    'gender': gender.name,
+    'category': category.name,
+    'villageId': villageId,
+    'age': age,
+    'phoneNumber': phoneNumber,
+    'hasSmartphone': hasSmartphone,
+    'isActive': isActive,
+    'enrolledAt': enrolledAt != null ? Timestamp.fromDate(enrolledAt!) : null,
+    // faceEmbedding intentionally omitted — goes to gram_sabha_face_enrollments
+    // faceEmbeddingId omitted — legacy field, not in DB spec for Firestore
   };
 
   factory VillageMember.fromJson(Map<String, dynamic> json) => VillageMember(
@@ -119,8 +142,14 @@ class VillageMember {
     faceEmbedding: (json['faceEmbedding'] as List<dynamic>?)
         ?.map((e) => (e as num).toDouble())
         .toList(),
-    enrolledAt: json['enrolledAt'] != null
-        ? DateTime.parse(json['enrolledAt'] as String)
-        : null,
+    // Handle both Firestore Timestamp and ISO-8601 String
+    enrolledAt: _parseDateOrNull(json['enrolledAt']),
   );
+
+  static DateTime? _parseDateOrNull(dynamic value) {
+    if (value == null) return null;
+    if (value is Timestamp) return value.toDate();
+    if (value is String) return DateTime.parse(value);
+    return null;
+  }
 }

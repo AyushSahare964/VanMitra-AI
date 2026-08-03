@@ -6,7 +6,7 @@ import '../../core/constants/village_constants.dart';
 class OzharVillageSeed {
   OzharVillageSeed._();
 
-  static const String villageId = 'ozhar_jawhar_palghar';
+  static const String villageId = 'OZH-01';
 
   static Village get village => Village(
     id: villageId,

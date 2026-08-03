@@ -23,23 +23,23 @@ class AppTheme {
         onSurface: AppColors.textPrimary,
       ),
 
-      // Scaffold
-      scaffoldBackgroundColor: AppColors.surface,
+      // Scaffold - Elevated visual depth with faint green-gray surfaceBase
+      scaffoldBackgroundColor: AppColors.surfaceBase,
 
-      // AppBar - Pure White Theme
+      // AppBar - Forest Canopy Theme
       appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.white,
-        foregroundColor: AppColors.primary,
-        elevation: 1, // Slight shadow for separation
+        backgroundColor: AppColors.forestCanopy,
+        foregroundColor: AppColors.textOnBrand,
+        elevation: 2,
         shadowColor: Color(0x1A000000),
         centerTitle: false,
         titleTextStyle: TextStyle(
           fontFamily: 'NotoSansDevanagari',
           fontSize: 18,
           fontWeight: FontWeight.w700,
-          color: AppColors.primary,
+          color: AppColors.textOnBrand,
         ),
-        iconTheme: IconThemeData(color: AppColors.primary),
+        iconTheme: IconThemeData(color: AppColors.textOnBrand),
       ),
 
       // Bottom Navigation - Premium look

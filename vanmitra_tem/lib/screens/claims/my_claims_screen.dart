@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import '../../core/theme/app_colors.dart';
 import '../../core/routes/app_router.dart';
-import '../../services/localization_service.dart';
 import '../../models/claim.dart';
 import '../../providers/claims_provider.dart';
+import '../../services/localization_service.dart';
+import '../../widgets/common/app_components.dart';
 import '../../widgets/portal_frame_scaffold.dart';
 import '../../widgets/status_timeline_widget.dart';
 
-/// My Claims List — DBT-style application tiles with status badges.
-///
-/// Features:
-/// - Acknowledgement number search bar (mirrors DBT's "Track Application")
-/// - Status filter chips
-/// - Per-claim status tile with color-coded badge
-/// - 60-day appeal countdown chip for rejected claims
+/// Renovated My Claims List — FRA Citizen Application directory built on Forest Canopy tokens,
+/// StatusBadge tracking tags, floating card hierarchy, and standardized empty state representation.
 class MyClaimsScreen extends ConsumerStatefulWidget {
   final Widget? bottomNavigationBar;
   const MyClaimsScreen({super.key, this.bottomNavigationBar});
@@ -37,57 +32,35 @@ class _MyClaimsScreenState extends ConsumerState<MyClaimsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // FIX (Problem 3): Watch the filtered Firestore stream instead of Hive
-    // to enforce per-user data isolation — villagers cannot see each other's claims.
     final claimsAsync = ref.watch(userClaimsStreamProvider);
 
-    // Show spinner while Firestore stream is initializing
     if (claimsAsync.isLoading) {
       return PortalFrameScaffold(
         breadcrumbs: [context.tr('tab_dashboard'), context.tr('title_my_claims')],
         bottomNavigationBar: widget.bottomNavigationBar,
-        body: const Center(child: CircularProgressIndicator()),
+        body: const Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(AppColors.forestCanopy))),
       );
     }
 
-    // Show a friendly error card instead of a blank screen
     if (claimsAsync.hasError) {
       return PortalFrameScaffold(
         breadcrumbs: [context.tr('tab_dashboard'), context.tr('title_my_claims')],
         bottomNavigationBar: widget.bottomNavigationBar,
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.cloud_off_rounded, size: 48, color: Color(0xFF9CA3AF)),
-                const SizedBox(height: 12),
-                Text(
-                  context.tr('error_loading_claims'),
-                  style: const TextStyle(
-                    fontFamily: 'NotoSansDevanagari',
-                    fontSize: 14,
-                    color: Color(0xFF374151),
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          ),
+        body: EmptyState(
+          icon: Icons.cloud_off_rounded,
+          title: context.tr('error_loading_claims') /* Error loading claims from cloud */,
+          description: 'Please verify your connectivity or check local offline storage.',
         ),
       );
     }
 
     final allClaims = claimsAsync.value ?? [];
 
-    // Apply search + filter
     var filtered = allClaims.where((c) {
       final matchSearch = _searchQuery.isEmpty ||
           c.id.toLowerCase().contains(_searchQuery.toLowerCase()) ||
           c.claimantName.toLowerCase().contains(_searchQuery.toLowerCase());
-      final matchFilter =
-          _filterStatus == null || c.status == _filterStatus;
+      final matchFilter = _filterStatus == null || c.status == _filterStatus;
       return matchSearch && matchFilter;
     }).toList()
       ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
@@ -96,88 +69,72 @@ class _MyClaimsScreenState extends ConsumerState<MyClaimsScreen> {
       breadcrumbs: [context.tr('tab_dashboard'), context.tr('title_my_claims')],
       bottomNavigationBar: widget.bottomNavigationBar,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () =>
-            Navigator.pushNamed(context, AppRouter.claimType),
-        backgroundColor: AppColors.accentSaffron,
-        icon: const Icon(Icons.add, color: Colors.white),
+        onPressed: () => Navigator.pushNamed(context, AppRouter.claimType),
+        backgroundColor: AppColors.saffron,
+        foregroundColor: AppColors.textOnBrand,
+        elevation: 4,
+        icon: const Icon(Icons.add_rounded, size: 22),
         label: Text(
-          context.tr('action_new_claim'),
-          style: TextStyle(
-            fontFamily: 'NotoSansDevanagari',
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
-          ),
+          context.tr('action_new_claim') /* New Claim */,
+          style: AppTypography.title.copyWith(color: AppColors.textOnBrand, fontSize: 14, fontWeight: FontWeight.w700),
         ),
       ),
       body: Column(
         children: [
-          // ── Search Bar (DBT "Track Application" pattern) ─────────────────
+          // ── Search Bar (DBT Application Tracker pattern) ────────────────
           Container(
-            color: Colors.white,
-            padding: const EdgeInsets.all(12),
+            color: AppColors.surfaceCard,
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
             child: TextField(
               controller: _searchCtrl,
               onChanged: (v) => setState(() => _searchQuery = v),
-              style: const TextStyle(
-                  fontFamily: 'NotoSansDevanagari', fontSize: 13),
+              style: AppTypography.body,
               decoration: InputDecoration(
-                hintText: context.tr('search_claim_hint'),
-                hintStyle: const TextStyle(
-                  fontFamily: 'NotoSansDevanagari',
-                  fontSize: 12,
-                  color: Color(0xFF9CA3AF),
-                ),
-                prefixIcon: const Icon(Icons.search_rounded,
-                    color: AppColors.govtBlue),
-                suffixIcon: _searchQuery.isNotEmpty
-                    ? IconButton(
-                        icon: const Icon(Icons.close, size: 18),
-                        onPressed: () {
-                          _searchCtrl.clear();
-                          setState(() => _searchQuery = '');
-                        },
-                      )
-                    : null,
+                hintText: context.tr('search_placeholder') /* Search by application ID or claimant */,
+                hintStyle: AppTypography.caption.copyWith(color: AppColors.textTertiary),
+                prefixIcon: const Icon(Icons.search_rounded, color: AppColors.textSecondary),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4),
-                  borderSide:
-                      const BorderSide(color: Color(0xFFCBD5E1)),
+                  borderRadius: BorderRadius.circular(AppRadius.md),
+                  borderSide: const BorderSide(color: AppColors.divider),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(AppRadius.md),
+                  borderSide: const BorderSide(color: AppColors.divider),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4),
-                  borderSide: const BorderSide(
-                      color: AppColors.govtBlue, width: 1.5),
+                  borderRadius: BorderRadius.circular(AppRadius.md),
+                  borderSide: const BorderSide(color: AppColors.forestSage, width: 2),
                 ),
-                contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 12, vertical: 10),
+                filled: true,
+                fillColor: AppColors.surfaceBase,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               ),
             ),
           ),
 
-          // ── Status filter chips ──────────────────────────────────────────
+          // ── Status Filter Chips ──────────────────────────────────────────
           Container(
-            color: Colors.white,
-            padding: const EdgeInsets.only(left: 12, right: 12, bottom: 10),
+            color: AppColors.surfaceCard,
+            padding: const EdgeInsets.only(left: AppSpacing.md, right: AppSpacing.md, bottom: AppSpacing.md),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
               child: Row(
                 children: [
                   _FilterChip(
-                    label: context.tr('filter_all'),
+                    label: context.tr('filter_all') /* All Claims */,
                     selected: _filterStatus == null,
-                    onTap: () =>
-                        setState(() => _filterStatus = null),
-                    color: AppColors.govtBlue,
+                    onTap: () => setState(() => _filterStatus = null),
+                    color: AppColors.forestCanopy,
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: AppSpacing.sm),
                   for (final s in ClaimStatus.values)
                     Padding(
-                      padding: const EdgeInsets.only(right: 8),
+                      padding: const EdgeInsets.only(right: AppSpacing.sm),
                       child: _FilterChip(
                         label: s.getLocalizedStatus(context),
                         selected: _filterStatus == s,
-                        onTap: () =>
-                            setState(() => _filterStatus = s),
+                        onTap: () => setState(() => _filterStatus = s),
                         color: _statusColor(s),
                       ),
                     ),
@@ -186,13 +143,10 @@ class _MyClaimsScreenState extends ConsumerState<MyClaimsScreen> {
             ),
           ),
 
-          const Divider(height: 1),
-
-          // ── Summary stats ────────────────────────────────────────────────
+          // ── Summary Metrics Bar ──────────────────────────────────────────
           Container(
-            color: const Color(0xFFF8FAFC),
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            color: AppColors.surfaceSunken,
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: 10),
             child: Row(
               children: [
                 _StatPill(
@@ -200,13 +154,13 @@ class _MyClaimsScreenState extends ConsumerState<MyClaimsScreen> {
                   context.tr('filter_approved'),
                   AppColors.successGreen,
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: AppSpacing.sm),
                 _StatPill(
                   '${allClaims.where((c) => c.status == ClaimStatus.underReview || c.status == ClaimStatus.submitted).length}',
                   context.tr('filter_pending'),
                   AppColors.warningAmber,
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: AppSpacing.sm),
                 _StatPill(
                   '${allClaims.where((c) => c.status == ClaimStatus.rejected).length}',
                   context.tr('filter_rejected'),
@@ -215,33 +169,34 @@ class _MyClaimsScreenState extends ConsumerState<MyClaimsScreen> {
                 const Spacer(),
                 Text(
                   '${filtered.length} ${context.tr('claims_count_suffix')}',
-                  style: const TextStyle(
-                    fontFamily: 'NotoSansDevanagari',
-                    fontSize: 11,
-                    color: Color(0xFF6B7280),
-                  ),
+                  style: AppTypography.caption.copyWith(color: AppColors.textSecondary, fontWeight: FontWeight.w600),
                 ),
               ],
             ),
           ),
+          const Divider(height: 1, color: AppColors.divider),
 
-          const Divider(height: 1),
-
-          // ── Claims list ──────────────────────────────────────────────────
+          // ── Claims Directory List ────────────────────────────────────────
           Expanded(
             child: filtered.isEmpty
-                ? _EmptyState(
-                    hasFilter: _filterStatus != null || _searchQuery.isNotEmpty,
-                    onNewClaim: () =>
-                        Navigator.pushNamed(context, AppRouter.claimType),
+                ? EmptyState(
+                    icon: Icons.folder_shared_outlined,
+                    title: (_filterStatus != null || _searchQuery.isNotEmpty)
+                        ? context.tr('no_claims_filter') /* No matching applications found */
+                        : context.tr('no_claims_yet') /* No FRA claims filed yet */,
+                    description: (_filterStatus != null || _searchQuery.isNotEmpty)
+                        ? 'Try modifying your filter criteria or clear the search query.'
+                        : 'Begin securing your forest community land rights under FRA 2006 today.',
+                    ctaLabel: (_filterStatus == null && _searchQuery.isEmpty) ? context.tr('action_new_claim') : null,
+                    onCtaPressed: (_filterStatus == null && _searchQuery.isEmpty)
+                        ? () => Navigator.pushNamed(context, AppRouter.claimType)
+                        : null,
                   )
-                : ListView.separated(
-                    padding: const EdgeInsets.only(bottom: 80),
+                : ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.only(top: AppSpacing.md, bottom: 90),
                     itemCount: filtered.length,
-                    separatorBuilder: (_, __) =>
-                        const Divider(height: 1),
-                    itemBuilder: (ctx, i) =>
-                        _ClaimTile(claim: filtered[i]),
+                    itemBuilder: (ctx, i) => _ClaimTile(claim: filtered[i]),
                   ),
           ),
         ],
@@ -259,7 +214,7 @@ class _MyClaimsScreenState extends ConsumerState<MyClaimsScreen> {
       case ClaimStatus.submitted:
         return AppColors.warningAmber;
       default:
-        return const Color(0xFF6B7280);
+        return AppColors.textTertiary;
     }
   }
 }
@@ -269,34 +224,27 @@ class _FilterChip extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
   final Color color;
-  const _FilterChip(
-      {required this.label,
-      required this.selected,
-      required this.onTap,
-      required this.color});
+
+  const _FilterChip({required this.label, required this.selected, required this.onTap, required this.color});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
-        padding:
-            const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        duration: const Duration(milliseconds: 180),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
         decoration: BoxDecoration(
-          color: selected ? color : Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-              color: selected ? color : const Color(0xFFCBD5E1)),
+          color: selected ? color : AppColors.surfaceCard,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: selected ? color : AppColors.divider, width: 1.2),
         ),
         child: Text(
           label,
-          style: TextStyle(
-            fontFamily: 'NotoSansDevanagari',
-            fontSize: 11,
-            color: selected ? Colors.white : const Color(0xFF374151),
-            fontWeight:
-                selected ? FontWeight.w700 : FontWeight.w400,
+          style: AppTypography.caption.copyWith(
+            color: selected ? AppColors.textOnBrand : AppColors.textPrimary,
+            fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+            fontSize: 12,
           ),
         ),
       ),
@@ -315,29 +263,21 @@ class _StatPill extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.3)),
+        color: color.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(AppRadius.sm),
+        border: Border.all(color: color.withValues(alpha: 0.35)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             count,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w800,
-              color: color,
-            ),
+            style: AppTypography.subtitle.copyWith(fontSize: 13, fontWeight: FontWeight.w800, color: color),
           ),
-          const SizedBox(width: 4),
+          const SizedBox(width: 5),
           Text(
             label,
-            style: TextStyle(
-              fontFamily: 'NotoSansDevanagari',
-              fontSize: 10,
-              color: color,
-            ),
+            style: AppTypography.caption.copyWith(fontSize: 11, fontWeight: FontWeight.w600, color: color),
           ),
         ],
       ),
@@ -349,17 +289,17 @@ class _ClaimTile extends StatelessWidget {
   final Claim claim;
   const _ClaimTile({required this.claim});
 
-  Color _statusColor() {
+  StatusType _toStatusType() {
     switch (claim.status) {
       case ClaimStatus.approved:
-        return AppColors.successGreen;
+        return StatusType.verified;
       case ClaimStatus.rejected:
-        return AppColors.alertRed;
+        return StatusType.error;
       case ClaimStatus.underReview:
       case ClaimStatus.submitted:
-        return AppColors.warningAmber;
+        return StatusType.pending;
       default:
-        return const Color(0xFF6B7280);
+        return StatusType.info;
     }
   }
 
@@ -368,62 +308,39 @@ class _ClaimTile extends StatelessWidget {
     final fmt = DateFormat('dd/MM/yyyy');
     final isRejected = claim.status == ClaimStatus.rejected;
 
-    return InkWell(
-      onTap: () => Navigator.pushNamed(
-        context,
-        AppRouter.claimForm, // → tracking screen in future
-        arguments: claim.id,
-      ),
-      child: Container(
-        padding: const EdgeInsets.all(14),
-        color: isRejected
-            ? AppColors.alertRed.withOpacity(0.02)
-            : Colors.white,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
+      child: AppCard(
+        elevation: AppElevation.floating,
+        onTap: () => Navigator.pushNamed(context, AppRouter.claimForm, arguments: claim.id),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Rejected claim banner
+            // Rejection & Appeal Notification Banner
             if (isRejected && claim.isAppealWindowOpen)
               Container(
                 width: double.infinity,
-                margin: const EdgeInsets.only(bottom: 8),
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 10, vertical: 6),
+                margin: const EdgeInsets.only(bottom: AppSpacing.md),
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 8),
                 decoration: BoxDecoration(
-                  color: AppColors.alertRed.withOpacity(0.08),
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(
-                      color: AppColors.alertRed.withOpacity(0.3)),
+                  color: AppColors.alertRed.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(AppRadius.sm),
+                  border: Border.all(color: AppColors.alertRed.withValues(alpha: 0.35)),
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.timer_outlined,
-                        color: AppColors.alertRed, size: 14),
-                    const SizedBox(width: 6),
+                    const Icon(Icons.timer_outlined, color: AppColors.alertRed, size: 16),
+                    const SizedBox(width: AppSpacing.sm),
                     Text(
                       '${context.tr('appeal_deadline')}: ${claim.appealDaysRemaining} ${context.tr('days_left')}',
-                      style: const TextStyle(
-                        fontFamily: 'NotoSansDevanagari',
-                        fontSize: 11,
-                        color: AppColors.alertRed,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: AppTypography.caption.copyWith(color: AppColors.alertRed, fontWeight: FontWeight.w700),
                     ),
                     const Spacer(),
                     GestureDetector(
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        AppRouter.rejectionCheck,
-                        arguments: claim.id,
-                      ),
+                      onTap: () => Navigator.pushNamed(context, AppRouter.rejectionCheck, arguments: claim.id),
                       child: Text(
-                        context.tr('appeal_now'),
-                        style: const TextStyle(
-                          fontFamily: 'NotoSansDevanagari',
-                          fontSize: 11,
-                          color: AppColors.alertRed,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        context.tr('appeal_now') /* Appeal Now */,
+                        style: AppTypography.caption.copyWith(color: AppColors.alertRed, fontWeight: FontWeight.w800, decoration: TextDecoration.underline),
                       ),
                     ),
                   ],
@@ -433,102 +350,71 @@ class _ClaimTile extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Status icon
                 Container(
-                  width: 38,
-                  height: 38,
+                  width: 44,
+                  height: 44,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: _statusColor().withOpacity(0.1),
+                    color: AppColors.forestCanopy.withValues(alpha: 0.08),
+                    border: Border.all(color: AppColors.forestSage.withValues(alpha: 0.3)),
                   ),
                   child: Center(
-                    child: Text(claim.status.icon,
-                        style: const TextStyle(fontSize: 18)),
+                    child: Text(claim.status.icon, style: const TextStyle(fontSize: 20)),
                   ),
                 ),
-                const SizedBox(width: 12),
-
-                // Claim info
+                const SizedBox(width: AppSpacing.md),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
                             child: Text(
                               claim.claimantName,
-                              style: const TextStyle(
-                                fontFamily: 'NotoSansDevanagari',
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14,
-                              ),
+                              style: AppTypography.title.copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 3),
-                            decoration: BoxDecoration(
-                              color: _statusColor().withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                  color:
-                                      _statusColor().withOpacity(0.4)),
-                            ),
-                            child: Text(
-                              claim.status.displayNameMr,
-                              style: TextStyle(
-                                fontFamily: 'NotoSansDevanagari',
-                                fontSize: 10,
-                                color: _statusColor(),
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
+                          const SizedBox(width: AppSpacing.sm),
+                          StatusBadge(label: claim.status.displayNameMr, status: _toStatusType()),
                         ],
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        '${context.tr('application_no')} ${claim.id.substring(0, 12)}…',
-                        style: const TextStyle(
-                          fontSize: 10,
-                          color: Color(0xFF6B7280),
-                          fontFamily: 'monospace',
-                        ),
+                        '${context.tr('application_no')}: ${claim.id.length > 12 ? "${claim.id.substring(0, 12)}…" : claim.id}',
+                        style: AppTypography.caption.copyWith(color: AppColors.textTertiary, fontFamily: 'monospace'),
                       ),
+                      const SizedBox(height: 2),
                       Text(
                         '${context.tr('survey_no')}: ${claim.surveyNumber ?? "N/A"}  •  ${claim.areaSqMeters?.toStringAsFixed(0) ?? "?"} ${context.tr('sq_meters')}',
-                        style: const TextStyle(
-                          fontFamily: 'NotoSansDevanagari',
-                          fontSize: 11,
-                          color: Color(0xFF6B7280),
-                        ),
+                        style: AppTypography.body.copyWith(fontSize: 13, color: AppColors.textSecondary),
                       ),
+                      const SizedBox(height: 2),
                       Text(
                         '${context.tr('date_prefix')}: ${fmt.format(claim.createdAt)}',
-                        style: const TextStyle(
-                          fontSize: 10,
-                          color: Color(0xFF9CA3AF),
-                        ),
+                        style: AppTypography.caption.copyWith(color: AppColors.textTertiary),
                       ),
                     ],
                   ),
                 ),
-
-                const Icon(Icons.chevron_right,
-                    color: Color(0xFFCBD5E1), size: 20),
+                const Icon(Icons.chevron_right_rounded, color: AppColors.textTertiary, size: 22),
               ],
             ),
 
-            // Mini status timeline for non-draft claims
+            // Mini Status Progression Timeline
             if (claim.status != ClaimStatus.draft) ...[
-              const SizedBox(height: 10),
+              const SizedBox(height: AppSpacing.md),
+              const Divider(height: 1, color: AppColors.divider),
+              const SizedBox(height: AppSpacing.md),
               StatusTimelineWidget(
                 steps: [
-                  context.tr('step_received'),
-                  context.tr('step_verification'),
-                  context.tr('step_gramsabha'),
-                  context.tr('step_decision'),
+                  context.tr('step_received') /* Received */,
+                  context.tr('step_verification') /* Verification */,
+                  context.tr('step_gramsabha') /* Gram Sabha */,
+                  context.tr('step_decision') /* Adjudication */,
                 ],
                 currentStep: _timelineStep(),
                 isRejected: claim.status == ClaimStatus.rejected,
@@ -549,61 +435,10 @@ class _ClaimTile extends StatelessWidget {
       case ClaimStatus.appealFiled:
         return 2;
       case ClaimStatus.approved:
-        return 3;
       case ClaimStatus.rejected:
         return 3;
       default:
         return 0;
     }
-  }
-}
-
-class _EmptyState extends StatelessWidget {
-  final bool hasFilter;
-  final VoidCallback onNewClaim;
-  const _EmptyState({required this.hasFilter, required this.onNewClaim});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('📋', style: TextStyle(fontSize: 48)),
-            const SizedBox(height: 16),
-            Text(
-              hasFilter
-                  ? context.tr('no_claims_filter')
-                  : context.tr('no_claims_yet'),
-              style: const TextStyle(
-                fontFamily: 'NotoSansDevanagari',
-                fontSize: 15,
-                color: Color(0xFF374151),
-              ),
-              textAlign: TextAlign.center,
-            ),
-            if (!hasFilter) ...[
-              const SizedBox(height: 24),
-              ElevatedButton.icon(
-                onPressed: onNewClaim,
-                icon: const Icon(Icons.add_circle_outline),
-                label: Text(
-                  context.tr('action_new_claim'),
-                  style: const TextStyle(fontFamily: 'NotoSansDevanagari'),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.accentSaffron,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4)),
-                ),
-              ),
-            ],
-          ],
-        ),
-      ),
-    );
   }
 }

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 /// Method used to verify attendance
 enum VerificationMethod {
   /// GPS geofence + Face recognition (self check-in)
@@ -78,12 +80,13 @@ class AttendanceRecord {
   /// Whether this member is PVTG
   bool get isPVTG => category == 'pvtg';
 
+  /// Serialise for **Hive** local storage (ISO-8601 date strings).
   Map<String, dynamic> toJson() => {
     'id': id,
     'meetingId': meetingId,
     'memberId': memberId,
     'memberName': memberName,
-    'villageId': villageId, // FIX: included in toJson
+    'villageId': villageId,
     'method': method.name,
     'timestamp': timestamp.toIso8601String(),
     'gpsLatitude': gpsLatitude,
@@ -99,15 +102,44 @@ class AttendanceRecord {
     'category': category,
   };
 
+  /// Serialise for **Firestore** — uses native Timestamp for the attendance time.
+  Map<String, dynamic> toFirestore() => {
+    'id': id,
+    'meetingId': meetingId,
+    'memberId': memberId,
+    'memberName': memberName,
+    'villageId': villageId,
+    'method': method.name,
+    'timestamp': Timestamp.fromDate(timestamp),
+    'gpsLatitude': gpsLatitude,
+    'gpsLongitude': gpsLongitude,
+    'gpsAccuracyMeters': gpsAccuracyMeters,
+    'distanceFromVenueMeters': distanceFromVenueMeters,
+    'gpsVerified': gpsVerified,
+    'faceMatchConfidence': faceMatchConfidence,
+    'faceVerified': faceVerified,
+    'manualEntryByUserId': manualEntryByUserId,
+    'manualEntryReason': manualEntryReason,
+    'gender': gender,
+    'category': category,
+  };
+
+  /// Parse a DateTime from either a Firestore [Timestamp] or an ISO-8601 [String].
+  static DateTime _parseDate(dynamic value) {
+    if (value is Timestamp) return value.toDate();
+    if (value is String) return DateTime.parse(value);
+    throw ArgumentError('Cannot parse date from $value');
+  }
+
   factory AttendanceRecord.fromJson(Map<String, dynamic> json) =>
       AttendanceRecord(
         id: json['id'] as String,
         meetingId: json['meetingId'] as String,
         memberId: json['memberId'] as String,
         memberName: json['memberName'] as String,
-        villageId: json['villageId'] as String? ?? '', // FIX: read from json
+        villageId: json['villageId'] as String? ?? '',
         method: VerificationMethod.values.byName(json['method'] as String),
-        timestamp: DateTime.parse(json['timestamp'] as String),
+        timestamp: _parseDate(json['timestamp']),
         gpsLatitude: (json['gpsLatitude'] as num?)?.toDouble(),
         gpsLongitude: (json['gpsLongitude'] as num?)?.toDouble(),
         gpsAccuracyMeters: (json['gpsAccuracyMeters'] as num?)?.toDouble(),

@@ -1,0 +1,327 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // =========================================================
+    // Helper functions
+    // =========================================================
+    function isAuthenticated()  { return request.auth != null; }
+    function uid()              { return request.auth.uid; }
+
+    // Read role and villageId from the Firestore users document.
+    // Safe to call only AFTER the user doc exists (i.e., not in self-create).
+    function getUserDoc() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    function getRole()      { return getUserDoc().role; }
+    function getVillageId() { return getUserDoc().villageId; }
+
+    function isAdmin()         { return isAuthenticated() && getRole() == 'admin'; }
+    function sameVillage(v)    { return isAuthenticated() && getVillageId() == v; }
+    function isVillageAdmin(v) { return isAdmin() && sameVillage(v); }
+
+    // True when the write is a self-initialisation by the same authenticated user.
+    // Used so FirestoreInitializationService can seed all collections on first login.
+    function isSelfInit(docVillageId) {
+      return isAuthenticated() && sameVillage(docVillageId);
+    }
+
+    function unchanged(field) {
+      return !(field in request.resource.data.diff(resource.data).affectedKeys());
+    }
+
+    function onlyChangedFieldsIn(allowedFields) {
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly(allowedFields);
+    }
+
+    function noEmbeddedBiometrics() {
+      return !('faceEmbedding'   in request.resource.data) &&
+             !('embedding'       in request.resource.data) &&
+             !('faceEmbeddingId' in request.resource.data);
+    }
+
+    // Accepts 128-dim or 512-dim (FaceNet TFLite produces 512-dim).
+    // Also accepts empty list [] (placeholder seed doc).
+    function isValidEmbeddingVector(v) {
+      return v is list && (v.size() == 0 || v.size() == 128 || v.size() == 512);
+    }
+
+    // =========================================================
+    // 1. users
+    // =========================================================
+    match /users/{userId} {
+      // Own doc always readable; admin can read any doc in their village.
+      allow read: if isAuthenticated() &&
+        (uid() == userId ||
+         (isAdmin() && sameVillage(resource.data.villageId)));
+
+      // Self-create on first registration.
+      // getUserDoc() cannot be called here — user doc doesn't exist yet.
+      allow create: if isAuthenticated() &&
+        uid() == userId &&
+        request.resource.data.id == userId &&
+        request.resource.data.email is string &&
+        request.resource.data.name is string &&
+        request.resource.data.role in ['admin', 'villager'] &&
+        request.resource.data.villageId is string &&
+        request.resource.data.preferredLanguage in ['mr', 'en', 'hi', 'kn'] &&
+        noEmbeddedBiometrics();
+
+      // Self-update: can change name, language, hasFaceEnrolled, and village metadata fields.
+      // Cannot change role, villageId, or id.
+      allow update: if isAuthenticated() &&
+        uid() == userId &&
+        unchanged('role') && unchanged('villageId') && unchanged('id') &&
+        noEmbeddedBiometrics();
+
+      allow delete: if false;
+    }
+
+    // =========================================================
+    // 2. villages
+    // =========================================================
+    match /villages/{villageId} {
+      // Any authenticated user in the same village can read.
+      allow read: if isAuthenticated() && sameVillage(villageId);
+
+      // Allow create by admin OR by any authenticated same-village user
+      // (needed for FirestoreInitializationService to seed village docs on first login).
+      allow create: if isAuthenticated() && sameVillage(villageId);
+
+      // Only village admins can update village metadata.
+      allow update: if isVillageAdmin(villageId) &&
+                       request.resource.data.id == resource.data.id;
+
+      allow delete: if false;
+    }
+
+    // =========================================================
+    // 3. village_members
+    // =========================================================
+    match /village_members/{memberId} {
+      allow read: if isAuthenticated() && sameVillage(resource.data.villageId);
+
+      // Allow create by admin OR by authenticated same-village user
+      // (init service seeds placeholder members on first login).
+      allow create: if isSelfInit(request.resource.data.villageId) &&
+        request.resource.data.gender in ['male', 'female', 'other'] &&
+        request.resource.data.category in ['st', 'pvtg', 'otfd', 'general'] &&
+        noEmbeddedBiometrics();
+
+      // Updates restricted to village admins only.
+      allow update: if isVillageAdmin(resource.data.villageId) &&
+        unchanged('villageId') &&
+        noEmbeddedBiometrics();
+
+      allow delete: if false;
+    }
+
+    // =========================================================
+    // 4. gram_sabha_meetings
+    // =========================================================
+    match /gram_sabha_meetings/{meetingId} {
+      allow read: if isAuthenticated() && sameVillage(resource.data.villageId);
+
+      // Allow any authenticated same-village user to create
+      // (init service seeds initial meeting records on first login).
+      allow create: if isAuthenticated() &&
+        sameVillage(request.resource.data.villageId) &&
+        request.resource.data.type in ['regular', 'special', 'consentResolution'] &&
+        request.resource.data.status in ['scheduled', 'inProgress', 'completed', 'cancelled'];
+
+      // Only specific mutable fields can be updated (admin or villager in same village).
+      allow update: if isAuthenticated() &&
+        sameVillage(resource.data.villageId) &&
+        unchanged('villageId') && unchanged('createdByUserId') &&
+        onlyChangedFieldsIn([
+          'status', 'startedAt', 'completedAt', 'resolutionIds',
+          'totalAttendees', 'womenAttendees', 'stAttendees',
+          'pvtgAttendees', 'quorumValid', 'agenda'
+        ]);
+
+      allow delete: if false;
+    }
+
+    // =========================================================
+    // 5. attendance_records (append-only)
+    // =========================================================
+    match /attendance_records/{attendanceId} {
+      allow read: if isAuthenticated() && sameVillage(resource.data.villageId);
+
+      // Create by any authenticated same-village user.
+      // villageId on the attendance record must match the meeting's villageId.
+      allow create: if isAuthenticated() &&
+        sameVillage(request.resource.data.villageId) &&
+        request.resource.data.method in ['gpsFace', 'manual', 'otp'] &&
+        get(/databases/$(database)/documents/gram_sabha_meetings/$(request.resource.data.meetingId))
+          .data.villageId == request.resource.data.villageId;
+
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    // =========================================================
+    // 6. claims
+    // =========================================================
+    match /claims/{claimId} {
+      // Claimant can read their own claims; admin can read all in village.
+      allow read: if isAuthenticated() &&
+        (resource.data.claimantUserId == uid() ||
+         isVillageAdmin(resource.data.villageId));
+
+      // Any authenticated user can create a claim against themselves.
+      allow create: if isAuthenticated() &&
+        request.resource.data.claimantUserId == uid() &&
+        sameVillage(request.resource.data.villageId) &&
+        request.resource.data.status in ['draft', 'submitted'] &&
+        request.resource.data.type in ['formA', 'formB'];
+
+      // Claimant can update draft/submitted claims; admin can update any claim status.
+      allow update: if isAuthenticated() && (
+        (resource.data.claimantUserId == uid() &&
+         resource.data.status in ['draft', 'submitted'] &&
+         unchanged('claimantUserId') && unchanged('villageId') && unchanged('type')) ||
+        (isVillageAdmin(resource.data.villageId) &&
+         unchanged('claimantUserId') && unchanged('villageId'))
+      );
+
+      allow delete: if false;
+    }
+
+    // =========================================================
+    // 7. resolutions (hash-chain, append-only)
+    // =========================================================
+    match /resolutions/{resolutionId} {
+      allow read:   if isAuthenticated() && sameVillage(resource.data.villageId);
+
+      // Allow create by admin OR same-village user for genesis/init seeding.
+      allow create: if isAuthenticated() &&
+        sameVillage(request.resource.data.villageId) &&
+        request.resource.data.meetingId is string &&
+        request.resource.data.hash is string &&
+        request.resource.data.previousHash is string;
+
+      // Append-only: no updates or deletes.
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    // =========================================================
+    // 8. gram_sabha_mom_records (append-only)
+    // =========================================================
+    match /gram_sabha_mom_records/{momId} {
+      allow read:   if isAuthenticated() && sameVillage(resource.data.villageId);
+
+      // Allow create by admin OR same-village user for init seeding.
+      allow create: if isAuthenticated() &&
+        sameVillage(request.resource.data.villageId) &&
+        request.resource.data.meetingId is string &&
+        request.resource.data.localHash is string;
+
+      // Append-only: no updates or deletes.
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    // =========================================================
+    // 9. gram_sabha_face_enrollments
+    // Face embeddings only — no raw biometric photos ever stored.
+    // =========================================================
+    match /gram_sabha_face_enrollments/{memberId} {
+      // Admin reads only (biometric data protection).
+      allow read: if isVillageAdmin(resource.data.villageId) ||
+        // Also allow same-village authenticated user to read their own placeholder doc.
+        (isAuthenticated() && sameVillage(resource.data.villageId) &&
+         resource.data.get('isPlaceholder', false) == true);
+
+      // Allow create by admin OR same-village user for placeholder seed doc.
+      allow create: if isAuthenticated() &&
+        sameVillage(request.resource.data.villageId) &&
+        (
+          // Real enrollment: admin + valid embedding
+          (isAdmin() &&
+           request.resource.data.memberId == memberId &&
+           isValidEmbeddingVector(request.resource.data.embedding)) ||
+          // Placeholder seed doc: empty embedding allowed
+          (request.resource.data.get('isPlaceholder', false) == true &&
+           request.resource.data.embedding is list)
+        );
+
+      // Only admin can update face embeddings.
+      allow update: if isVillageAdmin(resource.data.villageId) &&
+        unchanged('memberId') && unchanged('villageId') &&
+        isValidEmbeddingVector(request.resource.data.embedding);
+
+      allow delete: if false;
+    }
+
+    // =========================================================
+    // 10. notices (global board — no villageId field)
+    // =========================================================
+    match /notices/{noticeId} {
+      // All authenticated users can read notices.
+      allow read: if isAuthenticated();
+
+      // Admin can post notices; system-generated welcome notices allowed from
+      // authenticated users (created by FirestoreInitializationService).
+      allow create: if isAuthenticated() && (
+        // Admin can post any category
+        isAdmin() ||
+        // Any authenticated user can create system-generated welcome notices
+        (request.resource.data.source == 'systemGenerated' &&
+         request.resource.data.severity == 'info')
+      ) &&
+        request.resource.data.category in [
+          'general', 'meetingSchedule', 'claimDeadline',
+          'documentRequirement', 'portalDowntime'
+        ] &&
+        request.resource.data.severity in ['info', 'warning', 'critical'] &&
+        request.resource.data.source in ['adminPosted', 'systemGenerated'];
+
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // =========================================================
+    // 11. boundary_alerts
+    // =========================================================
+    match /boundary_alerts/{alertId} {
+      allow read: if isAuthenticated() && sameVillage(resource.data.villageId);
+
+      // Any same-village user can create alerts (including init service baseline alert).
+      allow create: if isAuthenticated() &&
+        sameVillage(request.resource.data.villageId) &&
+        request.resource.data.tier in ['green', 'yellow', 'red'];
+
+      // Admin can resolve/update alerts.
+      allow update: if isVillageAdmin(resource.data.villageId) &&
+        unchanged('villageId') &&
+        onlyChangedFieldsIn([
+          'status', 'resolvedAt', 'resolvedBy',
+          'isReported', 'reportedTo', 'reportedAt'
+        ]);
+
+      allow delete: if false;
+    }
+
+    // =========================================================
+    // 12. sync_audit_log
+    // Allows client writes for offline sync audit trail.
+    // Only admins can read (sensitive operational logs).
+    // =========================================================
+    match /sync_audit_log/{logId} {
+      // Admin-only reads for operational monitoring.
+      allow read: if isAdmin();
+
+      // Any authenticated user can write audit entries
+      // (FirestoreInitializationService and CloudSyncService both write here).
+      allow create: if isAuthenticated() &&
+        request.resource.data.action is string &&
+        request.resource.data.status in ['pending', 'inProgress', 'completed', 'failed'] &&
+        request.resource.data.entityType is string;
+
+      allow update: if false;
+      allow delete: if false;
+    }
+  }
+}

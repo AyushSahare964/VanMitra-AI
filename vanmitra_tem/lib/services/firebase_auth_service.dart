@@ -79,6 +79,7 @@ class FirebaseAuthService {
     if (existing != null) return existing;
 
     final profile = {
+      'id': uid, // Required by DB spec and security rules
       'email': email.trim(),
       'name': (name?.trim().isNotEmpty == true)
           ? name!.trim()
@@ -154,6 +155,7 @@ class FirebaseAuthService {
     required String villageId,
   }) async {
     await _db.collection('users').doc(uid).set({
+      'id': uid, // Required by DB spec and security rules
       'email': email,
       'name': name,
       'role': role,

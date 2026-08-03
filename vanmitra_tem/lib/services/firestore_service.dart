@@ -73,7 +73,39 @@ class FirestoreService {
 
   Future<void> createBoundaryAlert(Map<String, dynamic> data) =>
       _db.collection('boundary_alerts').doc(data['id']).set(data);
-      
+
+  /// Upsert a user profile document. The document ID is the Firebase Auth UID.
+  /// Always pass the full [User.toFirestore()] or equivalent map.
+  Future<void> upsertUser(Map<String, dynamic> data) =>
+      _db.collection('users').doc(data['id'] as String).set(data, SetOptions(merge: true));
+
+  /// Upsert a village member document.
+  /// IMPORTANT: strips any `faceEmbedding` key from [data] before writing.
+  /// The 128-dim vector must only go to `gram_sabha_face_enrollments`.
+  Future<void> upsertVillageMember(Map<String, dynamic> data) {
+    // Safety: strip embedding in case caller passed toJson() instead of toFirestore()
+    final safeData = Map<String, dynamic>.from(data)
+      ..remove('faceEmbedding')
+      ..remove('faceEmbeddingId');
+    return _db
+        .collection('village_members')
+        .doc(safeData['id'] as String)
+        .set(safeData, SetOptions(merge: true));
+  }
+
+  /// Stream all active members of a village, ordered by name (English).
+  Stream<QuerySnapshot> streamVillageMembers(String villageId) =>
+      _db
+          .collection('village_members')
+          .where('villageId', isEqualTo: villageId)
+          .where('isActive', isEqualTo: true)
+          .orderBy('nameEnglish')
+          .snapshots();
+
+  /// Upsert a village document. Document ID is the village's `id` field.
+  Future<void> upsertVillage(Map<String, dynamic> data) =>
+      _db.collection('villages').doc(data['id'] as String).set(data, SetOptions(merge: true));
+
   Future<void> logSync(Map<String, dynamic> data) =>
       _db.collection('sync_audit_log').add(data);
 

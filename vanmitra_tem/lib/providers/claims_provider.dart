@@ -5,6 +5,7 @@ import '../data/local/hive_database.dart';
 import '../models/claim.dart';
 import '../models/sync_item.dart';
 import '../services/firestore_service.dart';
+import '../services/cloud_sync_service.dart';
 import 'package:uuid/uuid.dart';
 
 /// Claims state
@@ -68,6 +69,8 @@ class ClaimsNotifier extends StateNotifier<ClaimsState> {
       createdAt: DateTime.now(),
     );
     await syncBox.put(syncItem.id, syncItem.toJson());
+    // Immediate sync — needed on web where onConnectivityChanged never fires
+    CloudSyncService().syncPendingItems().catchError((_) {});
   }
 
   Future<void> updateClaim(Claim claim) async {
@@ -88,6 +91,8 @@ class ClaimsNotifier extends StateNotifier<ClaimsState> {
       createdAt: DateTime.now(),
     );
     await syncBox.put(syncItem.id, syncItem.toJson());
+    // Immediate sync — needed on web where onConnectivityChanged never fires
+    CloudSyncService().syncPendingItems().catchError((_) {});
   }
 }
 

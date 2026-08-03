@@ -1,0 +1,178 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "village_members",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "villageId", "order": "ASCENDING" },
+        { "fieldPath": "isActive",  "order": "ASCENDING" },
+        { "fieldPath": "__name__",  "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "gram_sabha_meetings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "villageId",     "order": "ASCENDING"  },
+        { "fieldPath": "scheduledDate", "order": "DESCENDING" },
+        { "fieldPath": "__name__",      "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "gram_sabha_meetings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "villageId", "order": "ASCENDING" },
+        { "fieldPath": "status",    "order": "ASCENDING" },
+        { "fieldPath": "__name__",  "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "gram_sabha_meetings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "villageId",     "order": "ASCENDING"  },
+        { "fieldPath": "status",        "order": "ASCENDING"  },
+        { "fieldPath": "scheduledDate", "order": "DESCENDING" },
+        { "fieldPath": "__name__",      "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "attendance_records",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "meetingId", "order": "ASCENDING" },
+        { "fieldPath": "timestamp", "order": "ASCENDING" },
+        { "fieldPath": "__name__",  "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "attendance_records",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "villageId", "order": "ASCENDING" },
+        { "fieldPath": "meetingId", "order": "ASCENDING" },
+        { "fieldPath": "__name__",  "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "claims",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "villageId", "order": "ASCENDING"  },
+        { "fieldPath": "createdAt", "order": "DESCENDING" },
+        { "fieldPath": "__name__",  "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "claims",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "claimantUserId", "order": "ASCENDING"  },
+        { "fieldPath": "createdAt",      "order": "DESCENDING" },
+        { "fieldPath": "__name__",       "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "claims",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "villageId", "order": "ASCENDING" },
+        { "fieldPath": "status",    "order": "ASCENDING" },
+        { "fieldPath": "__name__",  "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "claims",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "claimantUserId", "order": "ASCENDING" },
+        { "fieldPath": "status",         "order": "ASCENDING" },
+        { "fieldPath": "__name__",       "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "resolutions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "villageId",  "order": "ASCENDING" },
+        { "fieldPath": "blockIndex", "order": "ASCENDING" },
+        { "fieldPath": "__name__",   "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "resolutions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "meetingId", "order": "ASCENDING" },
+        { "fieldPath": "timestamp", "order": "ASCENDING" },
+        { "fieldPath": "__name__",  "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "gram_sabha_mom_records",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "villageId",    "order": "ASCENDING" },
+        { "fieldPath": "timestampUtc", "order": "ASCENDING" },
+        { "fieldPath": "__name__",     "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "notices",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "category",   "order": "ASCENDING" },
+        { "fieldPath": "validUntil", "order": "ASCENDING" },
+        { "fieldPath": "__name__",   "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "boundary_alerts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "villageId", "order": "ASCENDING" },
+        { "fieldPath": "tier",      "order": "ASCENDING" },
+        { "fieldPath": "__name__",  "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "boundary_alerts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "villageId",  "order": "ASCENDING"  },
+        { "fieldPath": "detectedAt", "order": "DESCENDING" },
+        { "fieldPath": "__name__",   "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "boundary_alerts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "villageId",  "order": "ASCENDING"  },
+        { "fieldPath": "tier",       "order": "ASCENDING"  },
+        { "fieldPath": "detectedAt", "order": "DESCENDING" },
+        { "fieldPath": "__name__",   "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "sync_audit_log",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "status",    "order": "ASCENDING"  },
+        { "fieldPath": "createdAt", "order": "DESCENDING" },
+        { "fieldPath": "__name__",  "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "sync_audit_log",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "entityType", "order": "ASCENDING"  },
+        { "fieldPath": "createdAt",  "order": "DESCENDING" },
+        { "fieldPath": "__name__",   "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

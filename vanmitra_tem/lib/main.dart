@@ -58,12 +58,17 @@ void main() async {
       }
     } catch (_) {} // Non-fatal if FCM setup fails
 
-    // Add Connectivity listener for Cloud Sync
-    Connectivity().onConnectivityChanged.listen((result) {
-      if (result != ConnectivityResult.none) {
+    // Add Connectivity listener for Cloud Sync (mobile)
+    Connectivity().onConnectivityChanged.listen((results) {
+      // newer connectivity_plus returns List<ConnectivityResult>
+      if (results.any((r) => r != ConnectivityResult.none)) {
         CloudSyncService().syncPendingItems();
       }
     });
+
+    // IMPORTANT: On Chrome/Web, onConnectivityChanged never fires.
+    // Always trigger sync immediately on startup to flush the queue.
+    CloudSyncService().syncPendingItems();
 
     // Seed two startup notices so the notice board has visible content
     final container = ProviderContainer();

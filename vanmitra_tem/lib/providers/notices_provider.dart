@@ -4,6 +4,8 @@ import 'package:uuid/uuid.dart';
 import '../data/local/hive_database.dart';
 import '../models/notice.dart';
 import '../models/claim.dart';
+import '../services/firestore_service.dart';
+import '../services/cloud_sync_service.dart';
 
 class NoticesState {
   final List<Notice> notices;
@@ -115,6 +117,10 @@ class NoticesNotifier extends StateNotifier<NoticesState> {
       createdAt: DateTime.now(),
     );
     await addNotice(notice);
+    // Push to Firestore directly (notices don't go through the sync queue)
+    FirestoreService().createNotice(notice.toFirestoreMap()).catchError((_) {});
+    // Flush any pending queue items too (needed on web)
+    CloudSyncService().syncPendingItems().catchError((_) {});
   }
 }
 

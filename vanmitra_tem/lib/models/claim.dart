@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:vanmitra_ai/services/localization_service.dart';
 
@@ -255,6 +256,7 @@ class Claim {
     );
   }
 
+  /// Serialise for **Hive** local storage (ISO-8601 date strings).
   Map<String, dynamic> toJson() => {
     'id': id,
     'claimantUserId': claimantUserId,
@@ -283,6 +285,48 @@ class Claim {
     'isSynced': isSynced,
   };
 
+  /// Serialise for **Firestore** — uses native Timestamp objects so that
+  /// date fields are stored correctly (not as strings) and Firestore indexes work.
+  Map<String, dynamic> toFirestore() => {
+    'id': id,
+    'claimantUserId': claimantUserId,
+    'villageId': villageId,
+    'type': type.name,
+    'status': status.name,
+    'nature': nature.name,
+    'claimantName': claimantName,
+    'claimantNameEn': claimantNameEn,
+    'fatherHusbandName': fatherHusbandName,
+    'address': address,
+    'surveyNumber': surveyNumber,
+    'areaSqMeters': areaSqMeters,
+    'landDescription': landDescription,
+    'occupationYears': occupationYears,
+    'occupationBefore2005': occupationBefore2005,
+    'evidenceFlags': evidenceFlags,
+    'evidenceScore': evidenceScore,
+    'missingEvidence': missingEvidence,
+    'createdAt': Timestamp.fromDate(createdAt),
+    'submittedAt': submittedAt != null ? Timestamp.fromDate(submittedAt!) : null,
+    'reviewedAt': reviewedAt != null ? Timestamp.fromDate(reviewedAt!) : null,
+    'rejectedAt': rejectedAt != null ? Timestamp.fromDate(rejectedAt!) : null,
+    'rejectionReason': rejectionReason,
+    'appealDeadline': appealDeadline != null ? Timestamp.fromDate(appealDeadline!) : null,
+    'isSynced': true, // always true when writing to Firestore
+  };
+
+  /// Parse a DateTime from either a Firestore [Timestamp] or an ISO-8601 [String].
+  static DateTime _parseDate(dynamic value) {
+    if (value is Timestamp) return value.toDate();
+    if (value is String) return DateTime.parse(value);
+    throw ArgumentError('Cannot parse date from $value');
+  }
+
+  static DateTime? _parseDateOrNull(dynamic value) {
+    if (value == null) return null;
+    return _parseDate(value);
+  }
+
   factory Claim.fromJson(Map<String, dynamic> json) => Claim(
     id: json['id'] as String,
     claimantUserId: json['claimantUserId'] as String,
@@ -306,20 +350,12 @@ class Claim {
     missingEvidence: (json['missingEvidence'] as List<dynamic>?)
             ?.cast<String>() ??
         const [],
-    createdAt: DateTime.parse(json['createdAt'] as String),
-    submittedAt: json['submittedAt'] != null
-        ? DateTime.parse(json['submittedAt'] as String)
-        : null,
-    reviewedAt: json['reviewedAt'] != null
-        ? DateTime.parse(json['reviewedAt'] as String)
-        : null,
-    rejectedAt: json['rejectedAt'] != null
-        ? DateTime.parse(json['rejectedAt'] as String)
-        : null,
+    createdAt: _parseDate(json['createdAt']),
+    submittedAt: _parseDateOrNull(json['submittedAt']),
+    reviewedAt: _parseDateOrNull(json['reviewedAt']),
+    rejectedAt: _parseDateOrNull(json['rejectedAt']),
     rejectionReason: json['rejectionReason'] as String?,
-    appealDeadline: json['appealDeadline'] != null
-        ? DateTime.parse(json['appealDeadline'] as String)
-        : null,
+    appealDeadline: _parseDateOrNull(json['appealDeadline']),
     isSynced: json['isSynced'] as bool? ?? false,
   );
 }

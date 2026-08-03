@@ -64,5 +64,6 @@ vanmitra-backend/app/__pycache__/
 "files (1)"/node_modules/
 node_modules/
 
-# Generated ML model (regenerate via convert_facenet.py)
-assets/ml/facenet.tflite
+# Generated ML model (regenerate via convert_facenet.py — excluded from git due to size)
+# The empty placeholder at assets/ml/facenet.tflite IS committed so pubspec.yaml resolves.
+# Real model (non-empty) should NOT be committed — generate locally with convert_facenet.py.

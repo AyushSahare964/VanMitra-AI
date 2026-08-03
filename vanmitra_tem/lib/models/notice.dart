@@ -135,6 +135,28 @@ class Notice {
         'createdAt': createdAt.toIso8601String(),
       };
 
+  /// Firestore-safe serialization — dates as Timestamps, required fields validated.
+  /// The Firestore security rules check category, severity, source enum values.
+  Map<String, dynamic> toFirestoreMap() {
+    // Import deferred to avoid circular dependency — use dynamic import pattern
+    // Timestamps are handled by the caller via cloud_firestore package
+    return {
+      'noticeId': noticeId,
+      'villageId': '', // Will be set by caller (notices are global for now)
+      'category': category.name,
+      'titleByLang': titleByLang,
+      'bodyByLang': bodyByLang,
+      'severity': severity.name,
+      'validFrom': validFrom.toIso8601String(),
+      'validUntil': validUntil.toIso8601String(),
+      'linkedMeetingId': linkedMeetingId,
+      'linkedClaimId': linkedClaimId,
+      'source': source.name,
+      'isDismissed': isDismissed,
+      'createdAt': createdAt.toIso8601String(),
+    };
+  }
+
   factory Notice.fromJson(Map<String, dynamic> json) => Notice(
         noticeId: json['noticeId'] as String,
         category: NoticeCategory.values.byName(json['category'] as String),

@@ -11,6 +11,7 @@ import '../models/quorum_status.dart';
 import '../services/hash_chain_service.dart';
 import '../services/quorum_service.dart';
 import '../services/firestore_service.dart';
+import '../services/cloud_sync_service.dart';
 import '../models/sync_item.dart';
 
 const _uuid = Uuid();
@@ -24,15 +25,34 @@ class MembersNotifier extends StateNotifier<List<VillageMember>> {
 
   Future<void> loadMembers(String villageId) async {
     final box = Hive.box<Map>(HiveDatabase.membersBox);
-    if (box.isEmpty) {
+    final isFirstRun = box.isEmpty;
+    if (isFirstRun) {
       for (final m in OzharMembersSeed.members) {
         await box.put(m.id, m.toJson());
       }
+      // Bulk-sync all seeded members to Firestore in background.
+      // Fire-and-forget — non-fatal if offline (will retry via CloudSyncService).
+      _syncMembersToFirestore(OzharMembersSeed.members).catchError((_) {});
     }
     state = box.values
         .map((v) => VillageMember.fromJson(Map<String, dynamic>.from(v)))
         .where((m) => m.villageId == villageId)
         .toList();
+  }
+
+  /// Bulk-upsert [members] to Firestore in small batches to stay
+  /// within Firestore write rate limits.
+  Future<void> _syncMembersToFirestore(List<VillageMember> members) async {
+    final fs = FirestoreService();
+    const batchSize = 20;
+    for (int i = 0; i < members.length; i += batchSize) {
+      final batch = members.skip(i).take(batchSize);
+      await Future.wait(
+        batch.map((m) => fs.upsertVillageMember(m.toFirestore())),
+      );
+      // Small delay between batches to be respectful to Firestore
+      await Future.delayed(const Duration(milliseconds: 200));
+    }
   }
 }
 
@@ -140,6 +160,8 @@ class MeetingsNotifier extends StateNotifier<MeetingsState> {
       createdAt: DateTime.now(),
     );
     await syncBox.put(syncItem.id, syncItem.toJson());
+    // Immediate sync — needed on web where onConnectivityChanged never fires
+    CloudSyncService().syncPendingItems().catchError((_) {});
 
     return meeting;
   }

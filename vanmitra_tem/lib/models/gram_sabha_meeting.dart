@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 /// Types of Gram Sabha meetings
 /// Aligned with FRA provisions
 enum MeetingType {
@@ -147,6 +149,7 @@ class GramSabhaMeeting {
     );
   }
 
+  /// Serialise for **Hive** local storage (ISO-8601 date strings).
   Map<String, dynamic> toJson() => {
     'id': id,
     'villageId': villageId,
@@ -168,17 +171,47 @@ class GramSabhaMeeting {
     'quorumValid': quorumValid,
   };
 
+  /// Serialise for **Firestore** — uses native Timestamp objects.
+  Map<String, dynamic> toFirestore() => {
+    'id': id,
+    'villageId': villageId,
+    'scheduledDate': Timestamp.fromDate(scheduledDate),
+    'startedAt': startedAt != null ? Timestamp.fromDate(startedAt!) : null,
+    'completedAt': completedAt != null ? Timestamp.fromDate(completedAt!) : null,
+    'type': type.name,
+    'status': status.name,
+    'venue': venue,
+    'venueLat': venueLat,
+    'venueLng': venueLng,
+    'agenda': agenda,
+    'createdByUserId': createdByUserId,
+    'resolutionIds': resolutionIds,
+    'totalAttendees': totalAttendees,
+    'womenAttendees': womenAttendees,
+    'stAttendees': stAttendees,
+    'pvtgAttendees': pvtgAttendees,
+    'quorumValid': quorumValid,
+  };
+
+  /// Parse a DateTime from either a Firestore [Timestamp] or an ISO-8601 [String].
+  static DateTime _parseDate(dynamic value) {
+    if (value is Timestamp) return value.toDate();
+    if (value is String) return DateTime.parse(value);
+    throw ArgumentError('Cannot parse date from $value');
+  }
+
+  static DateTime? _parseDateOrNull(dynamic value) {
+    if (value == null) return null;
+    return _parseDate(value);
+  }
+
   factory GramSabhaMeeting.fromJson(Map<String, dynamic> json) =>
       GramSabhaMeeting(
         id: json['id'] as String,
         villageId: json['villageId'] as String,
-        scheduledDate: DateTime.parse(json['scheduledDate'] as String),
-        startedAt: json['startedAt'] != null
-            ? DateTime.parse(json['startedAt'] as String)
-            : null,
-        completedAt: json['completedAt'] != null
-            ? DateTime.parse(json['completedAt'] as String)
-            : null,
+        scheduledDate: _parseDate(json['scheduledDate']),
+        startedAt: _parseDateOrNull(json['startedAt']),
+        completedAt: _parseDateOrNull(json['completedAt']),
         type: MeetingType.values.byName(json['type'] as String),
         status: MeetingStatus.values.byName(json['status'] as String),
         venue: json['venue'] as String,

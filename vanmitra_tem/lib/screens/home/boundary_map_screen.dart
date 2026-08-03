@@ -8,7 +8,8 @@ import '../../widgets/van_mitra_app_shell.dart';
 /// change-alert overlay and a slide-up alert detail panel.
 /// Design reference: stitch_mahagov_citizen_portal_app/cfr_boundary_map/
 class BoundaryMapScreen extends StatefulWidget {
-  const BoundaryMapScreen({super.key});
+  final Widget? bottomNavigationBar;
+  const BoundaryMapScreen({super.key, this.bottomNavigationBar});
 
   @override
   State<BoundaryMapScreen> createState() => _BoundaryMapScreenState();
@@ -113,7 +114,7 @@ class _BoundaryMapScreenState extends State<BoundaryMapScreen>
             ),
         ],
       ),
-      bottomNavigationBar:
+      bottomNavigationBar: widget.bottomNavigationBar ??
           const VanMitraBottomNav(activeTab: VanMitraTab.map),
     );
   }

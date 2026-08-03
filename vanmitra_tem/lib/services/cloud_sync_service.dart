@@ -11,6 +11,17 @@ class CloudSyncService {
   final FirestoreService _fs = FirestoreService();
   final Box<Map> _queue = Hive.box<Map>(HiveDatabase.syncQueueBox);
 
+  /// Returns the current count of items pending upload in the offline queue.
+  static int get pendingItemCount {
+    try {
+      if (!Hive.isBoxOpen(HiveDatabase.syncQueueBox)) return 0;
+      final box = Hive.box<Map>(HiveDatabase.syncQueueBox);
+      return box.values.where((m) => m['status'] == SyncStatus.pending.name).length;
+    } catch (_) {
+      return 0;
+    }
+  }
+
   /// Synchronize all pending items in priority order.
   Future<void> syncPendingItems() async {
     final pendingRaw = _queue.values
@@ -52,14 +63,24 @@ class CloudSyncService {
       case SyncAction.createClaim:
       case SyncAction.updateClaim:
       case SyncAction.submitClaim:
-        await _fs.upsertClaim(item.payload);
+        // Payload from Hive has ISO-8601 date strings — convert to Timestamps
+        await _fs.upsertClaim(_convertDatesToTimestamps(
+          item.payload,
+          dateFields: ['createdAt', 'submittedAt', 'reviewedAt', 'rejectedAt', 'appealDeadline'],
+        ));
         break;
       case SyncAction.createMeeting:
       case SyncAction.updateMeeting:
-        await _fs.upsertMeeting(item.payload);
+        await _fs.upsertMeeting(_convertDatesToTimestamps(
+          item.payload,
+          dateFields: ['scheduledDate', 'startedAt', 'completedAt'],
+        ));
         break;
       case SyncAction.markAttendance:
-        await _fs.createAttendance(item.payload);
+        await _fs.createAttendance(_convertDatesToTimestamps(
+          item.payload,
+          dateFields: ['timestamp'],
+        ));
         break;
       case SyncAction.createResolution:
         await _fs.createResolution(item.payload);
@@ -89,9 +110,29 @@ class CloudSyncService {
         // Legacy enrollFace — delegated to syncFaceEnrollment
         await _fs.syncFaceEnrollment(item.entityId, item.payload);
         break;
-      default:
-        break;
     }
+  }
+
+  /// Converts ISO-8601 date [String] values at the given [dateFields] keys
+  /// into Firestore [Timestamp] objects. All other fields are passed through.
+  /// Non-null, non-empty strings are parsed; null/empty values are kept as-is.
+  Map<String, dynamic> _convertDatesToTimestamps(
+    Map<String, dynamic> payload, {
+    required List<String> dateFields,
+  }) {
+    final result = Map<String, dynamic>.from(payload);
+    for (final field in dateFields) {
+      final value = result[field];
+      if (value is String && value.isNotEmpty) {
+        try {
+          result[field] = Timestamp.fromDate(DateTime.parse(value));
+        } catch (_) {
+          // Leave unparseable values unchanged
+        }
+      }
+      // If already a Timestamp (e.g. re-queued item), leave it
+    }
+    return result;
   }
 
   /// Define sync order to maintain referential integrity.

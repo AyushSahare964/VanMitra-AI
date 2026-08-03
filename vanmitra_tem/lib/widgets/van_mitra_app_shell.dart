@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
 import '../core/routes/app_router.dart';
+import '../core/theme/app_colors.dart';
 
-// ── Design Tokens (from DESIGN.md) ─────────────────────────────────────────
-const kPrimary = Color(0xFF056C00);
-const kPrimaryContainer = Color(0xFF138808);
-const kOnPrimary = Color(0xFFFFFFFF);
-const kOnPrimaryContainer = Color(0xFFFBFFF3);
-const kSurface = Color(0xFFF8F9FA);
-const kSurfaceWhite = Color(0xFFFFFFFF);
-const kSurfaceContainerHighest = Color(0xFFE1E3E4);
-const kSurfaceContainerHigh = Color(0xFFE7E8E9);
-const kSurfaceContainerLow = Color(0xFFF3F4F5);
-const kSurfaceContainer = Color(0xFFEDEEEF);
-const kOnSurface = Color(0xFF191C1D);
-const kOnSurfaceVariant = Color(0xFF3F4A3A);
-const kOutlineVariant = Color(0xFFBECAB5);
-const kStatusSuccess = Color(0xFF138808);
-const kStatusWarning = Color(0xFFFFB800);
-const kStatusError = Color(0xFFD32F2F);
+// ── Design Tokens (Unified with AppColors & Forest Canopy Theme) ───────────
+const kPrimary = AppColors.forestCanopy;
+const kPrimaryContainer = AppColors.forestSage;
+const kOnPrimary = AppColors.textOnBrand;
+const kOnPrimaryContainer = AppColors.surfaceCard;
+const kSurface = AppColors.surfaceBase;
+const kSurfaceWhite = AppColors.surfaceCard;
+const kSurfaceContainerHighest = AppColors.divider;
+const kSurfaceContainerHigh = AppColors.surfaceSunken;
+const kSurfaceContainerLow = AppColors.surfaceBase;
+const kSurfaceContainer = AppColors.surfaceSunken;
+const kOnSurface = AppColors.textPrimary;
+const kOnSurfaceVariant = AppColors.textSecondary;
+const kOutlineVariant = AppColors.divider;
+const kStatusSuccess = AppColors.successGreen;
+const kStatusWarning = AppColors.warningAmber;
+const kStatusError = AppColors.alertRed;
 const kErrorContainer = Color(0xFFFFDAD6);
-const kSecondaryContainer = Color(0xFFFE9832);
-const kOnSecondaryContainer = Color(0xFF683700);
+const kSecondaryContainer = AppColors.saffron;
+const kOnSecondaryContainer = AppColors.textOnBrand;
 const kTertiaryFixed = Color(0xFFE0E0FF);
 const kOnTertiaryFixed = Color(0xFF00006E);
 const kSecondaryFixed = Color(0xFFFFDCC2);
 const kOnSecondaryFixed = Color(0xFF2E1500);
-const kPrimaryFixedDim = Color(0xFF72DE5C);
+const kPrimaryFixedDim = AppColors.forestMist;
 
 /// Which bottom-nav tab is active on this screen.
 enum VanMitraTab { home, claims, map, ledger, profile }

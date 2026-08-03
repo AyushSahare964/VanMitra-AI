@@ -3,8 +3,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/routes/app_router.dart';
 import '../../providers/auth_provider.dart';
-import '../../providers/locale_provider.dart';
 import '../../services/localization_service.dart';
+
+/// Supported villages — display name → canonical Firestore ID.
+/// Add new villages here to make them selectable during registration.
+const _kVillages = [
+  _VillageOption(id: 'OZH-01', nameEn: 'Ozhar (Jawhar, Palghar)', nameMr: 'ओझर (जव्हार, पालघर)'),
+  _VillageOption(id: 'JWH-01', nameEn: 'Jawhar (Jawhar, Palghar)', nameMr: 'जव्हार (जव्हार, पालघर)'),
+  _VillageOption(id: 'KKD-01', nameEn: 'Khokad (Mokhada, Palghar)', nameMr: 'खोकड (मोखाडा, पालघर)'),
+];
+
+class _VillageOption {
+  final String id;
+  final String nameEn;
+  final String nameMr;
+  const _VillageOption({required this.id, required this.nameEn, required this.nameMr});
+}
 
 /// VanMitra-AI — Email / Password Login and Registration Screen
 class RegistrationScreen extends ConsumerStatefulWidget {
@@ -21,9 +35,10 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
-  final _villageIdController = TextEditingController();
-  
+
   String _selectedRole = 'villager';
+  // Village is always selected from the list — never typed manually
+  String _selectedVillageId = _kVillages.first.id;
   bool _obscurePassword = true;
 
   @override
@@ -31,7 +46,6 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     _nameController.dispose();
-    _villageIdController.dispose();
     super.dispose();
   }
 
@@ -46,9 +60,9 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
       role = await ref.read(authProvider.notifier).login(email, password);
     } else {
       final name = _nameController.text.trim();
-      final villageId = _villageIdController.text.trim();
+      // villageId comes from the dropdown — never user-typed
       role = await ref.read(authProvider.notifier).register(
-        email, password, name, _selectedRole, villageId
+        email, password, name, _selectedRole, _selectedVillageId,
       );
     }
 
@@ -189,16 +203,65 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                 const SizedBox(height: 20),
 
                 if (!_isLogin) ...[
-                  _buildLabel('Village ID'),
+                  // ── Village Selector ──────────────────────────────────
+                  _buildLabel('Select Your Village / गाव निवडा'),
                   const SizedBox(height: 8),
-                  TextFormField(
-                    controller: _villageIdController,
-                    enabled: !isLoading,
-                    decoration: _inputDecoration('e.g. OZH-001', Icons.location_on_outlined),
-                    validator: (v) => v!.isEmpty ? 'Village ID is required' : null,
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    decoration: BoxDecoration(
+                      color: AppColors.cardElevated,
+                      border: Border.all(color: AppColors.secondary.withValues(alpha: 0.5)),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: _selectedVillageId,
+                        isExpanded: true,
+                        icon: const Icon(Icons.location_on_outlined, color: AppColors.secondary),
+                        items: _kVillages.map((v) => DropdownMenuItem(
+                          value: v.id,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(v.nameMr,
+                                style: const TextStyle(
+                                  fontFamily: 'NotoSansDevanagari',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  color: AppColors.textPrimary,
+                                ),
+                              ),
+                              Text(v.nameEn,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: AppColors.textSecondary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )).toList(),
+                        onChanged: isLoading
+                            ? null
+                            : (value) => setState(() => _selectedVillageId = value!),
+                      ),
+                    ),
+                  ),
+                  // Show the assigned ID so user can verify
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4, left: 4),
+                    child: Text(
+                      'Village ID: $_selectedVillageId',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: AppColors.textSecondary.withValues(alpha: 0.8),
+                        fontFamily: 'monospace',
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 20),
 
+                  // ── Role Selector ─────────────────────────────────────
                   _buildLabel('Select Role'),
                   const SizedBox(height: 8),
                   Container(
@@ -213,8 +276,8 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                         value: _selectedRole,
                         isExpanded: true,
                         items: const [
-                          DropdownMenuItem(value: 'villager', child: Text('Villager')),
-                          DropdownMenuItem(value: 'admin', child: Text('Gram Panchayat Admin')),
+                          DropdownMenuItem(value: 'villager', child: Text('Villager / ग्रामस्थ')),
+                          DropdownMenuItem(value: 'admin', child: Text('Gram Panchayat Admin / प्रशासक')),
                         ],
                         onChanged: isLoading
                             ? null
@@ -235,9 +298,9 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                     onPressed: isLoading ? null : _submit,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.secondary,
-                      disabledBackgroundColor: AppColors.secondary.withOpacity(0.5),
+                      disabledBackgroundColor: AppColors.secondary.withValues(alpha: 0.5),
                       elevation: 4,
-                      shadowColor: AppColors.secondary.withOpacity(0.4),
+                      shadowColor: AppColors.secondary.withValues(alpha: 0.4),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
                       ),
@@ -291,7 +354,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                     border: Border.all(color: AppColors.divider),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.02),
+                        color: Colors.black.withValues(alpha: 0.02),
                         blurRadius: 4,
                         offset: const Offset(0, 2),
                       ),
@@ -301,7 +364,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
                     children: [
                       Icon(
                         Icons.shield_outlined,
-                        color: AppColors.primary.withOpacity(0.6),
+                        color: AppColors.primary.withValues(alpha: 0.6),
                         size: 24,
                       ),
                       const SizedBox(width: 12),
@@ -363,7 +426,7 @@ class _RegistrationScreenState extends ConsumerState<RegistrationScreen> {
       ),
       disabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: AppColors.divider.withOpacity(0.5)),
+        borderSide: BorderSide(color: AppColors.divider.withValues(alpha: 0.5)),
       ),
     );
   }

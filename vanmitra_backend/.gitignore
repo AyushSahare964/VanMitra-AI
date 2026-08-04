@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.pyo
+venv/
+env/
+.venv/
+.env
+*.log
+~/.cache/whisper/
+~/.cache/huggingface/
+.DS_Store
+Thumbs.db

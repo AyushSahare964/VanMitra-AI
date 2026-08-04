@@ -1,0 +1,11 @@
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.9
+pydantic>=2.5.0
+sentence-transformers>=2.6.0
+faiss-cpu>=1.8.0
+rapidfuzz>=3.8.0
+Pillow>=10.2.0
+pytesseract>=0.3.10
+numpy>=1.26.0
+# openai-whisper>=20231117  # Uncomment to enable /api/v1/transcribe (adds ~1GB to image)

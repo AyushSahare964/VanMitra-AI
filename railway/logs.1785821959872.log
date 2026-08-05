@@ -1,0 +1,1793 @@
+2026-08-04T05:33:23.735925132Z [inf]  unpacking archive
+2026-08-04T05:33:23.934495896Z [inf]  [internal] load build definition from vanmitra_backend/Dockerfile
+2026-08-04T05:33:23.934626532Z [inf]  [internal] load build definition from vanmitra_backend/Dockerfile
+2026-08-04T05:33:23.935196588Z [inf]  [internal] load build definition from vanmitra_backend/Dockerfile
+2026-08-04T05:33:23.978939289Z [inf]  [internal] load build definition from vanmitra_backend/Dockerfile
+2026-08-04T05:33:23.991212594Z [inf]  [internal] load metadata for docker.io/library/python:3.11-slim
+2026-08-04T05:33:24.346263660Z [inf]  uploading snapshot
+2026-08-04T05:33:24.399960937Z [inf]  [internal] load metadata for docker.io/library/python:3.11-slim
+2026-08-04T05:33:24.400801158Z [inf]  [internal] load .dockerignore
+2026-08-04T05:33:24.400855069Z [inf]  [internal] load .dockerignore
+2026-08-04T05:33:24.400892875Z [inf]  [internal] load .dockerignore
+2026-08-04T05:33:24.444431991Z [inf]  [internal] load .dockerignore
+2026-08-04T05:33:24.460067641Z [inf]  [7/7] COPY assets/ ./assets/
+2026-08-04T05:33:24.460070505Z [inf]  [6/7] COPY app/ ./app/
+2026-08-04T05:33:24.460071677Z [inf]  [5/7] RUN pip install --no-cache-dir -r requirements.txt
+2026-08-04T05:33:24.460072598Z [inf]  [4/7] COPY requirements.txt .
+2026-08-04T05:33:24.460073530Z [inf]  [internal] load build context
+2026-08-04T05:33:24.460074481Z [inf]  [3/7] RUN apt-get update && apt-get install -y --no-install-recommends     tesseract-ocr tesseract-ocr-mar tesseract-ocr-hin libgl1     && rm -rf /var/lib/apt/lists/*
+2026-08-04T05:33:24.460075392Z [inf]  [2/7] WORKDIR /app
+2026-08-04T05:33:24.460076294Z [inf]  [1/7] FROM docker.io/library/python:3.11-slim@sha256:db3ff2e1800a8581e2c48a27c3995339d47bdf046da21c7627accd3d51053a93
+2026-08-04T05:33:24.460419128Z [inf]  [1/7] FROM docker.io/library/python:3.11-slim@sha256:db3ff2e1800a8581e2c48a27c3995339d47bdf046da21c7627accd3d51053a93
+2026-08-04T05:33:24.460421462Z [inf]  [internal] load build context
+2026-08-04T05:33:24.461500290Z [inf]  [internal] load build context
+2026-08-04T05:33:24.471863880Z [inf]  [1/7] FROM docker.io/library/python:3.11-slim@sha256:db3ff2e1800a8581e2c48a27c3995339d47bdf046da21c7627accd3d51053a93
+2026-08-04T05:33:24.473054346Z [inf]  [2/7] WORKDIR /app
+2026-08-04T05:33:24.473217511Z [inf]  [3/7] RUN apt-get update && apt-get install -y --no-install-recommends     tesseract-ocr tesseract-ocr-mar tesseract-ocr-hin libgl1     && rm -rf /var/lib/apt/lists/*
+2026-08-04T05:33:24.530234849Z [inf]  [internal] load build context
+2026-08-04T05:33:24.803029088Z [inf]  Hit:1 http://deb.debian.org/debian trixie InRelease
+Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
+
+2026-08-04T05:33:24.805373886Z [inf]  Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
+
+2026-08-04T05:33:24.84176045Z [inf]  Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9673 kB]
+
+2026-08-04T05:33:24.93195669Z [inf]  Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [4412 B]
+
+2026-08-04T05:33:24.932445273Z [inf]  Get:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [231 kB]
+
+2026-08-04T05:33:25.648852446Z [inf]  Fetched 9999 kB in 1s (11.4 MB/s)
+Reading package lists...
+2026-08-04T05:33:26.225345252Z [inf]  
+2026-08-04T05:33:26.261012717Z [inf]  Reading package lists...
+2026-08-04T05:33:26.891664032Z [inf]  
+2026-08-04T05:33:26.905282976Z [inf]  Building dependency tree...
+2026-08-04T05:33:27.093694908Z [inf]  
+Reading state information...
+2026-08-04T05:33:27.093991774Z [inf]  
+2026-08-04T05:33:27.335555023Z [inf]  The following additional packages will be installed:
+
+2026-08-04T05:33:27.335918769Z [inf]    fontconfig fontconfig-config fonts-dejavu-core fonts-dejavu-mono
+
+2026-08-04T05:33:27.335954382Z [inf]    libarchive13t64 libatomic1 libbrotli1 libcairo2 libcom-err2 libcurl4t64
+
+2026-08-04T05:33:27.335964628Z [inf]    libdatrie1 libdeflate0 libdrm-amdgpu1 libdrm-common libdrm-intel1 libdrm2
+
+2026-08-04T05:33:27.336055785Z [inf]    libedit2 libelf1t64 libexpat1 libfontconfig1 libfreetype6 libfribidi0
+
+2026-08-04T05:33:27.33615946Z [inf]    libgbm1 libgif7 libgl1-mesa-dri libglib2.0-0t64 libglvnd0 libglx-mesa0
+
+2026-08-04T05:33:27.336184538Z [inf]    libglx0 libgnutls30t64 libgomp1 libgraphite2-3 libgssapi-krb5-2
+
+2026-08-04T05:33:27.33626601Z [inf]    libharfbuzz0b libicu76 libidn2-0 libjbig0 libjpeg62-turbo libk5crypto3
+
+2026-08-04T05:33:27.336313531Z [inf]    libkeyutils1 libkrb5-3 libkrb5support0 libldap2 libleptonica6 liblerc4
+
+2026-08-04T05:33:27.336459721Z [inf]    libllvm19 libnghttp2-14 libnghttp3-9 libopenjp2-7 libp11-kit0 libpango-1.0-0
+
+2026-08-04T05:33:27.336470016Z [inf]    libpangocairo-1.0-0 libpangoft2-1.0-0 libpciaccess0 libpixman-1-0
+
+2026-08-04T05:33:27.337138369Z [inf]    libpng16-16t64 libpsl5t64 librtmp1 libsasl2-2 libsasl2-modules-db
+
+2026-08-04T05:33:27.337187603Z [inf]    libsensors-config libsensors5 libsharpyuv0 libssh2-1t64 libtasn1-6
+
+2026-08-04T05:33:27.337277568Z [inf]    libtesseract5 libthai-data libthai0 libtiff6 libunistring5 libvulkan1
+  libwayland-server0 libwebp7 libwebpmux3 libx11-6 libx11-data libx11-xcb1
+
+2026-08-04T05:33:27.337326741Z [inf]    libxau6 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-randr0
+  libxcb-render0 libxcb-shm0 libxcb-sync1 libxcb-xfixes0 libxcb1 libxdmcp6
+
+2026-08-04T05:33:27.337390517Z [inf]    libxext6 libxml2 libxrender1 libxshmfence1 libxxf86vm1 libz3-4
+
+2026-08-04T05:33:27.338200953Z [inf]    mesa-libgallium tesseract-ocr-eng tesseract-ocr-osd
+
+2026-08-04T05:33:27.340067373Z [inf]  Suggested packages:
+  lrzip low-memory-monitor gnutls-bin krb5-doc krb5-user pciutils lm-sensors
+Recommended packages:
+  libglib2.0-data shared-mime-info xdg-user-dirs krb5-locales libldap-common
+  publicsuffix libsasl2-modules mesa-vulkan-drivers | vulkan-icd
+
+2026-08-04T05:33:27.782719156Z [inf]  The following NEW packages will be installed:
+
+2026-08-04T05:33:27.782759416Z [inf]    fontconfig fontconfig-config fonts-dejavu-core fonts-dejavu-mono
+
+2026-08-04T05:33:27.782862641Z [inf]    libarchive13t64 libatomic1 libbrotli1 libcairo2 libcom-err2 libcurl4t64
+  libdatrie1 libdeflate0 libdrm-amdgpu1 libdrm-common libdrm-intel1 libdrm2
+  libedit2 libelf1t64 libexpat1 libfontconfig1 libfreetype6 libfribidi0
+
+2026-08-04T05:33:27.782991354Z [inf]    libgbm1 libgif7 libgl1 libgl1-mesa-dri libglib2.0-0t64 libglvnd0
+  libglx-mesa0 libglx0 libgnutls30t64 libgomp1 libgraphite2-3 libgssapi-krb5-2
+
+2026-08-04T05:33:27.783006236Z [inf]    libharfbuzz0b libicu76 libidn2-0 libjbig0 libjpeg62-turbo libk5crypto3
+
+2026-08-04T05:33:27.783013647Z [inf]    libkeyutils1 libkrb5-3 libkrb5support0 libldap2 libleptonica6 liblerc4
+
+2026-08-04T05:33:27.783202521Z [inf]    libllvm19 libnghttp2-14 libnghttp3-9 libopenjp2-7 libp11-kit0 libpango-1.0-0
+  libpangocairo-1.0-0 libpangoft2-1.0-0 libpciaccess0 libpixman-1-0
+
+2026-08-04T05:33:27.783736672Z [inf]    libpng16-16t64 libpsl5t64 librtmp1 libsasl2-2 libsasl2-modules-db
+
+2026-08-04T05:33:27.78376171Z [inf]    libsensors-config libsensors5 libsharpyuv0 libssh2-1t64 libtasn1-6
+
+2026-08-04T05:33:27.783813477Z [inf]    libtesseract5 libthai-data libthai0 libtiff6 libunistring5 libvulkan1
+  libwayland-server0 libwebp7 libwebpmux3 libx11-6 libx11-data libx11-xcb1
+  libxau6 libxcb-dri3-0 libxcb-glx0 libxcb-present0 libxcb-randr0
+
+2026-08-04T05:33:27.783830844Z [inf]    libxcb-render0 libxcb-shm0 libxcb-sync1 libxcb-xfixes0 libxcb1 libxdmcp6
+
+2026-08-04T05:33:27.783895671Z [inf]    libxext6 libxml2 libxrender1 libxshmfence1 libxxf86vm1 libz3-4
+
+2026-08-04T05:33:27.784339336Z [inf]    mesa-libgallium tesseract-ocr tesseract-ocr-eng tesseract-ocr-hin
+
+2026-08-04T05:33:27.78439515Z [inf]    tesseract-ocr-mar tesseract-ocr-osd
+
+2026-08-04T05:33:27.825776228Z [inf]  0 upgraded, 101 newly installed, 0 to remove and 0 not upgraded.
+Need to get 81.1 MB of archives.
+After this operation, 316 MB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian-security trixie-security/main amd64 libexpat1 amd64 2.8.2-1~deb13u1 [122 kB]
+
+2026-08-04T05:33:27.830214057Z [inf]  Get:2 http://deb.debian.org/debian trixie/main amd64 libbrotli1 amd64 1.1.0-2+b7 [307 kB]
+
+2026-08-04T05:33:27.831932845Z [inf]  Get:3 http://deb.debian.org/debian trixie/main amd64 libpng16-16t64 amd64 1.6.48-1+deb13u5 [283 kB]
+
+2026-08-04T05:33:27.833013707Z [inf]  Get:4 http://deb.debian.org/debian trixie/main amd64 libfreetype6 amd64 2.13.3+dfsg-1+deb13u1 [452 kB]
+
+2026-08-04T05:33:27.834617353Z [inf]  Get:5 http://deb.debian.org/debian trixie/main amd64 fonts-dejavu-mono all 2.37-8 [489 kB]
+
+2026-08-04T05:33:27.836384114Z [inf]  Get:6 http://deb.debian.org/debian trixie/main amd64 fonts-dejavu-core all 2.37-8 [840 kB]
+
+2026-08-04T05:33:27.839328582Z [inf]  Get:7 http://deb.debian.org/debian trixie/main amd64 fontconfig-config amd64 2.15.0-2.3 [318 kB]
+
+2026-08-04T05:33:27.841633861Z [inf]  Get:8 http://deb.debian.org/debian trixie/main amd64 libfontconfig1 amd64 2.15.0-2.3 [392 kB]
+
+2026-08-04T05:33:27.843047121Z [inf]  Get:9 http://deb.debian.org/debian trixie/main amd64 fontconfig amd64 2.15.0-2.3 [463 kB]
+
+2026-08-04T05:33:27.845904899Z [inf]  Get:10 http://deb.debian.org/debian trixie/main amd64 libxml2 amd64 2.12.7+dfsg+really2.9.14-2.1+deb13u3 [700 kB]
+
+2026-08-04T05:33:27.848675636Z [inf]  Get:11 http://deb.debian.org/debian trixie/main amd64 libarchive13t64 amd64 3.7.4-4+deb13u1 [350 kB]
+
+2026-08-04T05:33:27.849985852Z [inf]  Get:12 http://deb.debian.org/debian trixie/main amd64 libatomic1 amd64 14.2.0-19 [9308 B]
+
+2026-08-04T05:33:27.850166843Z [inf]  Get:13 http://deb.debian.org/debian trixie/main amd64 libpixman-1-0 amd64 0.44.0-3 [248 kB]
+
+2026-08-04T05:33:27.851189548Z [inf]  Get:14 http://deb.debian.org/debian trixie/main amd64 libxau6 amd64 1:1.0.11-1 [20.4 kB]
+
+2026-08-04T05:33:27.851380244Z [inf]  Get:15 http://deb.debian.org/debian trixie/main amd64 libxdmcp6 amd64 1:1.1.5-1 [27.8 kB]
+
+2026-08-04T05:33:27.851601576Z [inf]  Get:16 http://deb.debian.org/debian trixie/main amd64 libxcb1 amd64 1.17.0-2+b1 [144 kB]
+
+2026-08-04T05:33:27.853189769Z [inf]  Get:17 http://deb.debian.org/debian trixie/main amd64 libx11-data all 2:1.8.12-1 [343 kB]
+
+2026-08-04T05:33:27.85460336Z [inf]  Get:18 http://deb.debian.org/debian trixie/main amd64 libx11-6 amd64 2:1.8.12-1 [815 kB]
+
+2026-08-04T05:33:27.857546666Z [inf]  Get:19 http://deb.debian.org/debian trixie/main amd64 libxcb-render0 amd64 1.17.0-2+b1 [115 kB]
+
+2026-08-04T05:33:27.858025825Z [inf]  Get:20 http://deb.debian.org/debian trixie/main amd64 libxcb-shm0 amd64 1.17.0-2+b1 [105 kB]
+
+2026-08-04T05:33:27.858591634Z [inf]  Get:21 http://deb.debian.org/debian trixie/main amd64 libxext6 amd64 2:1.3.4-1+b3 [50.4 kB]
+
+2026-08-04T05:33:27.85890221Z [inf]  Get:22 http://deb.debian.org/debian trixie/main amd64 libxrender1 amd64 1:0.9.12-1 [27.9 kB]
+
+2026-08-04T05:33:27.859184433Z [inf]  Get:23 http://deb.debian.org/debian trixie/main amd64 libcairo2 amd64 1.18.4-1+b1 [538 kB]
+
+2026-08-04T05:33:27.861070884Z [inf]  Get:24 http://deb.debian.org/debian trixie/main amd64 libcom-err2 amd64 1.47.2-3+b11 [25.0 kB]
+
+2026-08-04T05:33:27.861286898Z [inf]  Get:25 http://deb.debian.org/debian trixie/main amd64 libkrb5support0 amd64 1.21.3-5+deb13u1 [33.1 kB]
+
+2026-08-04T05:33:27.861473568Z [inf]  Get:26 http://deb.debian.org/debian trixie/main amd64 libk5crypto3 amd64 1.21.3-5+deb13u1 [81.2 kB]
+
+2026-08-04T05:33:27.861896352Z [inf]  Get:27 http://deb.debian.org/debian trixie/main amd64 libkeyutils1 amd64 1.6.3-6 [9456 B]
+
+2026-08-04T05:33:27.862783924Z [inf]  Get:28 http://deb.debian.org/debian trixie/main amd64 libkrb5-3 amd64 1.21.3-5+deb13u1 [326 kB]
+
+2026-08-04T05:33:27.864088922Z [inf]  Get:29 http://deb.debian.org/debian trixie/main amd64 libgssapi-krb5-2 amd64 1.21.3-5+deb13u1 [138 kB]
+
+2026-08-04T05:33:27.864693078Z [inf]  Get:30 http://deb.debian.org/debian trixie/main amd64 libunistring5 amd64 1.3-2 [477 kB]
+
+2026-08-04T05:33:27.866545087Z [inf]  Get:31 http://deb.debian.org/debian trixie/main amd64 libidn2-0 amd64 2.3.8-2 [109 kB]
+
+2026-08-04T05:33:27.867002483Z [inf]  Get:32 http://deb.debian.org/debian trixie/main amd64 libsasl2-modules-db amd64 2.1.28+dfsg1-9 [19.8 kB]
+
+2026-08-04T05:33:27.867256645Z [inf]  Get:33 http://deb.debian.org/debian trixie/main amd64 libsasl2-2 amd64 2.1.28+dfsg1-9 [57.5 kB]
+
+2026-08-04T05:33:27.867610666Z [inf]  Get:34 http://deb.debian.org/debian trixie/main amd64 libldap2 amd64 2.6.10+dfsg-1 [194 kB]
+
+2026-08-04T05:33:27.872456787Z [inf]  Get:35 http://deb.debian.org/debian trixie/main amd64 libnghttp2-14 amd64 1.64.0-1.1+deb13u1 [76.2 kB]
+
+2026-08-04T05:33:27.88695461Z [inf]  Get:36 http://deb.debian.org/debian trixie/main amd64 libnghttp3-9 amd64 1.8.0-1 [67.7 kB]
+
+2026-08-04T05:33:27.887748431Z [inf]  Get:37 http://deb.debian.org/debian trixie/main amd64 libpsl5t64 amd64 0.21.2-1.1+b1 [57.2 kB]
+
+2026-08-04T05:33:27.890635562Z [inf]  Get:38 http://deb.debian.org/debian trixie/main amd64 libp11-kit0 amd64 0.25.5-3 [425 kB]
+
+2026-08-04T05:33:27.894463055Z [inf]  Get:39 http://deb.debian.org/debian trixie/main amd64 libtasn1-6 amd64 4.20.0-2+deb13u1 [50.1 kB]
+
+2026-08-04T05:33:27.895975805Z [inf]  Get:40 http://deb.debian.org/debian trixie/main amd64 libgnutls30t64 amd64 3.8.9-3+deb13u4 [1469 kB]
+
+2026-08-04T05:33:27.906129309Z [inf]  Get:41 http://deb.debian.org/debian trixie/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2+b5 [58.8 kB]
+
+2026-08-04T05:33:27.90680991Z [inf]  Get:42 http://deb.debian.org/debian trixie/main amd64 libssh2-1t64 amd64 1.11.1-1+deb13u1 [245 kB]
+
+2026-08-04T05:33:27.90823615Z [inf]  Get:43 http://deb.debian.org/debian trixie/main amd64 libcurl4t64 amd64 8.14.1-2+deb13u4 [392 kB]
+
+2026-08-04T05:33:27.90976923Z [inf]  Get:44 http://deb.debian.org/debian trixie/main amd64 libdatrie1 amd64 0.2.13-3+b1 [38.1 kB]
+
+2026-08-04T05:33:27.910096171Z [inf]  Get:45 http://deb.debian.org/debian trixie/main amd64 libdeflate0 amd64 1.23-2 [47.3 kB]
+
+2026-08-04T05:33:27.91110192Z [inf]  Get:46 http://deb.debian.org/debian trixie/main amd64 libdrm-common all 2.4.124-2 [8288 B]
+
+2026-08-04T05:33:27.911919026Z [inf]  Get:47 http://deb.debian.org/debian trixie/main amd64 libdrm2 amd64 2.4.124-2 [39.0 kB]
+
+2026-08-04T05:33:27.912322391Z [inf]  Get:48 http://deb.debian.org/debian trixie/main amd64 libdrm-amdgpu1 amd64 2.4.124-2 [22.6 kB]
+
+2026-08-04T05:33:27.912908981Z [inf]  Get:49 http://deb.debian.org/debian trixie/main amd64 libpciaccess0 amd64 0.17-3+b3 [51.9 kB]
+
+2026-08-04T05:33:27.914109913Z [inf]  Get:50 http://deb.debian.org/debian trixie/main amd64 libdrm-intel1 amd64 2.4.124-2 [64.1 kB]
+
+2026-08-04T05:33:27.914664435Z [inf]  Get:51 http://deb.debian.org/debian trixie/main amd64 libedit2 amd64 3.1-20250104-1 [93.8 kB]
+
+2026-08-04T05:33:27.918213039Z [inf]  Get:52 http://deb.debian.org/debian trixie/main amd64 libelf1t64 amd64 0.192-4 [189 kB]
+
+2026-08-04T05:33:27.919086701Z [inf]  Get:53 http://deb.debian.org/debian trixie/main amd64 libfribidi0 amd64 1.0.16-1 [26.5 kB]
+
+2026-08-04T05:33:27.919287742Z [inf]  Get:54 http://deb.debian.org/debian trixie/main amd64 libwayland-server0 amd64 1.23.1-3 [34.4 kB]
+
+2026-08-04T05:33:27.919589525Z [inf]  Get:55 http://deb.debian.org/debian trixie/main amd64 libz3-4 amd64 4.13.3-1 [8560 kB]
+
+2026-08-04T05:33:27.948354283Z [inf]  Get:56 http://deb.debian.org/debian trixie/main amd64 libllvm19 amd64 1:19.1.7-3+b1 [26.0 MB]
+
+2026-08-04T05:33:28.050385681Z [inf]  Get:57 http://deb.debian.org/debian trixie/main amd64 libsensors-config all 1:3.6.2-2 [16.2 kB]
+
+2026-08-04T05:33:28.050512311Z [inf]  Get:58 http://deb.debian.org/debian trixie/main amd64 libsensors5 amd64 1:3.6.2-2 [37.5 kB]
+
+2026-08-04T05:33:28.050690668Z [inf]  Get:59 http://deb.debian.org/debian trixie/main amd64 libx11-xcb1 amd64 2:1.8.12-1 [247 kB]
+
+2026-08-04T05:33:28.051675296Z [inf]  Get:60 http://deb.debian.org/debian trixie/main amd64 libxcb-dri3-0 amd64 1.17.0-2+b1 [107 kB]
+
+2026-08-04T05:33:28.052013263Z [inf]  Get:61 http://deb.debian.org/debian trixie/main amd64 libxcb-present0 amd64 1.17.0-2+b1 [106 kB]
+
+2026-08-04T05:33:28.052443809Z [inf]  Get:62 http://deb.debian.org/debian trixie/main amd64 libxcb-randr0 amd64 1.17.0-2+b1 [117 kB]
+
+2026-08-04T05:33:28.053109487Z [inf]  Get:63 http://deb.debian.org/debian trixie/main amd64 libxcb-sync1 amd64 1.17.0-2+b1 [109 kB]
+
+2026-08-04T05:33:28.053554776Z [inf]  Get:64 http://deb.debian.org/debian trixie/main amd64 libxcb-xfixes0 amd64 1.17.0-2+b1 [109 kB]
+
+2026-08-04T05:33:28.053973063Z [inf]  Get:65 http://deb.debian.org/debian trixie/main amd64 libxshmfence1 amd64 1.3.3-1 [10.9 kB]
+
+2026-08-04T05:33:28.054083068Z [inf]  Get:66 http://deb.debian.org/debian trixie/main amd64 mesa-libgallium amd64 25.0.7-2+deb13u1 [9630 kB]
+
+2026-08-04T05:33:28.081780004Z [inf]  Get:67 http://deb.debian.org/debian trixie/main amd64 libgbm1 amd64 25.0.7-2+deb13u1 [44.6 kB]
+
+2026-08-04T05:33:28.081865653Z [inf]  Get:68 http://deb.debian.org/debian trixie/main amd64 libgif7 amd64 5.2.2-1+deb13u1 [44.1 kB]
+
+2026-08-04T05:33:28.08220344Z [inf]  Get:69 http://deb.debian.org/debian trixie/main amd64 libglvnd0 amd64 1.7.0-1+b2 [52.0 kB]
+
+2026-08-04T05:33:28.082439574Z [inf]  Get:70 http://deb.debian.org/debian trixie/main amd64 libxcb-glx0 amd64 1.17.0-2+b1 [122 kB]
+
+2026-08-04T05:33:28.082955939Z [inf]  Get:71 http://deb.debian.org/debian trixie/main amd64 libxxf86vm1 amd64 1:1.1.4-1+b4 [19.3 kB]
+
+2026-08-04T05:33:28.083085493Z [inf]  Get:72 http://deb.debian.org/debian trixie/main amd64 libvulkan1 amd64 1.4.309.0-1 [130 kB]
+
+2026-08-04T05:33:28.083617121Z [inf]  Get:73 http://deb.debian.org/debian trixie/main amd64 libgl1-mesa-dri amd64 25.0.7-2+deb13u1 [46.2 kB]
+
+2026-08-04T05:33:28.083784502Z [inf]  Get:74 http://deb.debian.org/debian trixie/main amd64 libglx-mesa0 amd64 25.0.7-2+deb13u1 [143 kB]
+
+2026-08-04T05:33:28.084371292Z [inf]  Get:75 http://deb.debian.org/debian trixie/main amd64 libglx0 amd64 1.7.0-1+b2 [34.9 kB]
+
+2026-08-04T05:33:28.084534127Z [inf]  Get:76 http://deb.debian.org/debian trixie/main amd64 libgl1 amd64 1.7.0-1+b2 [89.5 kB]
+
+2026-08-04T05:33:28.085017101Z [inf]  Get:77 http://deb.debian.org/debian trixie/main amd64 libglib2.0-0t64 amd64 2.84.4-3~deb13u3 [1519 kB]
+
+2026-08-04T05:33:28.089591254Z [inf]  Get:78 http://deb.debian.org/debian trixie/main amd64 libgomp1 amd64 14.2.0-19 [137 kB]
+
+2026-08-04T05:33:28.09016167Z [inf]  Get:79 http://deb.debian.org/debian trixie/main amd64 libgraphite2-3 amd64 1.3.14-2+deb13u1 [75.2 kB]
+
+2026-08-04T05:33:28.093005948Z [inf]  Get:80 http://deb.debian.org/debian trixie/main amd64 libharfbuzz0b amd64 10.2.0-1+deb13u1 [479 kB]
+
+2026-08-04T05:33:28.095076845Z [inf]  Get:81 http://deb.debian.org/debian trixie/main amd64 libicu76 amd64 76.1-4 [9722 kB]
+
+2026-08-04T05:33:28.122440461Z [inf]  Get:82 http://deb.debian.org/debian trixie/main amd64 libjbig0 amd64 2.1-6.1+b2 [32.1 kB]
+
+2026-08-04T05:33:28.122523576Z [inf]  Get:83 http://deb.debian.org/debian trixie/main amd64 libjpeg62-turbo amd64 1:2.1.5-4 [168 kB]
+
+2026-08-04T05:33:28.12323979Z [inf]  Get:84 http://deb.debian.org/debian trixie/main amd64 libopenjp2-7 amd64 2.5.3-2.1~deb13u2 [205 kB]
+
+2026-08-04T05:33:28.123957337Z [inf]  Get:85 http://deb.debian.org/debian trixie/main amd64 liblerc4 amd64 4.0.0+ds-5 [183 kB]
+
+2026-08-04T05:33:28.124570357Z [inf]  Get:86 http://deb.debian.org/debian trixie/main amd64 libsharpyuv0 amd64 1.5.0-0.1 [116 kB]
+
+2026-08-04T05:33:28.124974934Z [inf]  Get:87 http://deb.debian.org/debian trixie/main amd64 libwebp7 amd64 1.5.0-0.1 [318 kB]
+
+2026-08-04T05:33:28.125961073Z [inf]  Get:88 http://deb.debian.org/debian-security trixie-security/main amd64 libtiff6 amd64 4.7.0-3+deb13u3 [345 kB]
+
+2026-08-04T05:33:28.126956367Z [inf]  Get:89 http://deb.debian.org/debian trixie/main amd64 libwebpmux3 amd64 1.5.0-0.1 [126 kB]
+
+2026-08-04T05:33:28.127426983Z [inf]  Get:90 http://deb.debian.org/debian trixie/main amd64 libleptonica6 amd64 1.84.1-4 [1066 kB]
+
+2026-08-04T05:33:28.130536448Z [inf]  Get:91 http://deb.debian.org/debian trixie/main amd64 libthai-data all 0.1.29-2 [168 kB]
+
+2026-08-04T05:33:28.1311507Z [inf]  Get:92 http://deb.debian.org/debian trixie/main amd64 libthai0 amd64 0.1.29-2+b1 [49.4 kB]
+
+2026-08-04T05:33:28.131396389Z [inf]  Get:93 http://deb.debian.org/debian trixie/main amd64 libpango-1.0-0 amd64 1.56.3-1 [226 kB]
+
+2026-08-04T05:33:28.132557761Z [inf]  Get:94 http://deb.debian.org/debian trixie/main amd64 libpangoft2-1.0-0 amd64 1.56.3-1 [55.6 kB]
+
+2026-08-04T05:33:28.132661717Z [inf]  Get:95 http://deb.debian.org/debian trixie/main amd64 libpangocairo-1.0-0 amd64 1.56.3-1 [35.7 kB]
+
+2026-08-04T05:33:28.136034988Z [inf]  Get:96 http://deb.debian.org/debian trixie/main amd64 libtesseract5 amd64 5.5.0-1+b1 [1417 kB]
+
+2026-08-04T05:33:28.140517864Z [inf]  Get:97 http://deb.debian.org/debian trixie/main amd64 tesseract-ocr-eng all 1:4.1.0-2 [1594 kB]
+
+2026-08-04T05:33:28.145090805Z [inf]  Get:98 http://deb.debian.org/debian trixie/main amd64 tesseract-ocr-osd all 1:4.1.0-2 [2992 kB]
+
+2026-08-04T05:33:28.153624089Z [inf]  Get:99 http://deb.debian.org/debian trixie/main amd64 tesseract-ocr amd64 5.5.0-1+b1 [439 kB]
+
+2026-08-04T05:33:28.155137049Z [inf]  Get:100 http://deb.debian.org/debian trixie/main amd64 tesseract-ocr-hin all 1:4.1.0-2 [915 kB]
+
+2026-08-04T05:33:28.157683559Z [inf]  Get:101 http://deb.debian.org/debian trixie/main amd64 tesseract-ocr-mar all 1:4.1.0-2 [863 kB]
+
+2026-08-04T05:33:28.425424857Z [inf]  debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+
+2026-08-04T05:33:28.425997616Z [inf]  debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8, <STDIN> line 101.)
+debconf: falling back to frontend: Teletype
+
+2026-08-04T05:33:28.432856828Z [inf]  debconf: unable to initialize frontend: Teletype
+debconf: (This frontend requires a controlling tty.)
+debconf: falling back to frontend: Noninteractive
+
+2026-08-04T05:33:30.781935169Z [inf]  Preconfiguring packages ...
+
+2026-08-04T05:33:30.872428155Z [inf]  Fetched 81.1 MB in 0s (229 MB/s)
+
+2026-08-04T05:33:30.907778835Z [inf]  Selecting previously unselected package libexpat1:amd64.
+(Reading database ... 
+2026-08-04T05:33:30.909957493Z [inf]  (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%
+2026-08-04T05:33:30.914719689Z [inf]  (Reading database ... 75%
+2026-08-04T05:33:30.917431638Z [inf]  (Reading database ... 80%
+2026-08-04T05:33:30.91977908Z [inf]  (Reading database ... 85%
+2026-08-04T05:33:30.922689797Z [inf]  (Reading database ... 90%
+2026-08-04T05:33:30.925746343Z [inf]  (Reading database ... 95%
+2026-08-04T05:33:30.929693325Z [inf]  (Reading database ... 100%(Reading database ... 5645 files and directories currently installed.)
+
+2026-08-04T05:33:30.930685003Z [inf]  Preparing to unpack .../000-libexpat1_2.8.2-1~deb13u1_amd64.deb ...
+
+2026-08-04T05:33:30.934524914Z [inf]  Unpacking libexpat1:amd64 (2.8.2-1~deb13u1) ...
+
+2026-08-04T05:33:30.964639898Z [inf]  Selecting previously unselected package libbrotli1:amd64.
+
+2026-08-04T05:33:30.965992979Z [inf]  Preparing to unpack .../001-libbrotli1_1.1.0-2+b7_amd64.deb ...
+
+2026-08-04T05:33:30.968503235Z [inf]  Unpacking libbrotli1:amd64 (1.1.0-2+b7) ...
+
+2026-08-04T05:33:31.02271931Z [inf]  Selecting previously unselected package libpng16-16t64:amd64.
+
+2026-08-04T05:33:31.024365761Z [inf]  Preparing to unpack .../002-libpng16-16t64_1.6.48-1+deb13u5_amd64.deb ...
+
+2026-08-04T05:33:31.026092532Z [inf]  Unpacking libpng16-16t64:amd64 (1.6.48-1+deb13u5) ...
+
+2026-08-04T05:33:31.06666104Z [inf]  Selecting previously unselected package libfreetype6:amd64.
+
+2026-08-04T05:33:31.068186008Z [inf]  Preparing to unpack .../003-libfreetype6_2.13.3+dfsg-1+deb13u1_amd64.deb ...
+
+2026-08-04T05:33:31.069805348Z [inf]  Unpacking libfreetype6:amd64 (2.13.3+dfsg-1+deb13u1) ...
+
+2026-08-04T05:33:31.13514291Z [inf]  Selecting previously unselected package fonts-dejavu-mono.
+
+2026-08-04T05:33:31.136730201Z [inf]  Preparing to unpack .../004-fonts-dejavu-mono_2.37-8_all.deb ...
+
+2026-08-04T05:33:31.138881279Z [inf]  Unpacking fonts-dejavu-mono (2.37-8) ...
+
+2026-08-04T05:33:31.208153595Z [inf]  Selecting previously unselected package fonts-dejavu-core.
+
+2026-08-04T05:33:31.209740396Z [inf]  Preparing to unpack .../005-fonts-dejavu-core_2.37-8_all.deb ...
+
+2026-08-04T05:33:31.238885134Z [inf]  Unpacking fonts-dejavu-core (2.37-8) ...
+
+2026-08-04T05:33:31.333033534Z [inf]  Selecting previously unselected package fontconfig-config.
+
+2026-08-04T05:33:31.334644481Z [inf]  Preparing to unpack .../006-fontconfig-config_2.15.0-2.3_amd64.deb ...
+
+2026-08-04T05:33:31.336313926Z [inf]  Unpacking fontconfig-config (2.15.0-2.3) ...
+
+2026-08-04T05:33:31.374108602Z [inf]  Selecting previously unselected package libfontconfig1:amd64.
+
+2026-08-04T05:33:31.375822464Z [inf]  Preparing to unpack .../007-libfontconfig1_2.15.0-2.3_amd64.deb ...
+
+2026-08-04T05:33:31.377891368Z [inf]  Unpacking libfontconfig1:amd64 (2.15.0-2.3) ...
+
+2026-08-04T05:33:31.41950136Z [inf]  Selecting previously unselected package fontconfig.
+
+2026-08-04T05:33:31.421203423Z [inf]  Preparing to unpack .../008-fontconfig_2.15.0-2.3_amd64.deb ...
+
+2026-08-04T05:33:31.422639538Z [inf]  Unpacking fontconfig (2.15.0-2.3) ...
+
+2026-08-04T05:33:31.455707844Z [inf]  Selecting previously unselected package libxml2:amd64.
+
+2026-08-04T05:33:31.457324399Z [inf]  Preparing to unpack .../009-libxml2_2.12.7+dfsg+really2.9.14-2.1+deb13u3_amd64.deb ...
+
+2026-08-04T05:33:31.459091691Z [inf]  Unpacking libxml2:amd64 (2.12.7+dfsg+really2.9.14-2.1+deb13u3) ...
+
+2026-08-04T05:33:31.537800956Z [inf]  Selecting previously unselected package libarchive13t64:amd64.
+
+2026-08-04T05:33:31.539375017Z [inf]  Preparing to unpack .../010-libarchive13t64_3.7.4-4+deb13u1_amd64.deb ...
+
+2026-08-04T05:33:31.540920035Z [inf]  Unpacking libarchive13t64:amd64 (3.7.4-4+deb13u1) ...
+
+2026-08-04T05:33:31.593558544Z [inf]  Selecting previously unselected package libatomic1:amd64.
+
+2026-08-04T05:33:31.595139105Z [inf]  Preparing to unpack .../011-libatomic1_14.2.0-19_amd64.deb ...
+
+2026-08-04T05:33:31.596810173Z [inf]  Unpacking libatomic1:amd64 (14.2.0-19) ...
+
+2026-08-04T05:33:31.622270503Z [inf]  Selecting previously unselected package libpixman-1-0:amd64.
+
+2026-08-04T05:33:31.623857564Z [inf]  Preparing to unpack .../012-libpixman-1-0_0.44.0-3_amd64.deb ...
+
+2026-08-04T05:33:31.625586789Z [inf]  Unpacking libpixman-1-0:amd64 (0.44.0-3) ...
+
+2026-08-04T05:33:31.67102214Z [inf]  Selecting previously unselected package libxau6:amd64.
+
+2026-08-04T05:33:31.672618515Z [inf]  Preparing to unpack .../013-libxau6_1%3a1.0.11-1_amd64.deb ...
+
+2026-08-04T05:33:31.674437033Z [inf]  Unpacking libxau6:amd64 (1:1.0.11-1) ...
+
+2026-08-04T05:33:31.699351465Z [inf]  Selecting previously unselected package libxdmcp6:amd64.
+
+2026-08-04T05:33:31.700999197Z [inf]  Preparing to unpack .../014-libxdmcp6_1%3a1.1.5-1_amd64.deb ...
+
+2026-08-04T05:33:31.702526609Z [inf]  Unpacking libxdmcp6:amd64 (1:1.1.5-1) ...
+
+2026-08-04T05:33:31.728181241Z [inf]  Selecting previously unselected package libxcb1:amd64.
+
+2026-08-04T05:33:31.72984694Z [inf]  Preparing to unpack .../015-libxcb1_1.17.0-2+b1_amd64.deb ...
+
+2026-08-04T05:33:31.731481152Z [inf]  Unpacking libxcb1:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:31.760053021Z [inf]  Selecting previously unselected package libx11-data.
+
+2026-08-04T05:33:31.761613943Z [inf]  Preparing to unpack .../016-libx11-data_2%3a1.8.12-1_all.deb ...
+
+2026-08-04T05:33:31.763096007Z [inf]  Unpacking libx11-data (2:1.8.12-1) ...
+
+2026-08-04T05:33:31.819126845Z [inf]  Selecting previously unselected package libx11-6:amd64.
+
+2026-08-04T05:33:31.820940596Z [inf]  Preparing to unpack .../017-libx11-6_2%3a1.8.12-1_amd64.deb ...
+
+2026-08-04T05:33:31.822671413Z [inf]  Unpacking libx11-6:amd64 (2:1.8.12-1) ...
+
+2026-08-04T05:33:31.898730772Z [inf]  Selecting previously unselected package libxcb-render0:amd64.
+
+2026-08-04T05:33:31.90030863Z [inf]  Preparing to unpack .../018-libxcb-render0_1.17.0-2+b1_amd64.deb ...
+
+2026-08-04T05:33:31.902331355Z [inf]  Unpacking libxcb-render0:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:31.936061403Z [inf]  Selecting previously unselected package libxcb-shm0:amd64.
+
+2026-08-04T05:33:31.937671729Z [inf]  Preparing to unpack .../019-libxcb-shm0_1.17.0-2+b1_amd64.deb ...
+
+2026-08-04T05:33:31.939700313Z [inf]  Unpacking libxcb-shm0:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:31.97089002Z [inf]  Selecting previously unselected package libxext6:amd64.
+
+2026-08-04T05:33:31.972478323Z [inf]  Preparing to unpack .../020-libxext6_2%3a1.3.4-1+b3_amd64.deb ...
+
+2026-08-04T05:33:31.97436285Z [inf]  Unpacking libxext6:amd64 (2:1.3.4-1+b3) ...
+
+2026-08-04T05:33:32.00197558Z [inf]  Selecting previously unselected package libxrender1:amd64.
+
+2026-08-04T05:33:32.003409221Z [inf]  Preparing to unpack .../021-libxrender1_1%3a0.9.12-1_amd64.deb ...
+
+2026-08-04T05:33:32.005082411Z [inf]  Unpacking libxrender1:amd64 (1:0.9.12-1) ...
+
+2026-08-04T05:33:32.032921591Z [inf]  Selecting previously unselected package libcairo2:amd64.
+
+2026-08-04T05:33:32.034542684Z [inf]  Preparing to unpack .../022-libcairo2_1.18.4-1+b1_amd64.deb ...
+
+2026-08-04T05:33:32.036114632Z [inf]  Unpacking libcairo2:amd64 (1.18.4-1+b1) ...
+
+2026-08-04T05:33:32.106475471Z [inf]  Selecting previously unselected package libcom-err2:amd64.
+
+2026-08-04T05:33:32.107984816Z [inf]  Preparing to unpack .../023-libcom-err2_1.47.2-3+b11_amd64.deb ...
+
+2026-08-04T05:33:32.109905227Z [inf]  Unpacking libcom-err2:amd64 (1.47.2-3+b11) ...
+
+2026-08-04T05:33:32.137275764Z [inf]  Selecting previously unselected package libkrb5support0:amd64.
+
+2026-08-04T05:33:32.138963285Z [inf]  Preparing to unpack .../024-libkrb5support0_1.21.3-5+deb13u1_amd64.deb ...
+
+2026-08-04T05:33:32.141121594Z [inf]  Unpacking libkrb5support0:amd64 (1.21.3-5+deb13u1) ...
+
+2026-08-04T05:33:32.169141234Z [inf]  Selecting previously unselected package libk5crypto3:amd64.
+
+2026-08-04T05:33:32.170752462Z [inf]  Preparing to unpack .../025-libk5crypto3_1.21.3-5+deb13u1_amd64.deb ...
+
+2026-08-04T05:33:32.172211851Z [inf]  Unpacking libk5crypto3:amd64 (1.21.3-5+deb13u1) ...
+
+2026-08-04T05:33:32.203944313Z [inf]  Selecting previously unselected package libkeyutils1:amd64.
+
+2026-08-04T05:33:32.205488189Z [inf]  Preparing to unpack .../026-libkeyutils1_1.6.3-6_amd64.deb ...
+
+2026-08-04T05:33:32.206974469Z [inf]  Unpacking libkeyutils1:amd64 (1.6.3-6) ...
+
+2026-08-04T05:33:32.231763833Z [inf]  Selecting previously unselected package libkrb5-3:amd64.
+
+2026-08-04T05:33:32.233378836Z [inf]  Preparing to unpack .../027-libkrb5-3_1.21.3-5+deb13u1_amd64.deb ...
+
+2026-08-04T05:33:32.234956313Z [inf]  Unpacking libkrb5-3:amd64 (1.21.3-5+deb13u1) ...
+
+2026-08-04T05:33:32.276581938Z [inf]  Selecting previously unselected package libgssapi-krb5-2:amd64.
+
+2026-08-04T05:33:32.27818968Z [inf]  Preparing to unpack .../028-libgssapi-krb5-2_1.21.3-5+deb13u1_amd64.deb ...
+
+2026-08-04T05:33:32.27979633Z [inf]  Unpacking libgssapi-krb5-2:amd64 (1.21.3-5+deb13u1) ...
+
+2026-08-04T05:33:32.309177844Z [inf]  Selecting previously unselected package libunistring5:amd64.
+
+2026-08-04T05:33:32.310964255Z [inf]  Preparing to unpack .../029-libunistring5_1.3-2_amd64.deb ...
+
+2026-08-04T05:33:32.312817325Z [inf]  Unpacking libunistring5:amd64 (1.3-2) ...
+
+2026-08-04T05:33:32.363651546Z [inf]  Selecting previously unselected package libidn2-0:amd64.
+
+2026-08-04T05:33:32.365277826Z [inf]  Preparing to unpack .../030-libidn2-0_2.3.8-2_amd64.deb ...
+
+2026-08-04T05:33:32.366755644Z [inf]  Unpacking libidn2-0:amd64 (2.3.8-2) ...
+
+2026-08-04T05:33:32.401297931Z [inf]  Selecting previously unselected package libsasl2-modules-db:amd64.
+
+2026-08-04T05:33:32.402190069Z [inf]  Preparing to unpack .../031-libsasl2-modules-db_2.1.28+dfsg1-9_amd64.deb ...
+
+2026-08-04T05:33:32.403580526Z [inf]  Unpacking libsasl2-modules-db:amd64 (2.1.28+dfsg1-9) ...
+
+2026-08-04T05:33:32.429366424Z [inf]  Selecting previously unselected package libsasl2-2:amd64.
+
+2026-08-04T05:33:32.431542089Z [inf]  Preparing to unpack .../032-libsasl2-2_2.1.28+dfsg1-9_amd64.deb ...
+
+2026-08-04T05:33:32.433184904Z [inf]  Unpacking libsasl2-2:amd64 (2.1.28+dfsg1-9) ...
+
+2026-08-04T05:33:32.46241455Z [inf]  Selecting previously unselected package libldap2:amd64.
+
+2026-08-04T05:33:32.463322662Z [inf]  Preparing to unpack .../033-libldap2_2.6.10+dfsg-1_amd64.deb ...
+
+2026-08-04T05:33:32.464598096Z [inf]  Unpacking libldap2:amd64 (2.6.10+dfsg-1) ...
+
+2026-08-04T05:33:32.507755068Z [inf]  Selecting previously unselected package libnghttp2-14:amd64.
+
+2026-08-04T05:33:32.510132175Z [inf]  Preparing to unpack .../034-libnghttp2-14_1.64.0-1.1+deb13u1_amd64.deb ...
+
+2026-08-04T05:33:32.511736191Z [inf]  Unpacking libnghttp2-14:amd64 (1.64.0-1.1+deb13u1) ...
+
+2026-08-04T05:33:32.542216995Z [inf]  Selecting previously unselected package libnghttp3-9:amd64.
+
+2026-08-04T05:33:32.543244086Z [inf]  Preparing to unpack .../035-libnghttp3-9_1.8.0-1_amd64.deb ...
+
+2026-08-04T05:33:32.544500551Z [inf]  Unpacking libnghttp3-9:amd64 (1.8.0-1) ...
+
+2026-08-04T05:33:32.602996168Z [inf]  Selecting previously unselected package libpsl5t64:amd64.
+
+2026-08-04T05:33:32.604456559Z [inf]  Preparing to unpack .../036-libpsl5t64_0.21.2-1.1+b1_amd64.deb ...
+
+2026-08-04T05:33:32.606026704Z [inf]  Unpacking libpsl5t64:amd64 (0.21.2-1.1+b1) ...
+
+2026-08-04T05:33:32.633000866Z [inf]  Selecting previously unselected package libp11-kit0:amd64.
+
+2026-08-04T05:33:32.634472064Z [inf]  Preparing to unpack .../037-libp11-kit0_0.25.5-3_amd64.deb ...
+
+2026-08-04T05:33:32.636054157Z [inf]  Unpacking libp11-kit0:amd64 (0.25.5-3) ...
+
+2026-08-04T05:33:32.692783183Z [inf]  Selecting previously unselected package libtasn1-6:amd64.
+
+2026-08-04T05:33:32.694288782Z [inf]  Preparing to unpack .../038-libtasn1-6_4.20.0-2+deb13u1_amd64.deb ...
+
+2026-08-04T05:33:32.696084056Z [inf]  Unpacking libtasn1-6:amd64 (4.20.0-2+deb13u1) ...
+
+2026-08-04T05:33:32.72551245Z [inf]  Selecting previously unselected package libgnutls30t64:amd64.
+
+2026-08-04T05:33:32.726904719Z [inf]  Preparing to unpack .../039-libgnutls30t64_3.8.9-3+deb13u4_amd64.deb ...
+
+2026-08-04T05:33:32.728587534Z [inf]  Unpacking libgnutls30t64:amd64 (3.8.9-3+deb13u4) ...
+
+2026-08-04T05:33:32.821587671Z [inf]  Selecting previously unselected package librtmp1:amd64.
+
+2026-08-04T05:33:32.82317318Z [inf]  Preparing to unpack .../040-librtmp1_2.4+20151223.gitfa8646d.1-2+b5_amd64.deb ...
+
+2026-08-04T05:33:32.825051738Z [inf]  Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b5) ...
+
+2026-08-04T05:33:32.855950568Z [inf]  Selecting previously unselected package libssh2-1t64:amd64.
+
+2026-08-04T05:33:32.857442377Z [inf]  Preparing to unpack .../041-libssh2-1t64_1.11.1-1+deb13u1_amd64.deb ...
+
+2026-08-04T05:33:32.859447014Z [inf]  Unpacking libssh2-1t64:amd64 (1.11.1-1+deb13u1) ...
+
+2026-08-04T05:33:32.891269581Z [inf]  Selecting previously unselected package libcurl4t64:amd64.
+
+2026-08-04T05:33:32.892699366Z [inf]  Preparing to unpack .../042-libcurl4t64_8.14.1-2+deb13u4_amd64.deb ...
+
+2026-08-04T05:33:32.894528731Z [inf]  Unpacking libcurl4t64:amd64 (8.14.1-2+deb13u4) ...
+
+2026-08-04T05:33:32.948967611Z [inf]  Selecting previously unselected package libdatrie1:amd64.
+
+2026-08-04T05:33:32.95052028Z [inf]  Preparing to unpack .../043-libdatrie1_0.2.13-3+b1_amd64.deb ...
+
+2026-08-04T05:33:32.951789294Z [inf]  Unpacking libdatrie1:amd64 (0.2.13-3+b1) ...
+
+2026-08-04T05:33:32.976297867Z [inf]  Selecting previously unselected package libdeflate0:amd64.
+
+2026-08-04T05:33:32.977907231Z [inf]  Preparing to unpack .../044-libdeflate0_1.23-2_amd64.deb ...
+
+2026-08-04T05:33:32.979380793Z [inf]  Unpacking libdeflate0:amd64 (1.23-2) ...
+
+2026-08-04T05:33:32.99976074Z [inf]  Selecting previously unselected package libdrm-common.
+
+2026-08-04T05:33:33.00125362Z [inf]  Preparing to unpack .../045-libdrm-common_2.4.124-2_all.deb ...
+
+2026-08-04T05:33:33.002590586Z [inf]  Unpacking libdrm-common (2.4.124-2) ...
+
+2026-08-04T05:33:33.027833781Z [inf]  Selecting previously unselected package libdrm2:amd64.
+
+2026-08-04T05:33:33.029410767Z [inf]  Preparing to unpack .../046-libdrm2_2.4.124-2_amd64.deb ...
+
+2026-08-04T05:33:33.031394854Z [inf]  Unpacking libdrm2:amd64 (2.4.124-2) ...
+
+2026-08-04T05:33:33.059317319Z [inf]  Selecting previously unselected package libdrm-amdgpu1:amd64.
+
+2026-08-04T05:33:33.060901125Z [inf]  Preparing to unpack .../047-libdrm-amdgpu1_2.4.124-2_amd64.deb ...
+
+2026-08-04T05:33:33.06243098Z [inf]  Unpacking libdrm-amdgpu1:amd64 (2.4.124-2) ...
+
+2026-08-04T05:33:33.086638611Z [inf]  Selecting previously unselected package libpciaccess0:amd64.
+
+2026-08-04T05:33:33.088162317Z [inf]  Preparing to unpack .../048-libpciaccess0_0.17-3+b3_amd64.deb ...
+
+2026-08-04T05:33:33.089818422Z [inf]  Unpacking libpciaccess0:amd64 (0.17-3+b3) ...
+
+2026-08-04T05:33:33.116878383Z [inf]  Selecting previously unselected package libdrm-intel1:amd64.
+
+2026-08-04T05:33:33.118454407Z [inf]  Preparing to unpack .../049-libdrm-intel1_2.4.124-2_amd64.deb ...
+
+2026-08-04T05:33:33.12018258Z [inf]  Unpacking libdrm-intel1:amd64 (2.4.124-2) ...
+
+2026-08-04T05:33:33.148138435Z [inf]  Selecting previously unselected package libedit2:amd64.
+
+2026-08-04T05:33:33.149724575Z [inf]  Preparing to unpack .../050-libedit2_3.1-20250104-1_amd64.deb ...
+
+2026-08-04T05:33:33.15100733Z [inf]  Unpacking libedit2:amd64 (3.1-20250104-1) ...
+
+2026-08-04T05:33:33.182833702Z [inf]  Selecting previously unselected package libelf1t64:amd64.
+
+2026-08-04T05:33:33.184320523Z [inf]  Preparing to unpack .../051-libelf1t64_0.192-4_amd64.deb ...
+
+2026-08-04T05:33:33.185824619Z [inf]  Unpacking libelf1t64:amd64 (0.192-4) ...
+
+2026-08-04T05:33:33.229857566Z [inf]  Selecting previously unselected package libfribidi0:amd64.
+
+2026-08-04T05:33:33.231457487Z [inf]  Preparing to unpack .../052-libfribidi0_1.0.16-1_amd64.deb ...
+
+2026-08-04T05:33:33.23327937Z [inf]  Unpacking libfribidi0:amd64 (1.0.16-1) ...
+
+2026-08-04T05:33:33.259975645Z [inf]  Selecting previously unselected package libwayland-server0:amd64.
+
+2026-08-04T05:33:33.261519872Z [inf]  Preparing to unpack .../053-libwayland-server0_1.23.1-3_amd64.deb ...
+
+2026-08-04T05:33:33.263083208Z [inf]  Unpacking libwayland-server0:amd64 (1.23.1-3) ...
+
+2026-08-04T05:33:33.288283999Z [inf]  Selecting previously unselected package libz3-4:amd64.
+
+2026-08-04T05:33:33.28974444Z [inf]  Preparing to unpack .../054-libz3-4_4.13.3-1_amd64.deb ...
+
+2026-08-04T05:33:33.291162978Z [inf]  Unpacking libz3-4:amd64 (4.13.3-1) ...
+
+2026-08-04T05:33:33.673141527Z [inf]  Selecting previously unselected package libllvm19:amd64.
+
+2026-08-04T05:33:33.674754577Z [inf]  Preparing to unpack .../055-libllvm19_1%3a19.1.7-3+b1_amd64.deb ...
+
+2026-08-04T05:33:33.67622314Z [inf]  Unpacking libllvm19:amd64 (1:19.1.7-3+b1) ...
+
+2026-08-04T05:33:34.201130458Z [inf]  Selecting previously unselected package libsensors-config.
+
+2026-08-04T05:33:34.202046512Z [inf]  Preparing to unpack .../056-libsensors-config_1%3a3.6.2-2_all.deb ...
+
+2026-08-04T05:33:34.203201245Z [inf]  Unpacking libsensors-config (1:3.6.2-2) ...
+
+2026-08-04T05:33:34.225576406Z [inf]  Selecting previously unselected package libsensors5:amd64.
+
+2026-08-04T05:33:34.227119271Z [inf]  Preparing to unpack .../057-libsensors5_1%3a3.6.2-2_amd64.deb ...
+
+2026-08-04T05:33:34.228396487Z [inf]  Unpacking libsensors5:amd64 (1:3.6.2-2) ...
+
+2026-08-04T05:33:34.251622616Z [inf]  Selecting previously unselected package libx11-xcb1:amd64.
+
+2026-08-04T05:33:34.253176157Z [inf]  Preparing to unpack .../058-libx11-xcb1_2%3a1.8.12-1_amd64.deb ...
+
+2026-08-04T05:33:34.25437134Z [inf]  Unpacking libx11-xcb1:amd64 (2:1.8.12-1) ...
+
+2026-08-04T05:33:34.286826996Z [inf]  Selecting previously unselected package libxcb-dri3-0:amd64.
+
+2026-08-04T05:33:34.288445655Z [inf]  Preparing to unpack .../059-libxcb-dri3-0_1.17.0-2+b1_amd64.deb ...
+
+2026-08-04T05:33:34.290258735Z [inf]  Unpacking libxcb-dri3-0:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:34.320481772Z [inf]  Selecting previously unselected package libxcb-present0:amd64.
+
+2026-08-04T05:33:34.322109724Z [inf]  Preparing to unpack .../060-libxcb-present0_1.17.0-2+b1_amd64.deb ...
+
+2026-08-04T05:33:34.323805158Z [inf]  Unpacking libxcb-present0:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:34.353273923Z [inf]  Selecting previously unselected package libxcb-randr0:amd64.
+
+2026-08-04T05:33:34.354769437Z [inf]  Preparing to unpack .../061-libxcb-randr0_1.17.0-2+b1_amd64.deb ...
+
+2026-08-04T05:33:34.356112792Z [inf]  Unpacking libxcb-randr0:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:34.385214036Z [inf]  Selecting previously unselected package libxcb-sync1:amd64.
+
+2026-08-04T05:33:34.386909028Z [inf]  Preparing to unpack .../062-libxcb-sync1_1.17.0-2+b1_amd64.deb ...
+
+2026-08-04T05:33:34.388368138Z [inf]  Unpacking libxcb-sync1:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:34.419153498Z [inf]  Selecting previously unselected package libxcb-xfixes0:amd64.
+
+2026-08-04T05:33:34.420845246Z [inf]  Preparing to unpack .../063-libxcb-xfixes0_1.17.0-2+b1_amd64.deb ...
+
+2026-08-04T05:33:34.422409693Z [inf]  Unpacking libxcb-xfixes0:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:34.451840611Z [inf]  Selecting previously unselected package libxshmfence1:amd64.
+
+2026-08-04T05:33:34.453641363Z [inf]  Preparing to unpack .../064-libxshmfence1_1.3.3-1_amd64.deb ...
+
+2026-08-04T05:33:34.45520582Z [inf]  Unpacking libxshmfence1:amd64 (1.3.3-1) ...
+
+2026-08-04T05:33:34.477246851Z [inf]  Selecting previously unselected package mesa-libgallium:amd64.
+
+2026-08-04T05:33:34.478944168Z [inf]  Preparing to unpack .../065-mesa-libgallium_25.0.7-2+deb13u1_amd64.deb ...
+
+2026-08-04T05:33:34.480372Z [inf]  Unpacking mesa-libgallium:amd64 (25.0.7-2+deb13u1) ...
+
+2026-08-04T05:33:34.923980006Z [inf]  Selecting previously unselected package libgbm1:amd64.
+
+2026-08-04T05:33:34.925769481Z [inf]  Preparing to unpack .../066-libgbm1_25.0.7-2+deb13u1_amd64.deb ...
+
+2026-08-04T05:33:34.927069982Z [inf]  Unpacking libgbm1:amd64 (25.0.7-2+deb13u1) ...
+
+2026-08-04T05:33:34.950230923Z [inf]  Selecting previously unselected package libgif7:amd64.
+
+2026-08-04T05:33:34.951926537Z [inf]  Preparing to unpack .../067-libgif7_5.2.2-1+deb13u1_amd64.deb ...
+
+2026-08-04T05:33:34.953145396Z [inf]  Unpacking libgif7:amd64 (5.2.2-1+deb13u1) ...
+
+2026-08-04T05:33:34.977076752Z [inf]  Selecting previously unselected package libglvnd0:amd64.
+
+2026-08-04T05:33:34.978959717Z [inf]  Preparing to unpack .../068-libglvnd0_1.7.0-1+b2_amd64.deb ...
+
+2026-08-04T05:33:34.980339718Z [inf]  Unpacking libglvnd0:amd64 (1.7.0-1+b2) ...
+
+2026-08-04T05:33:35.010384046Z [inf]  Selecting previously unselected package libxcb-glx0:amd64.
+
+2026-08-04T05:33:35.012103746Z [inf]  Preparing to unpack .../069-libxcb-glx0_1.17.0-2+b1_amd64.deb ...
+
+2026-08-04T05:33:35.013509215Z [inf]  Unpacking libxcb-glx0:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:35.044685402Z [inf]  Selecting previously unselected package libxxf86vm1:amd64.
+
+2026-08-04T05:33:35.046377901Z [inf]  Preparing to unpack .../070-libxxf86vm1_1%3a1.1.4-1+b4_amd64.deb ...
+
+2026-08-04T05:33:35.047634657Z [inf]  Unpacking libxxf86vm1:amd64 (1:1.1.4-1+b4) ...
+
+2026-08-04T05:33:35.071751452Z [inf]  Selecting previously unselected package libvulkan1:amd64.
+
+2026-08-04T05:33:35.072814016Z [inf]  Preparing to unpack .../071-libvulkan1_1.4.309.0-1_amd64.deb ...
+
+2026-08-04T05:33:35.074225874Z [inf]  Unpacking libvulkan1:amd64 (1.4.309.0-1) ...
+
+2026-08-04T05:33:35.104369041Z [inf]  Selecting previously unselected package libgl1-mesa-dri:amd64.
+
+2026-08-04T05:33:35.105473598Z [inf]  Preparing to unpack .../072-libgl1-mesa-dri_25.0.7-2+deb13u1_amd64.deb ...
+
+2026-08-04T05:33:35.113927192Z [inf]  Unpacking libgl1-mesa-dri:amd64 (25.0.7-2+deb13u1) ...
+
+2026-08-04T05:33:35.140567443Z [inf]  Selecting previously unselected package libglx-mesa0:amd64.
+
+2026-08-04T05:33:35.141628455Z [inf]  Preparing to unpack .../073-libglx-mesa0_25.0.7-2+deb13u1_amd64.deb ...
+
+2026-08-04T05:33:35.143067744Z [inf]  Unpacking libglx-mesa0:amd64 (25.0.7-2+deb13u1) ...
+
+2026-08-04T05:33:35.179824664Z [inf]  Selecting previously unselected package libglx0:amd64.
+
+2026-08-04T05:33:35.181490073Z [inf]  Preparing to unpack .../074-libglx0_1.7.0-1+b2_amd64.deb ...
+
+2026-08-04T05:33:35.183070344Z [inf]  Unpacking libglx0:amd64 (1.7.0-1+b2) ...
+
+2026-08-04T05:33:35.209770615Z [inf]  Selecting previously unselected package libgl1:amd64.
+
+2026-08-04T05:33:35.210802583Z [inf]  Preparing to unpack .../075-libgl1_1.7.0-1+b2_amd64.deb ...
+
+2026-08-04T05:33:35.212014281Z [inf]  Unpacking libgl1:amd64 (1.7.0-1+b2) ...
+
+2026-08-04T05:33:35.247259613Z [inf]  Selecting previously unselected package libglib2.0-0t64:amd64.
+
+2026-08-04T05:33:35.248986073Z [inf]  Preparing to unpack .../076-libglib2.0-0t64_2.84.4-3~deb13u3_amd64.deb ...
+
+2026-08-04T05:33:35.262218978Z [inf]  Unpacking libglib2.0-0t64:amd64 (2.84.4-3~deb13u3) ...
+
+2026-08-04T05:33:35.369977278Z [inf]  Selecting previously unselected package libgomp1:amd64.
+
+2026-08-04T05:33:35.371615716Z [inf]  Preparing to unpack .../077-libgomp1_14.2.0-19_amd64.deb ...
+
+2026-08-04T05:33:35.373117409Z [inf]  Unpacking libgomp1:amd64 (14.2.0-19) ...
+
+2026-08-04T05:33:35.40754268Z [inf]  Selecting previously unselected package libgraphite2-3:amd64.
+
+2026-08-04T05:33:35.409069041Z [inf]  Preparing to unpack .../078-libgraphite2-3_1.3.14-2+deb13u1_amd64.deb ...
+
+2026-08-04T05:33:35.410474289Z [inf]  Unpacking libgraphite2-3:amd64 (1.3.14-2+deb13u1) ...
+
+2026-08-04T05:33:35.441848112Z [inf]  Selecting previously unselected package libharfbuzz0b:amd64.
+
+2026-08-04T05:33:35.443381763Z [inf]  Preparing to unpack .../079-libharfbuzz0b_10.2.0-1+deb13u1_amd64.deb ...
+
+2026-08-04T05:33:35.444847843Z [inf]  Unpacking libharfbuzz0b:amd64 (10.2.0-1+deb13u1) ...
+
+2026-08-04T05:33:35.509897493Z [inf]  Selecting previously unselected package libicu76:amd64.
+
+2026-08-04T05:33:35.511624704Z [inf]  Preparing to unpack .../080-libicu76_76.1-4_amd64.deb ...
+
+2026-08-04T05:33:35.513236533Z [inf]  Unpacking libicu76:amd64 (76.1-4) ...
+
+2026-08-04T05:33:35.876480952Z [inf]  Selecting previously unselected package libjbig0:amd64.
+
+2026-08-04T05:33:35.878115335Z [inf]  Preparing to unpack .../081-libjbig0_2.1-6.1+b2_amd64.deb ...
+
+2026-08-04T05:33:35.880145982Z [inf]  Unpacking libjbig0:amd64 (2.1-6.1+b2) ...
+
+2026-08-04T05:33:35.908700044Z [inf]  Selecting previously unselected package libjpeg62-turbo:amd64.
+
+2026-08-04T05:33:35.910299193Z [inf]  Preparing to unpack .../082-libjpeg62-turbo_1%3a2.1.5-4_amd64.deb ...
+
+2026-08-04T05:33:35.911930981Z [inf]  Unpacking libjpeg62-turbo:amd64 (1:2.1.5-4) ...
+
+2026-08-04T05:33:35.959243379Z [inf]  Selecting previously unselected package libopenjp2-7:amd64.
+
+2026-08-04T05:33:35.961072773Z [inf]  Preparing to unpack .../083-libopenjp2-7_2.5.3-2.1~deb13u2_amd64.deb ...
+
+2026-08-04T05:33:35.976068543Z [inf]  Unpacking libopenjp2-7:amd64 (2.5.3-2.1~deb13u2) ...
+
+2026-08-04T05:33:36.02064842Z [inf]  Selecting previously unselected package liblerc4:amd64.
+
+2026-08-04T05:33:36.022306027Z [inf]  Preparing to unpack .../084-liblerc4_4.0.0+ds-5_amd64.deb ...
+
+2026-08-04T05:33:36.024404887Z [inf]  Unpacking liblerc4:amd64 (4.0.0+ds-5) ...
+
+2026-08-04T05:33:36.068574999Z [inf]  Selecting previously unselected package libsharpyuv0:amd64.
+
+2026-08-04T05:33:36.070364534Z [inf]  Preparing to unpack .../085-libsharpyuv0_1.5.0-0.1_amd64.deb ...
+
+2026-08-04T05:33:36.072406428Z [inf]  Unpacking libsharpyuv0:amd64 (1.5.0-0.1) ...
+
+2026-08-04T05:33:36.10333957Z [inf]  Selecting previously unselected package libwebp7:amd64.
+
+2026-08-04T05:33:36.104951719Z [inf]  Preparing to unpack .../086-libwebp7_1.5.0-0.1_amd64.deb ...
+
+2026-08-04T05:33:36.106622786Z [inf]  Unpacking libwebp7:amd64 (1.5.0-0.1) ...
+
+2026-08-04T05:33:36.1515801Z [inf]  Selecting previously unselected package libtiff6:amd64.
+
+2026-08-04T05:33:36.153212559Z [inf]  Preparing to unpack .../087-libtiff6_4.7.0-3+deb13u3_amd64.deb ...
+
+2026-08-04T05:33:36.155072059Z [inf]  Unpacking libtiff6:amd64 (4.7.0-3+deb13u3) ...
+
+2026-08-04T05:33:36.185428355Z [inf]  Selecting previously unselected package libwebpmux3:amd64.
+
+2026-08-04T05:33:36.187016698Z [inf]  Preparing to unpack .../088-libwebpmux3_1.5.0-0.1_amd64.deb ...
+
+2026-08-04T05:33:36.188674385Z [inf]  Unpacking libwebpmux3:amd64 (1.5.0-0.1) ...
+
+2026-08-04T05:33:36.220666005Z [inf]  Selecting previously unselected package libleptonica6:amd64.
+
+2026-08-04T05:33:36.222296181Z [inf]  Preparing to unpack .../089-libleptonica6_1.84.1-4_amd64.deb ...
+
+2026-08-04T05:33:36.224116953Z [inf]  Unpacking libleptonica6:amd64 (1.84.1-4) ...
+
+2026-08-04T05:33:36.314554105Z [inf]  Selecting previously unselected package libthai-data.
+
+2026-08-04T05:33:36.316549338Z [inf]  Preparing to unpack .../090-libthai-data_0.1.29-2_all.deb ...
+
+2026-08-04T05:33:36.318375719Z [inf]  Unpacking libthai-data (0.1.29-2) ...
+
+2026-08-04T05:33:36.360091358Z [inf]  Selecting previously unselected package libthai0:amd64.
+
+2026-08-04T05:33:36.361773642Z [inf]  Preparing to unpack .../091-libthai0_0.1.29-2+b1_amd64.deb ...
+
+2026-08-04T05:33:36.363676327Z [inf]  Unpacking libthai0:amd64 (0.1.29-2+b1) ...
+
+2026-08-04T05:33:36.391596909Z [inf]  Selecting previously unselected package libpango-1.0-0:amd64.
+
+2026-08-04T05:33:36.393476059Z [inf]  Preparing to unpack .../092-libpango-1.0-0_1.56.3-1_amd64.deb ...
+
+2026-08-04T05:33:36.395097842Z [inf]  Unpacking libpango-1.0-0:amd64 (1.56.3-1) ...
+
+2026-08-04T05:33:36.436890557Z [inf]  Selecting previously unselected package libpangoft2-1.0-0:amd64.
+
+2026-08-04T05:33:36.438635405Z [inf]  Preparing to unpack .../093-libpangoft2-1.0-0_1.56.3-1_amd64.deb ...
+
+2026-08-04T05:33:36.440207123Z [inf]  Unpacking libpangoft2-1.0-0:amd64 (1.56.3-1) ...
+
+2026-08-04T05:33:36.467466323Z [inf]  Selecting previously unselected package libpangocairo-1.0-0:amd64.
+
+2026-08-04T05:33:36.46940389Z [inf]  Preparing to unpack .../094-libpangocairo-1.0-0_1.56.3-1_amd64.deb ...
+
+2026-08-04T05:33:36.471067887Z [inf]  Unpacking libpangocairo-1.0-0:amd64 (1.56.3-1) ...
+
+2026-08-04T05:33:36.49711691Z [inf]  Selecting previously unselected package libtesseract5:amd64.
+
+2026-08-04T05:33:36.49869644Z [inf]  Preparing to unpack .../095-libtesseract5_5.5.0-1+b1_amd64.deb ...
+
+2026-08-04T05:33:36.500092065Z [inf]  Unpacking libtesseract5:amd64 (5.5.0-1+b1) ...
+
+2026-08-04T05:33:36.593492672Z [inf]  Selecting previously unselected package tesseract-ocr-eng.
+
+2026-08-04T05:33:36.595739433Z [inf]  Preparing to unpack .../096-tesseract-ocr-eng_1%3a4.1.0-2_all.deb ...
+
+2026-08-04T05:33:36.597983761Z [inf]  Unpacking tesseract-ocr-eng (1:4.1.0-2) ...
+
+2026-08-04T05:33:36.715470357Z [inf]  Selecting previously unselected package tesseract-ocr-osd.
+
+2026-08-04T05:33:36.717234333Z [inf]  Preparing to unpack .../097-tesseract-ocr-osd_1%3a4.1.0-2_all.deb ...
+
+2026-08-04T05:33:36.718947944Z [inf]  Unpacking tesseract-ocr-osd (1:4.1.0-2) ...
+
+2026-08-04T05:33:36.913961501Z [inf]  Selecting previously unselected package tesseract-ocr.
+
+2026-08-04T05:33:36.915666359Z [inf]  Preparing to unpack .../098-tesseract-ocr_5.5.0-1+b1_amd64.deb ...
+
+2026-08-04T05:33:36.91726605Z [inf]  Unpacking tesseract-ocr (5.5.0-1+b1) ...
+
+2026-08-04T05:33:36.981003741Z [inf]  Selecting previously unselected package tesseract-ocr-hin.
+
+2026-08-04T05:33:36.982719025Z [inf]  Preparing to unpack .../099-tesseract-ocr-hin_1%3a4.1.0-2_all.deb ...
+
+2026-08-04T05:33:36.984598615Z [inf]  Unpacking tesseract-ocr-hin (1:4.1.0-2) ...
+
+2026-08-04T05:33:37.033782970Z [inf]  scheduling build on Metal builder "builder-cpzdgy"
+2026-08-04T05:33:37.061098124Z [inf]  Selecting previously unselected package tesseract-ocr-mar.
+
+2026-08-04T05:33:37.062819407Z [inf]  Preparing to unpack .../100-tesseract-ocr-mar_1%3a4.1.0-2_all.deb ...
+
+2026-08-04T05:33:37.064376703Z [inf]  Unpacking tesseract-ocr-mar (1:4.1.0-2) ...
+
+2026-08-04T05:33:37.156637141Z [inf]  Setting up libexpat1:amd64 (2.8.2-1~deb13u1) ...
+
+2026-08-04T05:33:37.162146016Z [inf]  Setting up libgraphite2-3:amd64 (1.3.14-2+deb13u1) ...
+
+2026-08-04T05:33:37.166532237Z [inf]  Setting up libpixman-1-0:amd64 (0.44.0-3) ...
+
+2026-08-04T05:33:37.170860591Z [inf]  Setting up libsharpyuv0:amd64 (1.5.0-0.1) ...
+
+2026-08-04T05:33:37.175164909Z [inf]  Setting up libwayland-server0:amd64 (1.23.1-3) ...
+
+2026-08-04T05:33:37.179539363Z [inf]  Setting up libpciaccess0:amd64 (0.17-3+b3) ...
+
+2026-08-04T05:33:37.183915228Z [inf]  Setting up libxau6:amd64 (1:1.0.11-1) ...
+
+2026-08-04T05:33:37.188975791Z [inf]  Setting up libxdmcp6:amd64 (1:1.1.5-1) ...
+
+2026-08-04T05:33:37.19390038Z [inf]  Setting up libkeyutils1:amd64 (1.6.3-6) ...
+
+2026-08-04T05:33:37.198391638Z [inf]  Setting up libxcb1:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:37.203254785Z [inf]  Setting up libxcb-xfixes0:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:37.207957631Z [inf]  Setting up liblerc4:amd64 (4.0.0+ds-5) ...
+
+2026-08-04T05:33:37.21262217Z [inf]  Setting up libdatrie1:amd64 (0.2.13-3+b1) ...
+
+2026-08-04T05:33:37.217011306Z [inf]  Setting up libxcb-render0:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:37.221327381Z [inf]  Setting up libglvnd0:amd64 (1.7.0-1+b2) ...
+
+2026-08-04T05:33:37.225611699Z [inf]  Setting up libxcb-glx0:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:37.23001112Z [inf]  Setting up libbrotli1:amd64 (1.1.0-2+b7) ...
+
+2026-08-04T05:33:37.23453663Z [inf]  Setting up libedit2:amd64 (3.1-20250104-1) ...
+
+2026-08-04T05:33:37.239330903Z [inf]  Setting up libsensors-config (1:3.6.2-2) ...
+
+2026-08-04T05:33:37.246985258Z [inf]  Setting up libnghttp2-14:amd64 (1.64.0-1.1+deb13u1) ...
+
+2026-08-04T05:33:37.251444108Z [inf]  Setting up libdeflate0:amd64 (1.23-2) ...
+
+2026-08-04T05:33:37.255880344Z [inf]  Setting up tesseract-ocr-eng (1:4.1.0-2) ...
+
+2026-08-04T05:33:37.2600499Z [inf]  Setting up libxcb-shm0:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:37.263719997Z [inf]  Setting up libcom-err2:amd64 (1.47.2-3+b11) ...
+
+2026-08-04T05:33:37.267422602Z [inf]  Setting up libgomp1:amd64 (14.2.0-19) ...
+
+2026-08-04T05:33:37.27146706Z [inf]  Setting up libjbig0:amd64 (2.1-6.1+b2) ...
+
+2026-08-04T05:33:37.275538579Z [inf]  Setting up libelf1t64:amd64 (0.192-4) ...
+
+2026-08-04T05:33:37.27983141Z [inf]  Setting up libkrb5support0:amd64 (1.21.3-5+deb13u1) ...
+
+2026-08-04T05:33:37.283899825Z [inf]  Setting up libsasl2-modules-db:amd64 (2.1.28+dfsg1-9) ...
+
+2026-08-04T05:33:37.287861429Z [inf]  Setting up libxcb-present0:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:37.291660208Z [inf]  Setting up libz3-4:amd64 (4.13.3-1) ...
+
+2026-08-04T05:33:37.295698998Z [inf]  Setting up libjpeg62-turbo:amd64 (1:2.1.5-4) ...
+
+2026-08-04T05:33:37.299332019Z [inf]  Setting up libx11-data (2:1.8.12-1) ...
+
+2026-08-04T05:33:37.302944669Z [inf]  Setting up libxcb-sync1:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:37.306640935Z [inf]  Setting up libfribidi0:amd64 (1.0.16-1) ...
+
+2026-08-04T05:33:37.310350952Z [inf]  Setting up libp11-kit0:amd64 (0.25.5-3) ...
+
+2026-08-04T05:33:37.314154158Z [inf]  Setting up libunistring5:amd64 (1.3-2) ...
+
+2026-08-04T05:33:37.317826428Z [inf]  Setting up fonts-dejavu-mono (2.37-8) ...
+
+2026-08-04T05:33:37.327288675Z [inf]  Setting up libpng16-16t64:amd64 (1.6.48-1+deb13u5) ...
+
+2026-08-04T05:33:37.331140104Z [inf]  Setting up libatomic1:amd64 (14.2.0-19) ...
+
+2026-08-04T05:33:37.334853866Z [inf]  Setting up fonts-dejavu-core (2.37-8) ...
+
+2026-08-04T05:33:37.371317445Z [inf]  Setting up libsensors5:amd64 (1:3.6.2-2) ...
+
+2026-08-04T05:33:37.374993951Z [inf]  Setting up libk5crypto3:amd64 (1.21.3-5+deb13u1) ...
+
+2026-08-04T05:33:37.378484268Z [inf]  Setting up tesseract-ocr-mar (1:4.1.0-2) ...
+
+2026-08-04T05:33:37.381942948Z [inf]  Setting up libsasl2-2:amd64 (2.1.28+dfsg1-9) ...
+
+2026-08-04T05:33:37.38568989Z [inf]  Setting up libvulkan1:amd64 (1.4.309.0-1) ...
+
+2026-08-04T05:33:37.389149621Z [inf]  Setting up libnghttp3-9:amd64 (1.8.0-1) ...
+
+2026-08-04T05:33:37.392663042Z [inf]  Setting up libwebp7:amd64 (1.5.0-0.1) ...
+
+2026-08-04T05:33:37.39627365Z [inf]  Setting up libgif7:amd64 (5.2.2-1+deb13u1) ...
+
+2026-08-04T05:33:37.399688313Z [inf]  Setting up libxshmfence1:amd64 (1.3.3-1) ...
+
+2026-08-04T05:33:37.403190327Z [inf]  Setting up libtiff6:amd64 (4.7.0-3+deb13u3) ...
+
+2026-08-04T05:33:37.406728376Z [inf]  Setting up libxcb-randr0:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:37.410164321Z [inf]  Setting up libtasn1-6:amd64 (4.20.0-2+deb13u1) ...
+
+2026-08-04T05:33:37.413548368Z [inf]  Setting up libopenjp2-7:amd64 (2.5.3-2.1~deb13u2) ...
+
+2026-08-04T05:33:37.416906156Z [inf]  Setting up libx11-6:amd64 (2:1.8.12-1) ...
+
+2026-08-04T05:33:37.420396664Z [inf]  Setting up libthai-data (0.1.29-2) ...
+
+2026-08-04T05:33:37.423829594Z [inf]  Setting up libkrb5-3:amd64 (1.21.3-5+deb13u1) ...
+
+2026-08-04T05:33:37.427280813Z [inf]  Setting up libicu76:amd64 (76.1-4) ...
+
+2026-08-04T05:33:37.430895766Z [inf]  Setting up tesseract-ocr-osd (1:4.1.0-2) ...
+
+2026-08-04T05:33:37.434369408Z [inf]  Setting up libssh2-1t64:amd64 (1.11.1-1+deb13u1) ...
+
+2026-08-04T05:33:37.437937342Z [inf]  Setting up tesseract-ocr-hin (1:4.1.0-2) ...
+
+2026-08-04T05:33:37.441433136Z [inf]  Setting up libwebpmux3:amd64 (1.5.0-0.1) ...
+
+2026-08-04T05:33:37.44474117Z [inf]  Setting up libdrm-common (2.4.124-2) ...
+
+2026-08-04T05:33:37.448146008Z [inf]  Setting up libxml2:amd64 (2.12.7+dfsg+really2.9.14-2.1+deb13u3) ...
+
+2026-08-04T05:33:37.451670717Z [inf]  Setting up libldap2:amd64 (2.6.10+dfsg-1) ...
+
+2026-08-04T05:33:37.455272191Z [inf]  Setting up libxcb-dri3-0:amd64 (1.17.0-2+b1) ...
+
+2026-08-04T05:33:37.459285492Z [inf]  Setting up libllvm19:amd64 (1:19.1.7-3+b1) ...
+
+2026-08-04T05:33:37.463274908Z [inf]  Setting up libx11-xcb1:amd64 (2:1.8.12-1) ...
+
+2026-08-04T05:33:37.467139376Z [inf]  Setting up libxrender1:amd64 (1:0.9.12-1) ...
+
+2026-08-04T05:33:37.470955742Z [inf]  Setting up fontconfig-config (2.15.0-2.3) ...
+
+2026-08-04T05:33:37.534595637Z [inf]  debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+
+2026-08-04T05:33:37.534687645Z [inf]  debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8.)
+debconf: falling back to frontend: Teletype
+
+2026-08-04T05:33:37.540743051Z [inf]  debconf: unable to initialize frontend: Teletype
+debconf: (This frontend requires a controlling tty.)
+debconf: falling back to frontend: Noninteractive
+
+2026-08-04T05:33:37.587025162Z [inf]  Setting up libxext6:amd64 (2:1.3.4-1+b3) ...
+
+2026-08-04T05:33:37.592278875Z [inf]  Setting up libleptonica6:amd64 (1.84.1-4) ...
+
+2026-08-04T05:33:37.597426238Z [inf]  Setting up libidn2-0:amd64 (2.3.8-2) ...
+
+2026-08-04T05:33:37.602551197Z [inf]  Setting up libxxf86vm1:amd64 (1:1.1.4-1+b4) ...
+
+2026-08-04T05:33:37.607744759Z [inf]  Setting up libthai0:amd64 (0.1.29-2+b1) ...
+
+2026-08-04T05:33:37.612678582Z [inf]  Setting up libglib2.0-0t64:amd64 (2.84.4-3~deb13u3) ...
+
+2026-08-04T05:33:37.624888121Z [inf]  No schema files found: doing nothing.
+
+2026-08-04T05:33:37.63168599Z [inf]  Setting up libfreetype6:amd64 (2.13.3+dfsg-1+deb13u1) ...
+
+2026-08-04T05:33:37.636304901Z [inf]  Setting up libgssapi-krb5-2:amd64 (1.21.3-5+deb13u1) ...
+
+2026-08-04T05:33:37.642512855Z [inf]  Setting up libdrm2:amd64 (2.4.124-2) ...
+
+2026-08-04T05:33:37.656516296Z [inf]  Setting up libharfbuzz0b:amd64 (10.2.0-1+deb13u1) ...
+
+2026-08-04T05:33:37.66054478Z [inf]  Setting up libfontconfig1:amd64 (2.15.0-2.3) ...
+
+2026-08-04T05:33:37.664658893Z [inf]  Setting up libarchive13t64:amd64 (3.7.4-4+deb13u1) ...
+
+2026-08-04T05:33:37.668951273Z [inf]  Setting up libdrm-amdgpu1:amd64 (2.4.124-2) ...
+
+2026-08-04T05:33:37.673069662Z [inf]  Setting up libgnutls30t64:amd64 (3.8.9-3+deb13u4) ...
+
+2026-08-04T05:33:37.676920019Z [inf]  Setting up fontconfig (2.15.0-2.3) ...
+
+2026-08-04T05:33:37.682701995Z [inf]  Regenerating fonts cache... 
+2026-08-04T05:33:39.697585412Z [inf]  done.
+
+2026-08-04T05:33:39.700431122Z [inf]  Setting up libpango-1.0-0:amd64 (1.56.3-1) ...
+
+2026-08-04T05:33:39.705450684Z [inf]  Setting up libdrm-intel1:amd64 (2.4.124-2) ...
+
+2026-08-04T05:33:39.710049784Z [inf]  Setting up libpsl5t64:amd64 (0.21.2-1.1+b1) ...
+
+2026-08-04T05:33:39.714591539Z [inf]  Setting up libcairo2:amd64 (1.18.4-1+b1) ...
+
+2026-08-04T05:33:39.71930482Z [inf]  Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b5) ...
+
+2026-08-04T05:33:39.724244342Z [inf]  Setting up libpangoft2-1.0-0:amd64 (1.56.3-1) ...
+
+2026-08-04T05:33:39.72913506Z [inf]  Setting up libpangocairo-1.0-0:amd64 (1.56.3-1) ...
+
+2026-08-04T05:33:39.73390773Z [inf]  Setting up mesa-libgallium:amd64 (25.0.7-2+deb13u1) ...
+
+2026-08-04T05:33:39.738516826Z [inf]  Setting up libcurl4t64:amd64 (8.14.1-2+deb13u4) ...
+
+2026-08-04T05:33:39.743236517Z [inf]  Setting up libgbm1:amd64 (25.0.7-2+deb13u1) ...
+
+2026-08-04T05:33:39.747969028Z [inf]  Setting up libgl1-mesa-dri:amd64 (25.0.7-2+deb13u1) ...
+
+2026-08-04T05:33:39.760351977Z [inf]  Setting up libtesseract5:amd64 (5.5.0-1+b1) ...
+
+2026-08-04T05:33:39.765783036Z [inf]  Setting up libglx-mesa0:amd64 (25.0.7-2+deb13u1) ...
+
+2026-08-04T05:33:39.770965351Z [inf]  Setting up libglx0:amd64 (1.7.0-1+b2) ...
+
+2026-08-04T05:33:39.776271853Z [inf]  Setting up libgl1:amd64 (1.7.0-1+b2) ...
+
+2026-08-04T05:33:39.781574629Z [inf]  Setting up tesseract-ocr (5.5.0-1+b1) ...
+
+2026-08-04T05:33:39.787262934Z [inf]  Processing triggers for libc-bin (2.41-12+deb13u3) ...
+
+2026-08-04T05:33:40.227437299Z [inf]  [3/7] RUN apt-get update && apt-get install -y --no-install-recommends     tesseract-ocr tesseract-ocr-mar tesseract-ocr-hin libgl1     && rm -rf /var/lib/apt/lists/*
+2026-08-04T05:33:40.237639056Z [inf]  [4/7] COPY requirements.txt .
+2026-08-04T05:33:40.333194196Z [inf]  [4/7] COPY requirements.txt .
+2026-08-04T05:33:40.345232378Z [inf]  [5/7] RUN pip install --no-cache-dir -r requirements.txt
+2026-08-04T05:33:42.510754363Z [inf]  Collecting fastapi>=0.110.0 (from -r requirements.txt (line 1))
+
+2026-08-04T05:33:42.586671148Z [inf]    Downloading fastapi-0.141.1-py3-none-any.whl.metadata (27 kB)
+
+2026-08-04T05:33:42.668727935Z [inf]  Collecting uvicorn>=0.27.0 (from uvicorn[standard]>=0.27.0->-r requirements.txt (line 2))
+
+2026-08-04T05:33:42.690818279Z [inf]    Downloading uvicorn-0.52.1-py3-none-any.whl.metadata (6.6 kB)
+
+2026-08-04T05:33:42.73963272Z [inf]  Collecting python-multipart>=0.0.9 (from -r requirements.txt (line 3))
+
+2026-08-04T05:33:42.763325018Z [inf]    Downloading python_multipart-0.0.32-py3-none-any.whl.metadata (2.1 kB)
+
+2026-08-04T05:33:42.939543805Z [inf]  Collecting pydantic>=2.5.0 (from -r requirements.txt (line 4))
+
+2026-08-04T05:33:42.961348672Z [inf]    Downloading pydantic-2.13.4-py3-none-any.whl.metadata (109 kB)
+
+2026-08-04T05:33:42.99020684Z [inf]       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 109.4/109.4 kB 4.1 MB/s eta 0:00:00
+2026-08-04T05:33:42.990678047Z [inf]  
+2026-08-04T05:33:43.052242518Z [inf]  Collecting sentence-transformers>=2.6.0 (from -r requirements.txt (line 5))
+
+2026-08-04T05:33:43.074953183Z [inf]    Downloading sentence_transformers-5.6.1-py3-none-any.whl.metadata (18 kB)
+
+2026-08-04T05:33:43.153796409Z [inf]  Collecting faiss-cpu>=1.8.0 (from -r requirements.txt (line 6))
+
+2026-08-04T05:33:43.176453123Z [inf]    Downloading faiss_cpu-1.15.0-cp310-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (7.8 kB)
+
+2026-08-04T05:33:43.770909241Z [inf]  Collecting rapidfuzz>=3.8.0 (from -r requirements.txt (line 7))
+
+2026-08-04T05:33:43.792706896Z [inf]    Downloading rapidfuzz-3.14.5-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (12 kB)
+
+2026-08-04T05:33:43.977495111Z [inf]  Collecting Pillow>=10.2.0 (from -r requirements.txt (line 8))
+
+2026-08-04T05:33:43.99887539Z [inf]    Downloading pillow-12.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+
+2026-08-04T05:33:44.033213651Z [inf]  Collecting pytesseract>=0.3.10 (from -r requirements.txt (line 9))
+
+2026-08-04T05:33:44.054843714Z [inf]    Downloading pytesseract-0.3.13-py3-none-any.whl.metadata (11 kB)
+
+2026-08-04T05:33:44.27421013Z [inf]  Collecting numpy>=1.26.0 (from -r requirements.txt (line 10))
+
+2026-08-04T05:33:44.295848596Z [inf]    Downloading numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+
+2026-08-04T05:33:44.434772897Z [inf]  Collecting starlette>=0.46.0 (from fastapi>=0.110.0->-r requirements.txt (line 1))
+
+2026-08-04T05:33:44.457104193Z [inf]    Downloading starlette-1.3.1-py3-none-any.whl.metadata (6.4 kB)
+
+2026-08-04T05:33:44.505228629Z [inf]  Collecting typing-extensions>=4.8.0 (from fastapi>=0.110.0->-r requirements.txt (line 1))
+
+2026-08-04T05:33:44.527339404Z [inf]    Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+
+2026-08-04T05:33:44.563715312Z [inf]  Collecting typing-inspection>=0.4.2 (from fastapi>=0.110.0->-r requirements.txt (line 1))
+
+2026-08-04T05:33:44.586800309Z [inf]    Downloading typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+
+2026-08-04T05:33:44.624062366Z [inf]  Collecting annotated-doc>=0.0.2 (from fastapi>=0.110.0->-r requirements.txt (line 1))
+
+2026-08-04T05:33:44.647021123Z [inf]    Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+
+2026-08-04T05:33:44.718738408Z [inf]  Collecting click>=7.0 (from uvicorn>=0.27.0->uvicorn[standard]>=0.27.0->-r requirements.txt (line 2))
+
+2026-08-04T05:33:44.741549683Z [inf]    Downloading click-8.4.2-py3-none-any.whl.metadata (2.6 kB)
+
+2026-08-04T05:33:44.781470911Z [inf]  Collecting h11>=0.8 (from uvicorn>=0.27.0->uvicorn[standard]>=0.27.0->-r requirements.txt (line 2))
+
+2026-08-04T05:33:44.804591641Z [inf]    Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+
+2026-08-04T05:33:44.857445533Z [inf]  Collecting annotated-types>=0.6.0 (from pydantic>=2.5.0->-r requirements.txt (line 4))
+
+2026-08-04T05:33:44.880372843Z [inf]    Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+
+2026-08-04T05:33:45.616195506Z [inf]  Collecting pydantic-core==2.46.4 (from pydantic>=2.5.0->-r requirements.txt (line 4))
+
+2026-08-04T05:33:45.637514223Z [inf]    Downloading pydantic_core-2.46.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.6 kB)
+
+2026-08-04T05:33:45.728059927Z [inf]  Collecting transformers<6.0.0,>=4.41.0 (from sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:45.750291393Z [inf]    Downloading transformers-5.14.1-py3-none-any.whl.metadata (32 kB)
+
+2026-08-04T05:33:45.937049794Z [inf]  Collecting huggingface-hub>=0.23.0 (from sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:45.95890175Z [inf]    Downloading huggingface_hub-1.26.0-py3-none-any.whl.metadata (16 kB)
+
+2026-08-04T05:33:46.027015258Z [inf]  Collecting torch>=1.11.0 (from sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:46.048669197Z [inf]    Downloading torch-2.13.0-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (38 kB)
+
+2026-08-04T05:33:46.155291162Z [inf]  Collecting scikit-learn>=0.22.0 (from sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:46.177265462Z [inf]    Downloading scikit_learn-1.9.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (11 kB)
+
+2026-08-04T05:33:46.316782793Z [inf]  Collecting scipy>=1.0.0 (from sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:46.339069111Z [inf]    Downloading scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+
+2026-08-04T05:33:46.341887249Z [inf]       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.1/62.1 kB 105.8 MB/s eta 0:00:00
+2026-08-04T05:33:46.341935262Z [inf]  
+2026-08-04T05:33:46.420061411Z [inf]  Collecting tqdm>=4.0.0 (from sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:46.442046417Z [inf]    Downloading tqdm-4.70.0-py3-none-any.whl.metadata (57 kB)
+
+2026-08-04T05:33:46.444743755Z [inf]       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.3/57.3 kB 111.0 MB/s eta 0:00:00
+2026-08-04T05:33:46.444775783Z [inf]  
+2026-08-04T05:33:46.4594369Z [inf]  Requirement already satisfied: packaging in /usr/local/lib/python3.11/site-packages (from faiss-cpu>=1.8.0->-r requirements.txt (line 6)) (26.2)
+
+2026-08-04T05:33:46.54242163Z [inf]  Collecting httptools>=0.8.0 (from uvicorn[standard]>=0.27.0->-r requirements.txt (line 2))
+
+2026-08-04T05:33:46.564272605Z [inf]    Downloading httptools-0.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+
+2026-08-04T05:33:46.610246564Z [inf]  Collecting python-dotenv>=0.13 (from uvicorn[standard]>=0.27.0->-r requirements.txt (line 2))
+
+2026-08-04T05:33:46.632775717Z [inf]    Downloading python_dotenv-1.2.2-py3-none-any.whl.metadata (27 kB)
+
+2026-08-04T05:33:46.705487783Z [inf]  Collecting pyyaml>=5.1 (from uvicorn[standard]>=0.27.0->-r requirements.txt (line 2))
+
+2026-08-04T05:33:46.727847191Z [inf]    Downloading pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+
+2026-08-04T05:33:46.79454206Z [inf]  Collecting uvloop>=0.15.1 (from uvicorn[standard]>=0.27.0->-r requirements.txt (line 2))
+
+2026-08-04T05:33:46.815969539Z [inf]    Downloading uvloop-0.22.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (4.9 kB)
+
+2026-08-04T05:33:46.927420079Z [inf]  Collecting watchfiles>=0.20 (from uvicorn[standard]>=0.27.0->-r requirements.txt (line 2))
+
+2026-08-04T05:33:46.94996159Z [inf]    Downloading watchfiles-1.2.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+
+2026-08-04T05:33:47.253970703Z [inf]  Collecting websockets>=13.0 (from uvicorn[standard]>=0.27.0->-r requirements.txt (line 2))
+
+2026-08-04T05:33:47.275262259Z [inf]    Downloading websockets-17.0.1-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.3 kB)
+
+2026-08-04T05:33:47.381317223Z [inf]  Collecting filelock>=3.10.0 (from huggingface-hub>=0.23.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:47.402719245Z [inf]    Downloading filelock-3.32.2-py3-none-any.whl.metadata (2.0 kB)
+
+2026-08-04T05:33:47.447188596Z [inf]  Collecting fsspec>=2023.5.0 (from huggingface-hub>=0.23.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:47.468467503Z [inf]    Downloading fsspec-2026.7.0-py3-none-any.whl.metadata (10 kB)
+
+2026-08-04T05:33:47.540555523Z [inf]  Collecting hf-xet<2.0.0,>=1.5.1 (from huggingface-hub>=0.23.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:47.56278099Z [inf]    Downloading hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+
+2026-08-04T05:33:47.644863576Z [inf]  Collecting httpx<1,>=0.23.0 (from huggingface-hub>=0.23.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:47.668036285Z [inf]    Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+
+2026-08-04T05:33:47.797389335Z [inf]  Collecting joblib>=1.4.0 (from scikit-learn>=0.22.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:47.81919997Z [inf]    Downloading joblib-1.5.3-py3-none-any.whl.metadata (5.5 kB)
+
+2026-08-04T05:33:47.89851974Z [inf]  Collecting narwhals>=2.0.1 (from scikit-learn>=0.22.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:47.921278778Z [inf]    Downloading narwhals-2.24.0-py3-none-any.whl.metadata (15 kB)
+
+2026-08-04T05:33:47.962041528Z [inf]  Collecting threadpoolctl>=3.5.0 (from scikit-learn>=0.22.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:47.984426885Z [inf]    Downloading threadpoolctl-3.6.0-py3-none-any.whl.metadata (13 kB)
+
+2026-08-04T05:33:48.078709917Z [inf]  Collecting anyio<5,>=3.6.2 (from starlette>=0.46.0->fastapi>=0.110.0->-r requirements.txt (line 1))
+
+2026-08-04T05:33:48.100195273Z [inf]    Downloading anyio-4.14.2-py3-none-any.whl.metadata (4.6 kB)
+
+2026-08-04T05:33:48.121238556Z [inf]  Requirement already satisfied: setuptools>=77.0.3 in /usr/local/lib/python3.11/site-packages (from torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5)) (79.0.1)
+
+2026-08-04T05:33:48.157089737Z [inf]  Collecting sympy>=1.13.3 (from torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:48.17839898Z [inf]    Downloading sympy-1.14.0-py3-none-any.whl.metadata (12 kB)
+
+2026-08-04T05:33:48.231253041Z [inf]  Collecting networkx>=2.5.1 (from torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:48.252983085Z [inf]    Downloading networkx-3.6.1-py3-none-any.whl.metadata (6.8 kB)
+
+2026-08-04T05:33:48.301907611Z [inf]  Collecting jinja2 (from torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:48.324161921Z [inf]    Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+
+2026-08-04T05:33:48.381156736Z [inf]  Collecting cuda-toolkit==13.0.3 (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:48.405143786Z [inf]    Downloading cuda_toolkit-13.0.3.0-py2.py3-none-any.whl.metadata (17 kB)
+
+2026-08-04T05:33:48.47944046Z [inf]  Collecting cuda-bindings<14,>=13.0.3 (from torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:48.501505456Z [inf]    Downloading cuda_bindings-13.3.1-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (2.5 kB)
+
+2026-08-04T05:33:48.549527318Z [inf]  Collecting nvidia-cudnn-cu13==9.20.0.48 (from torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:48.571946566Z [inf]    Downloading nvidia_cudnn_cu13-9.20.0.48-py3-none-manylinux_2_27_x86_64.whl.metadata (1.9 kB)
+
+2026-08-04T05:33:48.616803279Z [inf]  Collecting nvidia-cusparselt-cu13==0.8.1 (from torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:48.640949808Z [inf]    Downloading nvidia_cusparselt_cu13-0.8.1-py3-none-manylinux2014_x86_64.whl.metadata (12 kB)
+
+2026-08-04T05:33:48.675696461Z [inf]  Collecting nvidia-nccl-cu13==2.29.7 (from torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:48.697612805Z [inf]    Downloading nvidia_nccl_cu13-2.29.7-py3-none-manylinux_2_18_x86_64.whl.metadata (2.1 kB)
+
+2026-08-04T05:33:48.732064616Z [inf]  Collecting nvidia-nvshmem-cu13==3.4.5 (from torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:48.754151725Z [inf]    Downloading nvidia_nvshmem_cu13-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.1 kB)
+
+2026-08-04T05:33:48.79783037Z [inf]  Collecting triton==3.7.1 (from torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:48.820094866Z [inf]    Downloading triton-3.7.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (1.7 kB)
+
+2026-08-04T05:33:49.147261094Z [inf]  Collecting nvidia-cublas==13.1.1.3.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:49.168474803Z [inf]    Downloading nvidia_cublas-13.1.1.3-py3-none-manylinux_2_27_x86_64.whl.metadata (1.8 kB)
+
+2026-08-04T05:33:49.204122408Z [inf]  Collecting nvidia-cuda-nvrtc==13.0.88.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:49.226601936Z [inf]    Downloading nvidia_cuda_nvrtc-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata (1.7 kB)
+
+2026-08-04T05:33:49.273538329Z [inf]  Collecting nvidia-cuda-runtime==13.0.96.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:49.296247092Z [inf]    Downloading nvidia_cuda_runtime-13.0.96-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.7 kB)
+
+2026-08-04T05:33:49.341016223Z [inf]  Collecting nvidia-cufft==12.0.0.61.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:49.363836672Z [inf]    Downloading nvidia_cufft-12.0.0.61-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.8 kB)
+
+2026-08-04T05:33:49.409107927Z [inf]  Collecting nvidia-nvjitlink<14,>=13.0.88 (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:49.432052263Z [inf]    Downloading nvidia_nvjitlink-13.3.33-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata (1.8 kB)
+
+2026-08-04T05:33:49.472533901Z [inf]  Collecting nvidia-cufile==1.15.1.6.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:49.496568893Z [inf]    Downloading nvidia_cufile-1.15.1.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.7 kB)
+
+2026-08-04T05:33:49.538032294Z [inf]  Collecting nvidia-cuda-cupti==13.0.85.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:49.56169013Z [inf]    Downloading nvidia_cuda_cupti-13.0.85-py3-none-manylinux_2_25_x86_64.whl.metadata (1.7 kB)
+
+2026-08-04T05:33:49.604110277Z [inf]  Collecting nvidia-curand==10.4.0.35.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:49.626592079Z [inf]    Downloading nvidia_curand-10.4.0.35-py3-none-manylinux_2_27_x86_64.whl.metadata (1.7 kB)
+
+2026-08-04T05:33:49.671932417Z [inf]  Collecting nvidia-cusolver==12.0.4.66.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:49.695543122Z [inf]    Downloading nvidia_cusolver-12.0.4.66-py3-none-manylinux_2_27_x86_64.whl.metadata (1.8 kB)
+
+2026-08-04T05:33:49.746278085Z [inf]  Collecting nvidia-cusparse==12.6.3.3.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:49.770756352Z [inf]    Downloading nvidia_cusparse-12.6.3.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.8 kB)
+
+2026-08-04T05:33:49.818003812Z [inf]  Collecting nvidia-nvtx==13.0.85.* (from cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.3; platform_system == "Linux"->torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:49.840897131Z [inf]    Downloading nvidia_nvtx-13.0.85-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl.metadata (1.8 kB)
+
+2026-08-04T05:33:50.637339688Z [inf]  Collecting regex>=2025.10.22 (from transformers<6.0.0,>=4.41.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:50.659477623Z [inf]    Downloading regex-2026.7.19-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+
+2026-08-04T05:33:50.661558576Z [inf]       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.5/40.5 kB 333.6 MB/s eta 0:00:00
+2026-08-04T05:33:50.661710223Z [inf]  
+2026-08-04T05:33:50.809453116Z [inf]  Collecting tokenizers<=0.23.0,>=0.22.0 (from transformers<6.0.0,>=4.41.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:50.831084862Z [inf]    Downloading tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+
+2026-08-04T05:33:50.874500152Z [inf]  Collecting typer (from transformers<6.0.0,>=4.41.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:50.896072719Z [inf]    Downloading typer-0.27.1-py3-none-any.whl.metadata (16 kB)
+
+2026-08-04T05:33:51.017744415Z [inf]  Collecting safetensors>=0.8.0 (from transformers<6.0.0,>=4.41.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:51.040526026Z [inf]    Downloading safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.2 kB)
+
+2026-08-04T05:33:51.135523039Z [inf]  Collecting idna>=2.8 (from anyio<5,>=3.6.2->starlette>=0.46.0->fastapi>=0.110.0->-r requirements.txt (line 1))
+
+2026-08-04T05:33:51.157113003Z [inf]    Downloading idna-3.18-py3-none-any.whl.metadata (6.1 kB)
+
+2026-08-04T05:33:51.19678787Z [inf]  Collecting cuda-pathfinder>=1.4.2 (from cuda-bindings<14,>=13.0.3->torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:51.218254519Z [inf]    Downloading cuda_pathfinder-1.6.0-py3-none-any.whl.metadata (1.9 kB)
+
+2026-08-04T05:33:51.324621772Z [inf]  Collecting certifi (from httpx<1,>=0.23.0->huggingface-hub>=0.23.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:51.352294391Z [inf]    Downloading certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+
+2026-08-04T05:33:51.390839745Z [inf]  Collecting httpcore==1.* (from httpx<1,>=0.23.0->huggingface-hub>=0.23.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:51.412832933Z [inf]    Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+
+2026-08-04T05:33:51.565805632Z [inf]  Collecting mpmath<1.4,>=1.1.0 (from sympy>=1.13.3->torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:51.587346312Z [inf]    Downloading mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+
+2026-08-04T05:33:51.701635721Z [inf]  Collecting MarkupSafe>=2.0 (from jinja2->torch>=1.11.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:51.723214498Z [inf]    Downloading markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+
+2026-08-04T05:33:51.768808086Z [inf]  Collecting shellingham>=1.3.0 (from typer->transformers<6.0.0,>=4.41.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:51.79132502Z [inf]    Downloading shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+
+2026-08-04T05:33:51.860651797Z [inf]  Collecting rich>=13.8.0 (from typer->transformers<6.0.0,>=4.41.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:51.882127519Z [inf]    Downloading rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+
+2026-08-04T05:33:51.966400632Z [inf]  Collecting markdown-it-py>=2.2.0 (from rich>=13.8.0->typer->transformers<6.0.0,>=4.41.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:51.987551427Z [inf]    Downloading markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+
+2026-08-04T05:33:52.030740117Z [inf]  Collecting pygments<3.0.0,>=2.13.0 (from rich>=13.8.0->typer->transformers<6.0.0,>=4.41.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:52.052355689Z [inf]    Downloading pygments-2.20.0-py3-none-any.whl.metadata (2.5 kB)
+
+2026-08-04T05:33:52.116082795Z [inf]  Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=13.8.0->typer->transformers<6.0.0,>=4.41.0->sentence-transformers>=2.6.0->-r requirements.txt (line 5))
+
+2026-08-04T05:33:52.137579498Z [inf]    Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+
+2026-08-04T05:33:52.186901891Z [inf]  Downloading fastapi-0.141.1-py3-none-any.whl (131 kB)
+
+2026-08-04T05:33:52.194127142Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 132.0/132.0 kB 24.0 MB/s eta 0:00:00
+2026-08-04T05:33:52.194320251Z [inf]  
+2026-08-04T05:33:52.215850906Z [inf]  Downloading uvicorn-0.52.1-py3-none-any.whl (79 kB)
+
+2026-08-04T05:33:52.217916505Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 79.9/79.9 kB 349.8 MB/s eta 0:00:00
+2026-08-04T05:33:52.217935544Z [inf]  
+2026-08-04T05:33:52.239449233Z [inf]  Downloading python_multipart-0.0.32-py3-none-any.whl (30 kB)
+
+2026-08-04T05:33:52.261004654Z [inf]  Downloading pydantic-2.13.4-py3-none-any.whl (472 kB)
+
+2026-08-04T05:33:52.286407659Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 472.3/472.3 kB 19.8 MB/s eta 0:00:00
+2026-08-04T05:33:52.286567589Z [inf]  
+2026-08-04T05:33:52.307924002Z [inf]  Downloading pydantic_core-2.46.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+
+2026-08-04T05:33:52.339141971Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 71.5 MB/s eta 0:00:00
+2026-08-04T05:33:52.339329222Z [inf]  
+2026-08-04T05:33:52.36120246Z [inf]  Downloading sentence_transformers-5.6.1-py3-none-any.whl (596 kB)
+
+2026-08-04T05:33:52.365138957Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 596.7/596.7 kB 284.5 MB/s eta 0:00:00
+2026-08-04T05:33:52.365328351Z [inf]  
+2026-08-04T05:33:52.38661547Z [inf]  Downloading faiss_cpu-1.15.0-cp310-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (18.8 MB)
+
+2026-08-04T05:33:52.496187371Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.8/18.8 MB 163.9 MB/s eta 0:00:00
+
+2026-08-04T05:33:52.518148351Z [inf]  Downloading rapidfuzz-3.14.5-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (3.2 MB)
+
+2026-08-04T05:33:52.525620703Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 594.7 MB/s eta 0:00:00
+
+2026-08-04T05:33:52.547201031Z [inf]  Downloading pillow-12.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.9 MB)
+
+2026-08-04T05:33:52.588893546Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.9/6.9 MB 176.7 MB/s eta 0:00:00
+2026-08-04T05:33:52.588910672Z [inf]  
+2026-08-04T05:33:52.610440916Z [inf]  Downloading pytesseract-0.3.13-py3-none-any.whl (14 kB)
+
+2026-08-04T05:33:52.632279502Z [inf]  Downloading numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.9 MB)
+
+2026-08-04T05:33:52.731423027Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.9/16.9 MB 176.3 MB/s eta 0:00:00
+2026-08-04T05:33:52.73162501Z [inf]  
+2026-08-04T05:33:52.754695004Z [inf]  Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+
+2026-08-04T05:33:52.776442063Z [inf]  Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+
+2026-08-04T05:33:52.798722983Z [inf]  Downloading click-8.4.2-py3-none-any.whl (119 kB)
+
+2026-08-04T05:33:52.800934441Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 119.2/119.2 kB 453.6 MB/s eta 0:00:00
+2026-08-04T05:33:52.800961322Z [inf]  
+2026-08-04T05:33:52.824126508Z [inf]  Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+
+2026-08-04T05:33:52.846830704Z [inf]  Downloading httptools-0.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (464 kB)
+
+2026-08-04T05:33:52.851905768Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 464.7/464.7 kB 282.7 MB/s eta 0:00:00
+2026-08-04T05:33:52.852262804Z [inf]  
+2026-08-04T05:33:52.8750605Z [inf]  Downloading huggingface_hub-1.26.0-py3-none-any.whl (780 kB)
+
+2026-08-04T05:33:52.881211689Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 780.4/780.4 kB 285.8 MB/s eta 0:00:00
+2026-08-04T05:33:52.881546732Z [inf]  
+2026-08-04T05:33:52.903932168Z [inf]  Downloading python_dotenv-1.2.2-py3-none-any.whl (22 kB)
+
+2026-08-04T05:33:52.927202914Z [inf]  Downloading pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+
+2026-08-04T05:33:52.933704859Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 806.6/806.6 kB 294.2 MB/s eta 0:00:00
+2026-08-04T05:33:52.934052391Z [inf]  
+2026-08-04T05:33:52.957270848Z [inf]  Downloading scikit_learn-1.9.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (9.3 MB)
+
+2026-08-04T05:33:53.018014697Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.3/9.3 MB 162.5 MB/s eta 0:00:00
+2026-08-04T05:33:53.018209349Z [inf]  
+2026-08-04T05:33:53.040818151Z [inf]  Downloading scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+
+2026-08-04T05:33:53.246178853Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 178.1 MB/s eta 0:00:00
+2026-08-04T05:33:53.246580786Z [inf]  
+2026-08-04T05:33:53.269005392Z [inf]  Downloading starlette-1.3.1-py3-none-any.whl (73 kB)
+
+2026-08-04T05:33:53.272423701Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.6/73.6 kB 217.0 MB/s eta 0:00:00
+2026-08-04T05:33:53.272781558Z [inf]  
+2026-08-04T05:33:53.297495899Z [inf]  Downloading torch-2.13.0-cp311-cp311-manylinux_2_28_x86_64.whl (526.6 MB)
+
+2026-08-04T05:33:56.469516919Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 526.6/526.6 MB 177.1 MB/s eta 0:00:00
+2026-08-04T05:33:56.469804259Z [inf]  
+2026-08-04T05:33:56.492524499Z [inf]  Downloading cuda_toolkit-13.0.3.0-py2.py3-none-any.whl (2.5 kB)
+
+2026-08-04T05:33:56.515722295Z [inf]  Downloading nvidia_cudnn_cu13-9.20.0.48-py3-none-manylinux_2_27_x86_64.whl (366.2 MB)
+
+2026-08-04T05:33:58.495537396Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 366.2/366.2 MB 141.9 MB/s eta 0:00:00
+2026-08-04T05:33:58.495677927Z [inf]  
+2026-08-04T05:33:58.517321832Z [inf]  Downloading nvidia_cusparselt_cu13-0.8.1-py3-none-manylinux2014_x86_64.whl (170.1 MB)
+
+2026-08-04T05:33:59.934045264Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 170.1/170.1 MB 108.7 MB/s eta 0:00:00
+2026-08-04T05:33:59.934375379Z [inf]  
+2026-08-04T05:33:59.957430892Z [inf]  Downloading nvidia_nccl_cu13-2.29.7-py3-none-manylinux_2_18_x86_64.whl (206.0 MB)
+
+2026-08-04T05:34:02.473934107Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 206.0/206.0 MB 84.6 MB/s eta 0:00:00
+2026-08-04T05:34:02.47425646Z [inf]  
+2026-08-04T05:34:02.497051372Z [inf]  Downloading nvidia_nvshmem_cu13-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (60.4 MB)
+
+2026-08-04T05:34:03.193785667Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.4/60.4 MB 88.2 MB/s eta 0:00:00
+2026-08-04T05:34:03.194076323Z [inf]  
+2026-08-04T05:34:03.21702146Z [inf]  Downloading triton-3.7.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (197.7 MB)
+
+2026-08-04T05:34:05.419447125Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 197.7/197.7 MB 90.2 MB/s eta 0:00:00
+2026-08-04T05:34:05.419584481Z [inf]  
+2026-08-04T05:34:05.442096338Z [inf]  Downloading nvidia_cublas-13.1.1.3-py3-none-manylinux_2_27_x86_64.whl (423.1 MB)
+
+2026-08-04T05:34:12.599700069Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 423.1/423.1 MB 58.4 MB/s eta 0:00:00
+2026-08-04T05:34:12.599984086Z [inf]  
+2026-08-04T05:34:12.622496423Z [inf]  Downloading nvidia_cuda_cupti-13.0.85-py3-none-manylinux_2_25_x86_64.whl (10.7 MB)
+
+2026-08-04T05:34:12.807998679Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.7/10.7 MB 57.4 MB/s eta 0:00:00
+2026-08-04T05:34:12.80829902Z [inf]  
+2026-08-04T05:34:12.830867391Z [inf]  Downloading nvidia_cuda_nvrtc-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (90.2 MB)
+
+2026-08-04T05:34:14.35780622Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.2/90.2 MB 61.3 MB/s eta 0:00:00
+2026-08-04T05:34:14.3583124Z [inf]  
+2026-08-04T05:34:14.381562784Z [inf]  Downloading nvidia_cuda_runtime-13.0.96-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.2 MB)
+
+2026-08-04T05:34:14.417051491Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 70.3 MB/s eta 0:00:00
+2026-08-04T05:34:14.417328908Z [inf]  
+2026-08-04T05:34:14.439842967Z [inf]  Downloading nvidia_cufft-12.0.0.61-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (214.1 MB)
+
+2026-08-04T05:34:17.808117354Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 214.1/214.1 MB 67.8 MB/s eta 0:00:00
+2026-08-04T05:34:17.808419297Z [inf]  
+2026-08-04T05:34:17.831597664Z [inf]  Downloading nvidia_cufile-1.15.1.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.2 MB)
+
+2026-08-04T05:34:17.850062759Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 104.5 MB/s eta 0:00:00
+2026-08-04T05:34:17.850520666Z [inf]  
+2026-08-04T05:34:17.874034596Z [inf]  Downloading nvidia_curand-10.4.0.35-py3-none-manylinux_2_27_x86_64.whl (59.5 MB)
+
+2026-08-04T05:34:18.758481154Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.5/59.5 MB 68.3 MB/s eta 0:00:00
+2026-08-04T05:34:18.758874745Z [inf]  
+2026-08-04T05:34:18.787745973Z [inf]  Downloading nvidia_cusolver-12.0.4.66-py3-none-manylinux_2_27_x86_64.whl (200.9 MB)
+
+2026-08-04T05:34:21.597858627Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 200.9/200.9 MB 74.3 MB/s eta 0:00:00
+2026-08-04T05:34:21.598210856Z [inf]  
+2026-08-04T05:34:21.620956082Z [inf]  Downloading nvidia_cusparse-12.6.3.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (145.9 MB)
+
+2026-08-04T05:34:23.538514575Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 145.9/145.9 MB 79.0 MB/s eta 0:00:00
+2026-08-04T05:34:23.538790889Z [inf]  
+2026-08-04T05:34:23.562163908Z [inf]  Downloading nvidia_nvtx-13.0.85-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl (148 kB)
+
+2026-08-04T05:34:23.568218843Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 148.0/148.0 kB 180.7 MB/s eta 0:00:00
+2026-08-04T05:34:23.568625493Z [inf]  
+2026-08-04T05:34:23.592313815Z [inf]  Downloading tqdm-4.70.0-py3-none-any.whl (80 kB)
+
+2026-08-04T05:34:23.595595048Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80.2/80.2 kB 316.5 MB/s eta 0:00:00
+2026-08-04T05:34:23.595849119Z [inf]  
+2026-08-04T05:34:23.618798402Z [inf]  Downloading transformers-5.14.1-py3-none-any.whl (11.6 MB)
+
+2026-08-04T05:34:23.762849155Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.6/11.6 MB 79.1 MB/s eta 0:00:00
+2026-08-04T05:34:23.762892941Z [inf]  
+2026-08-04T05:34:23.785091267Z [inf]  Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+
+2026-08-04T05:34:23.787920982Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 45.6/45.6 kB 235.4 MB/s eta 0:00:00
+2026-08-04T05:34:23.788170727Z [inf]  
+2026-08-04T05:34:23.810314031Z [inf]  Downloading typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+
+2026-08-04T05:34:23.836533531Z [inf]  Downloading uvloop-0.22.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (3.8 MB)
+
+2026-08-04T05:34:23.885335402Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.8/3.8 MB 84.0 MB/s eta 0:00:00
+2026-08-04T05:34:23.885713089Z [inf]  
+2026-08-04T05:34:23.908599648Z [inf]  Downloading watchfiles-1.2.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (456 kB)
+
+2026-08-04T05:34:23.914428073Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 456.9/456.9 kB 272.7 MB/s eta 0:00:00
+2026-08-04T05:34:23.914768053Z [inf]  
+2026-08-04T05:34:23.938829024Z [inf]  Downloading websockets-17.0.1-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (219 kB)
+
+2026-08-04T05:34:23.94352512Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 219.9/219.9 kB 263.1 MB/s eta 0:00:00
+2026-08-04T05:34:23.943788215Z [inf]  
+2026-08-04T05:34:23.967996016Z [inf]  Downloading anyio-4.14.2-py3-none-any.whl (125 kB)
+
+2026-08-04T05:34:23.972766664Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 125.8/125.8 kB 166.5 MB/s eta 0:00:00
+2026-08-04T05:34:23.973032563Z [inf]  
+2026-08-04T05:34:23.996983498Z [inf]  Downloading cuda_bindings-13.3.1-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (6.7 MB)
+
+2026-08-04T05:34:24.082052145Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.7/6.7 MB 82.4 MB/s eta 0:00:00
+2026-08-04T05:34:24.082336992Z [inf]  
+2026-08-04T05:34:24.105243561Z [inf]  Downloading filelock-3.32.2-py3-none-any.whl (98 kB)
+
+2026-08-04T05:34:24.109164905Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.8/98.8 kB 213.0 MB/s eta 0:00:00
+2026-08-04T05:34:24.109480328Z [inf]  
+2026-08-04T05:34:24.132411193Z [inf]  Downloading fsspec-2026.7.0-py3-none-any.whl (206 kB)
+
+2026-08-04T05:34:24.137082422Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 206.6/206.6 kB 214.7 MB/s eta 0:00:00
+2026-08-04T05:34:24.137484886Z [inf]  
+2026-08-04T05:34:24.161057895Z [inf]  Downloading hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.5 MB)
+
+2026-08-04T05:34:24.21549375Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 87.8 MB/s eta 0:00:00
+2026-08-04T05:34:24.215829774Z [inf]  
+2026-08-04T05:34:24.239250344Z [inf]  Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+
+2026-08-04T05:34:24.242967021Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.5/73.5 kB 215.3 MB/s eta 0:00:00
+2026-08-04T05:34:24.243292419Z [inf]  
+2026-08-04T05:34:24.267964857Z [inf]  Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+
+2026-08-04T05:34:24.271598008Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.8/78.8 kB 224.7 MB/s eta 0:00:00
+2026-08-04T05:34:24.271928925Z [inf]  
+2026-08-04T05:34:24.29465998Z [inf]  Downloading joblib-1.5.3-py3-none-any.whl (309 kB)
+
+2026-08-04T05:34:24.299316477Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 309.1/309.1 kB 272.8 MB/s eta 0:00:00
+2026-08-04T05:34:24.299612291Z [inf]  
+2026-08-04T05:34:24.323314243Z [inf]  Downloading narwhals-2.24.0-py3-none-any.whl (461 kB)
+
+2026-08-04T05:34:24.32944399Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 461.0/461.0 kB 223.0 MB/s eta 0:00:00
+2026-08-04T05:34:24.329746444Z [inf]  
+2026-08-04T05:34:24.352712362Z [inf]  Downloading networkx-3.6.1-py3-none-any.whl (2.1 MB)
+
+2026-08-04T05:34:24.3799508Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 86.7 MB/s eta 0:00:00
+2026-08-04T05:34:24.380212663Z [inf]  
+2026-08-04T05:34:24.403602838Z [inf]  Downloading regex-2026.7.19-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (801 kB)
+
+2026-08-04T05:34:24.419577025Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 801.4/801.4 kB 68.1 MB/s eta 0:00:00
+2026-08-04T05:34:24.419987421Z [inf]  
+2026-08-04T05:34:24.4446407Z [inf]  Downloading safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (516 kB)
+
+2026-08-04T05:34:24.454863118Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 516.0/516.0 kB 272.7 MB/s eta 0:00:00
+2026-08-04T05:34:24.454998741Z [inf]  
+2026-08-04T05:34:24.479766733Z [inf]  Downloading sympy-1.14.0-py3-none-any.whl (6.3 MB)
+
+2026-08-04T05:34:24.559489058Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.3/6.3 MB 83.0 MB/s eta 0:00:00
+2026-08-04T05:34:24.559789689Z [inf]  
+2026-08-04T05:34:24.583330229Z [inf]  Downloading threadpoolctl-3.6.0-py3-none-any.whl (18 kB)
+
+2026-08-04T05:34:24.60857763Z [inf]  Downloading tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+
+2026-08-04T05:34:24.651207622Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 84.0 MB/s eta 0:00:00
+2026-08-04T05:34:24.651493972Z [inf]  
+2026-08-04T05:34:24.674207331Z [inf]  Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+
+2026-08-04T05:34:24.6784393Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.9/134.9 kB 230.8 MB/s eta 0:00:00
+2026-08-04T05:34:24.678597338Z [inf]  
+2026-08-04T05:34:24.70227961Z [inf]  Downloading typer-0.27.1-py3-none-any.whl (122 kB)
+
+2026-08-04T05:34:24.706866202Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 122.9/122.9 kB 210.9 MB/s eta 0:00:00
+2026-08-04T05:34:24.70725782Z [inf]  
+2026-08-04T05:34:24.73157201Z [inf]  Downloading cuda_pathfinder-1.6.0-py3-none-any.whl (54 kB)
+
+2026-08-04T05:34:24.735111941Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 54.6/54.6 kB 186.6 MB/s eta 0:00:00
+2026-08-04T05:34:24.735315617Z [inf]  
+2026-08-04T05:34:24.758310929Z [inf]  Downloading idna-3.18-py3-none-any.whl (65 kB)
+
+2026-08-04T05:34:24.761919093Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 65.5/65.5 kB 201.5 MB/s eta 0:00:00
+2026-08-04T05:34:24.762046785Z [inf]  
+2026-08-04T05:34:24.785373213Z [inf]  Downloading markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+
+2026-08-04T05:34:24.809197619Z [inf]  Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
+
+2026-08-04T05:34:24.816877432Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 182.2 MB/s eta 0:00:00
+2026-08-04T05:34:24.817273857Z [inf]  
+2026-08-04T05:34:24.84171635Z [inf]  Downloading nvidia_nvjitlink-13.3.33-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (40.7 MB)
+
+2026-08-04T05:34:25.321460235Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.7/40.7 MB 85.6 MB/s eta 0:00:00
+2026-08-04T05:34:25.321671622Z [inf]  
+2026-08-04T05:34:25.343410599Z [inf]  Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+
+2026-08-04T05:34:25.346180575Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 310.7/310.7 kB 412.6 MB/s eta 0:00:00
+2026-08-04T05:34:25.346346424Z [inf]  
+2026-08-04T05:34:25.369531861Z [inf]  Downloading shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+
+2026-08-04T05:34:25.391004008Z [inf]  Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+
+2026-08-04T05:34:25.393308866Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 137.0/137.0 kB 475.2 MB/s eta 0:00:00
+2026-08-04T05:34:25.393362216Z [inf]  
+2026-08-04T05:34:25.415381283Z [inf]  Downloading markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+
+2026-08-04T05:34:25.417477418Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 91.7/91.7 kB 416.2 MB/s eta 0:00:00
+2026-08-04T05:34:25.417696898Z [inf]  
+2026-08-04T05:34:25.440883256Z [inf]  Downloading pygments-2.20.0-py3-none-any.whl (1.2 MB)
+
+2026-08-04T05:34:25.452825494Z [inf]     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 122.6 MB/s eta 0:00:00
+2026-08-04T05:34:25.452845304Z [inf]  
+2026-08-04T05:34:25.474636369Z [inf]  Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+
+2026-08-04T05:34:29.47976663Z [inf]  Installing collected packages: nvidia-cusparselt-cu13, mpmath, cuda-toolkit, websockets, uvloop, typing-extensions, triton, tqdm, threadpoolctl, sympy, shellingham, safetensors, regex, rapidfuzz, pyyaml, python-multipart, python-dotenv, pygments, Pillow, nvidia-nvtx, nvidia-nvshmem-cu13, nvidia-nvjitlink, nvidia-nccl-cu13, nvidia-curand, nvidia-cufile, nvidia-cuda-runtime, nvidia-cuda-nvrtc, nvidia-cuda-cupti, numpy, networkx, narwhals, mdurl, MarkupSafe, joblib, idna, httptools, hf-xet, h11, fsspec, filelock, cuda-pathfinder, click, certifi, annotated-types, annotated-doc, uvicorn, typing-inspection, scipy, pytesseract, pydantic-core, nvidia-cusparse, nvidia-cufft, nvidia-cublas, markdown-it-py, jinja2, httpcore, faiss-cpu, cuda-bindings, anyio, watchfiles, starlette, scikit-learn, rich, pydantic, nvidia-cusolver, nvidia-cudnn-cu13, httpx, typer, huggingface-hub, fastapi, torch, tokenizers, transformers, sentence-transformers
+
+2026-08-04T05:35:17.584400387Z [inf]  Successfully installed MarkupSafe-3.0.3 Pillow-12.3.0 annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.14.2 certifi-2026.7.22 click-8.4.2 cuda-bindings-13.3.1 cuda-pathfinder-1.6.0 cuda-toolkit-13.0.3.0 faiss-cpu-1.15.0 fastapi-0.141.1 filelock-3.32.2 fsspec-2026.7.0 h11-0.16.0 hf-xet-1.6.0 httpcore-1.0.9 httptools-0.8.0 httpx-0.28.1 huggingface-hub-1.26.0 idna-3.18 jinja2-3.1.6 joblib-1.5.3 markdown-it-py-4.2.0 mdurl-0.1.2 mpmath-1.3.0 narwhals-2.24.0 networkx-3.6.1 numpy-2.4.6 nvidia-cublas-13.1.1.3 nvidia-cuda-cupti-13.0.85 nvidia-cuda-nvrtc-13.0.88 nvidia-cuda-runtime-13.0.96 nvidia-cudnn-cu13-9.20.0.48 nvidia-cufft-12.0.0.61 nvidia-cufile-1.15.1.6 nvidia-curand-10.4.0.35 nvidia-cusolver-12.0.4.66 nvidia-cusparse-12.6.3.3 nvidia-cusparselt-cu13-0.8.1 nvidia-nccl-cu13-2.29.7 nvidia-nvjitlink-13.3.33 nvidia-nvshmem-cu13-3.4.5 nvidia-nvtx-13.0.85 pydantic-2.13.4 pydantic-core-2.46.4 pygments-2.20.0 pytesseract-0.3.13 python-dotenv-1.2.2 python-multipart-0.0.32 pyyaml-6.0.3 rapidfuzz-3.14.5 regex-2026.7.19 rich-15.0.0 safetensors-0.8.0 scikit-learn-1.9.0 scipy-1.17.1 sentence-transformers-5.6.1 shellingham-1.5.4 starlette-1.3.1 sympy-1.14.0 threadpoolctl-3.6.0 tokenizers-0.22.2 torch-2.13.0 tqdm-4.70.0 transformers-5.14.1 triton-3.7.1 typer-0.27.1 typing-extensions-4.16.0 typing-inspection-0.4.2 uvicorn-0.52.1 uvloop-0.22.1 watchfiles-1.2.0 websockets-17.0.1
+
+2026-08-04T05:35:17.584661398Z [inf]  WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+
+2026-08-04T05:35:17.73748247Z [inf]  
+[notice] A new release of pip is available: 24.0 -> 26.2
+[notice] To update, run: pip install --upgrade pip
+
+2026-08-04T05:35:20.078021219Z [inf]  [5/7] RUN pip install --no-cache-dir -r requirements.txt
+2026-08-04T05:35:20.092226623Z [inf]  [6/7] COPY app/ ./app/
+2026-08-04T05:35:20.418986251Z [inf]  [6/7] COPY app/ ./app/
+2026-08-04T05:35:20.430173757Z [inf]  [7/7] COPY assets/ ./assets/
+2026-08-04T05:35:20.522896417Z [inf]  [7/7] COPY assets/ ./assets/
+2026-08-04T05:35:20.537763423Z [inf]  exporting to docker image format
+2026-08-04T05:36:03.784484810Z [inf]  exporting to docker image format
+2026-08-04T05:36:03.824811836Z [inf]  containerimage.descriptor: eyJtZWRpYVR5cGUiOiJhcHBsaWNhdGlvbi92bmQub2NpLmltYWdlLm1hbmlmZXN0LnYxK2pzb24iLCJkaWdlc3QiOiJzaGEyNTY6YjhiNzM0NmQ3NzZhMjhhNDExYWNhOTQ0NmVmOTM4NGZlMDBkY2ZiZTMyZmM5ZmVmY2QyMTM4ZGM2NGU3NTBiMSIsInNpemUiOjIxOTcsImFubm90YXRpb25zIjp7Im9yZy5vcGVuY29udGFpbmVycy5pbWFnZS5jcmVhdGVkIjoiMjAyNi0wOC0wNFQwNTozNTo1MFoifSwicGxhdGZvcm0iOnsiYXJjaGl0ZWN0dXJlIjoiYW1kNjQiLCJvcyI6ImxpbnV4In19
+2026-08-04T05:36:03.824816173Z [inf]  containerimage.config.digest: sha256:51d5b9a2ebd86f3b0accfa1c11b9b051a7d60c1f83e579d73089c02f2b008c6c
+2026-08-04T05:36:03.824820209Z [inf]  containerimage.digest: sha256:b8b7346d776a28a411aca9446ef9384fe00dcfbe32fc9fefcd2138dc64e750b1
+2026-08-04T05:36:16.636300951Z [inf]  image push
+2026-08-04T05:36:26.689871292Z [inf]  image push
+2026-08-04T05:36:36.770081683Z [inf]  image push
+2026-08-04T05:36:46.854225947Z [inf]  image push
+2026-08-04T05:36:56.918636893Z [inf]  image push
+2026-08-04T05:37:07.086838957Z [inf]  image push
+2026-08-04T05:37:17.181201151Z [inf]  image push
+2026-08-04T05:37:28.890157933Z [inf]  image push
+2026-08-04T05:37:28.890272555Z [inf]  image push

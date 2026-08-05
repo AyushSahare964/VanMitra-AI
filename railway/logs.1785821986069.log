@@ -1,0 +1,12 @@
+2026-08-04T05:38:17.252638261Z [inf]  Starting Container
+2026-08-04T05:38:20.582686685Z [err]  Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-04T05:38:24.582699416Z [err]  Killed
+2026-08-04T05:38:30.024993021Z [err]  Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-04T05:38:32.762898408Z [err]  Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8725.80it/s]
+2026-08-04T05:38:36.397767576Z [err]  Killed
+2026-08-04T05:38:41.695916311Z [err]  Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-04T05:38:42.321426963Z [err]  Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2925.41it/s]
+2026-08-04T05:38:44.832996190Z [err]  Killed
+2026-08-04T05:38:49.968578409Z [err]  Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-04T05:38:50.511264921Z [err]  Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 3079.17it/s]
+2026-08-04T05:38:52.912135196Z [err]  Killed

@@ -1,0 +1,25 @@
+{
+  "ndvi_thresholds": {
+    "theta_change_candidate": 0.18,
+    "siamese_decision_tau": 0.5
+  },
+  "cluster_thresholds": {
+    "a_min_pixels": 4,
+    "pixel_area_sqm": 100.0
+  },
+  "resolution_feasibility_bands": {
+    "reliable_min_sqm": 900.0,
+    "marginal_min_sqm": 400.0
+  },
+  "land_use_rule": {
+    "domestic_area_threshold_sqm": 1000.0
+  },
+  "area_discrepancy_tolerance_pct": 15.0,
+  "model": {
+    "file": "siamese_change_model.pt",
+    "n_params": 6002,
+    "patch_size": 20
+  },
+  "village_boundary_source": "FALLBACK",
+  "earth_engine_imagery_used": false
+}

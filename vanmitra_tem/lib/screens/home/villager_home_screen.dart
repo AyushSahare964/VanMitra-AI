@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/routes/app_router.dart';
+import '../../models/boundary_alert.dart';
 import '../../models/gram_sabha_meeting.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/claims_provider.dart';
 import '../../providers/meeting_provider.dart';
 import '../../providers/village_provider.dart';
 import '../../services/localization_service.dart';
+import '../../services/module_b_service.dart';
 import '../../widgets/common/app_components.dart';
 import '../../widgets/portal_frame_scaffold.dart';
 import '../claims/my_claims_screen.dart';
 import '../gram_sabha/gram_sabha_dashboard.dart';
 import '../profile/profile_screen.dart';
+import 'alert_detail_screen.dart';
 import 'boundary_map_screen.dart';
 
 /// Renovated Villager Home Screen — featuring Forest Canopy identity, Saffron BottomNavBar,
@@ -218,6 +221,18 @@ class _HomeTab extends ConsumerWidget {
                   iconColor: AppColors.womenQuorum,
                   onTap: () => Navigator.pushNamed(context, AppRouter.fraRightsInfo),
                 ),
+                const SizedBox(height: AppSpacing.xl),
+
+                // 6. Satellite Parcel Status Card (Module B)
+                Text(
+                  'Satellite Monitoring',
+                  style: AppTypography.title.copyWith(color: AppColors.textPrimary),
+                ),
+                const SizedBox(height: AppSpacing.md),
+                _ParcelStatusCard(
+                  landownerId: int.tryParse(auth.currentUser?.id ?? '') ?? 6976,
+                  onViewHistory: () => Navigator.pushNamed(context, AppRouter.alertHistory),
+                ),
                 const SizedBox(height: AppSpacing.xxl),
               ]),
             ),
@@ -352,4 +367,130 @@ class _ProfileTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ProfileScreen(bottomNavigationBar: bottomNavigationBar);
+}
+
+// ── Satellite Parcel Status Card ──────────────────────────────────────────────
+/// Shows the satellite monitoring result for the current user's parcel.
+/// Fetches from SeedModuleBService (offline). Taps through to AlertDetailScreen.
+class _ParcelStatusCard extends StatefulWidget {
+  final int landownerId;
+  final VoidCallback onViewHistory;
+  const _ParcelStatusCard({required this.landownerId, required this.onViewHistory});
+
+  @override
+  State<_ParcelStatusCard> createState() => _ParcelStatusCardState();
+}
+
+class _ParcelStatusCardState extends State<_ParcelStatusCard> {
+  final _svc = SeedModuleBService();
+  BoundaryAlert? _alert;
+  bool _loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    final alert = await _svc.getAlertForLandowner('ozar', widget.landownerId);
+    if (mounted) setState(() { _alert = alert; _loading = false; });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_loading) {
+      return const AppCard(
+        child: SizedBox(
+          height: 60,
+          child: Center(child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation(AppColors.forestCanopy))),
+        ),
+      );
+    }
+
+    // Default to green "no change" if no specific parcel found
+    final tier = _alert?.tier ?? AlertTier.green;
+    final tierColor = Color(tier.argbColor);
+    final cause = _alert?.likelyCause ?? 'No change detected';
+    final survey = _alert?.surveyNo;
+    final feasibility = _alert?.resolutionFeasibility;
+
+    return GestureDetector(
+      onTap: _alert != null
+          ? () => Navigator.push(context, MaterialPageRoute(
+              builder: (_) => AlertDetailScreen(alert: _alert!)))
+          : null,
+      child: AppCard(
+        elevation: AppElevation.floating,
+        child: Row(
+          children: [
+            Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: tierColor.withValues(alpha: 0.10),
+                border: Border.all(color: tierColor.withValues(alpha: 0.4)),
+              ),
+              child: Center(
+                child: Text(tier.emoji, style: const TextStyle(fontSize: 22)),
+              ),
+            ),
+            const SizedBox(width: AppSpacing.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        'Your Parcel',
+                        style: AppTypography.body.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                      const Spacer(),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: tierColor.withValues(alpha: 0.12),
+                          borderRadius: BorderRadius.circular(AppRadius.sm),
+                          border: Border.all(color: tierColor.withValues(alpha: 0.35)),
+                        ),
+                        child: Text(
+                          tier.displayNameEn,
+                          style: AppTypography.caption.copyWith(
+                            color: tierColor,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 11,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    cause,
+                    style: AppTypography.caption.copyWith(color: AppColors.textSecondary),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  if (survey != null || feasibility != null)
+                    Text(
+                      [
+                        if (survey != null) 'Survey $survey',
+                        if (feasibility != null) feasibility.label,
+                      ].join(' · '),
+                      style: AppTypography.caption.copyWith(
+                        fontSize: 11, color: AppColors.textTertiary),
+                    ),
+                ],
+              ),
+            ),
+            const SizedBox(width: AppSpacing.sm),
+            const Icon(Icons.chevron_right_rounded, color: AppColors.textTertiary, size: 20),
+          ],
+        ),
+      ),
+    );
+  }
 }

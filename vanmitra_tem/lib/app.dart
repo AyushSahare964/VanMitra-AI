@@ -29,6 +29,9 @@ import 'screens/claims/rule_13_info_screen.dart';
 import 'screens/gram_sabha/member_enrolment_screen.dart';
 import 'screens/gram_sabha/resolution_recording_screen.dart';
 import 'screens/gram_sabha/mom_viewer_screen.dart';
+// Module B — Satellite alert screens
+import 'screens/home/alert_detail_screen.dart';
+import 'screens/home/alert_history_screen.dart';
 
 /// Root MaterialApp for VanMitra-AI
 class VanMitraApp extends ConsumerWidget {
@@ -132,6 +135,21 @@ class VanMitraApp extends ConsumerWidget {
             builder: (_) => MomViewerScreen(
               villageId: args['villageId'] as String? ?? '',
             ),
+          );
+        }
+        // Module B — Alert Detail (argument: BoundaryAlert)
+        if (settings.name == AppRouter.alertDetail) {
+          final alert = settings.arguments as dynamic;
+          return MaterialPageRoute(
+            settings: settings,
+            builder: (_) => AlertDetailScreen(alert: alert),
+          );
+        }
+        // Module B — Alert History (no arguments)
+        if (settings.name == AppRouter.alertHistory) {
+          return MaterialPageRoute(
+            settings: settings,
+            builder: (_) => const AlertHistoryScreen(),
           );
         }
         return null; // Fall through to static routes

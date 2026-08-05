@@ -2,13 +2,19 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# System: Tesseract OCR + Marathi + Hindi language packs
+# System: Tesseract OCR + Marathi + Hindi language packs + GDAL for rasterio (Module B)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     tesseract-ocr \
     tesseract-ocr-mar \
     tesseract-ocr-hin \
     libgl1 \
+    libgdal-dev \
+    gdal-bin \
+    libspatialindex-dev \
     && rm -rf /var/lib/apt/lists/*
+
+# Required for rasterio to locate the GDAL native bindings
+ENV GDAL_CONFIG=/usr/bin/gdal-config
 
 # Python dependencies
 COPY requirements.txt .

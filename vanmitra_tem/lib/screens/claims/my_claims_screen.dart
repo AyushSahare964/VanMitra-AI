@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../core/routes/app_router.dart';
+import '../../models/boundary_alert.dart';
 import '../../models/claim.dart';
 import '../../providers/claims_provider.dart';
 import '../../services/localization_service.dart';
+import '../../services/module_b_service.dart';
 import '../../widgets/common/app_components.dart';
 import '../../widgets/portal_frame_scaffold.dart';
 import '../../widgets/status_timeline_widget.dart';
+import '../home/alert_detail_screen.dart';
 
 /// Renovated My Claims List — FRA Citizen Application directory built on Forest Canopy tokens,
 /// StatusBadge tracking tags, floating card hierarchy, and standardized empty state representation.
@@ -419,6 +422,8 @@ class _ClaimTile extends StatelessWidget {
                 currentStep: _timelineStep(),
                 isRejected: claim.status == ClaimStatus.rejected,
               ),
+              const SizedBox(height: AppSpacing.md),
+              _SatelliteTierBadge(surveyNo: claim.surveyNumber),
             ],
           ],
         ),
@@ -442,3 +447,80 @@ class _ClaimTile extends StatelessWidget {
     }
   }
 }
+
+// ── Satellite Tier Badge ──────────────────────────────────────────────────────
+/// Inline satellite monitoring badge shown within each claim card.
+/// Looks up the alert for this claim's survey number from seed data.
+class _SatelliteTierBadge extends StatefulWidget {
+  final String? surveyNo;
+  const _SatelliteTierBadge({this.surveyNo});
+
+  @override
+  State<_SatelliteTierBadge> createState() => _SatelliteTierBadgeState();
+}
+
+class _SatelliteTierBadgeState extends State<_SatelliteTierBadge> {
+  BoundaryAlert? _alert;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    if (widget.surveyNo == null) return;
+    final svc = SeedModuleBService();
+    final alerts = await svc.getAlerts('ozar');
+    final surveyNum = int.tryParse(widget.surveyNo!);
+    if (surveyNum == null) return;
+    try {
+      final found = alerts.firstWhere((a) => a.surveyNo == surveyNum);
+      if (mounted) setState(() => _alert = found);
+    } catch (_) {}
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final tier = _alert?.tier ?? AlertTier.green;
+    final tierColor = Color(tier.argbColor);
+    final cause = _alert?.likelyCause ?? 'Monitoring active';
+
+    return GestureDetector(
+      onTap: _alert != null
+          ? () => Navigator.push(context, MaterialPageRoute(
+              builder: (_) => AlertDetailScreen(alert: _alert!)))
+          : null,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          color: tierColor.withValues(alpha: 0.07),
+          borderRadius: BorderRadius.circular(AppRadius.sm),
+          border: Border.all(color: tierColor.withValues(alpha: 0.30)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(tier.emoji, style: const TextStyle(fontSize: 14)),
+            const SizedBox(width: 8),
+            Icon(Icons.satellite_alt_rounded, size: 14, color: tierColor),
+            const SizedBox(width: 5),
+            Text(
+              'Satellite: $cause',
+              style: AppTypography.caption.copyWith(
+                color: tierColor,
+                fontWeight: FontWeight.w600,
+                fontSize: 11,
+              ),
+            ),
+            if (_alert != null) ...const [
+              SizedBox(width: 6),
+              Icon(Icons.open_in_new_rounded, size: 12, color: AppColors.textTertiary),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+

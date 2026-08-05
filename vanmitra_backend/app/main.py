@@ -214,3 +214,73 @@ def get_notices():
 def post_notice(notice: Dict):
     _notices.append(notice)
     return {"status": "ok", "notice_id": notice.get("noticeId", "unknown")}
+
+
+# ── Module B: Satellite Change Detection ─────────────────────────────────────
+
+@app.post("/api/v1/satellite-verify")
+async def satellite_verify(
+    latitude:      float               = Form(...),
+    longitude:     float               = Form(...),
+    radius_meters: int                 = Form(500),
+    claim_id:      Optional[str]       = Form(None),
+    start_date:    Optional[str]       = Form(None),
+    end_date:      Optional[str]       = Form(None),
+    claimant_name: str                 = Form(""),
+    image:         Optional[UploadFile] = File(None),
+):
+    """On-demand per-parcel satellite verification.
+
+    Returns a structured result including land-cover class, NDVI, canopy
+    coverage, deforestation flag, and a verification_verdict that feeds
+    directly into the ScoringAgent evidence pipeline.
+
+    NOTE: Until the Earth Engine service-account acquisition path is wired
+    in SatelliteAgent._run_analysis(), this endpoint returns
+    status="pending_ee_integration".  Use /satellite-monitor/run for seed data.
+    """
+    import uuid as _uuid
+    image_bytes = await image.read() if image else None
+    result = _orchestrator.satellite.analyze(
+        latitude=latitude,
+        longitude=longitude,
+        radius_meters=radius_meters,
+        image_bytes=image_bytes,
+        start_date=start_date,
+        end_date=end_date,
+    )
+    result["claim_id"] = claim_id or "unlinked"
+    result["task_id"] = str(_uuid.uuid4())
+    return result
+
+
+@app.post("/api/v1/satellite-monitor/run")
+async def run_village_monitor(village_id: str = Form(...)):
+    """Batch satellite monitor — runs the Siamese model over every parcel
+    for village_id and returns a per-parcel alert list.
+
+    Currently serves ozar_alerts.csv seed data (demo-v1-synthetic).
+    Production: wire SatelliteAgent._run_analysis() with EE service account,
+    then replace with a per-parcel loop that calls satellite.analyze().
+    Results should be upserted to boundary_alerts/{alertId} in Firestore.
+    """
+    return _orchestrator.satellite.run_village_monitor(village_id=village_id)
+
+
+@app.get("/api/v1/satellite-monitor/config")
+def get_satellite_config():
+    """Return the loaded satellite model configuration and provenance flags."""
+    sat = _orchestrator.satellite
+    return {
+        "model_version": sat.model_version,
+        "village_boundary_source": sat.village_boundary_source,
+        "earth_engine_imagery_used": sat.earth_engine_imagery_used,
+        "thresholds": {
+            "theta_change_candidate": sat.theta,
+            "siamese_decision_tau": sat.tau,
+            "reliable_min_sqm": sat.reliable_min_sqm,
+            "marginal_min_sqm": sat.marginal_min_sqm,
+        },
+        "model_loaded": sat._model is not None,
+    }
+

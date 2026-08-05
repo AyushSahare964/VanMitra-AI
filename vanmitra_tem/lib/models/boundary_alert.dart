@@ -1,7 +1,8 @@
 /// Satellite-based boundary change alert (Module B)
 ///
-/// Represents a detected change in the CFR boundary area
-/// from the NDVI change-detection pipeline.
+/// Extended with full field set from VanMitra_ModuleB_Ozar.ipynb output
+/// (ozar_alerts.csv, Cell 21) — all new fields are nullable/optional so
+/// existing documents without them continue to deserialise correctly.
 ///
 /// Alert tiers per VanMitra-AI Technical Report Sec. 14.2:
 ///   🟢 Green — No significant change, boundary stable
@@ -48,9 +49,52 @@ extension AlertTierExtension on AlertTier {
         return 'Immediate alert to Gram Sabha and linked NGO';
     }
   }
+
+  // Color helpers (mirrors AppColors palette)
+  int get argbColor {
+    switch (this) {
+      case AlertTier.green:  return 0xFF2E7D32; // successGreen
+      case AlertTier.yellow: return 0xFFF59E0B; // warningAmber
+      case AlertTier.red:    return 0xFFDC2626; // alertRed
+    }
+  }
 }
 
-/// A boundary change alert detected by the satellite monitoring pipeline
+/// Resolution feasibility band — indicates how reliable the satellite
+/// analysis is for this parcel given its size vs. the 10m pixel grid.
+enum ResolutionFeasibility {
+  reliable,
+  marginal,
+  unreliable,
+}
+
+extension ResolutionFeasibilityExt on ResolutionFeasibility {
+  String get label {
+    switch (this) {
+      case ResolutionFeasibility.reliable:   return 'Reliable';
+      case ResolutionFeasibility.marginal:   return 'Marginal';
+      case ResolutionFeasibility.unreliable: return 'Unreliable';
+    }
+  }
+
+  String get explainer {
+    switch (this) {
+      case ResolutionFeasibility.reliable:
+        return 'Parcel is large enough for confident satellite analysis.';
+      case ResolutionFeasibility.marginal:
+        return 'This parcel is small relative to the 10m pixel grid — treat this alert as indicative and confirm on a field visit.';
+      case ResolutionFeasibility.unreliable:
+        return 'Parcel is too small for reliable satellite analysis — field verification required before any action.';
+    }
+  }
+
+  bool get needsWarning => this != ResolutionFeasibility.reliable;
+}
+
+/// A boundary change alert detected by the Siamese CNN satellite monitoring pipeline.
+///
+/// Fields from ozar_alerts.csv (new in Module B §4.1) are all nullable to
+/// remain backward-compatible with any existing documents in boundary_alerts.
 class BoundaryAlert {
   final String id;
   final String villageId;
@@ -64,8 +108,8 @@ class BoundaryAlert {
   final double? affectedAreaSqMeters;
 
   // NDVI change data
-  final double? ndviChange; // ΔNDVI value
-  final String? imagerySource; // e.g. "Sentinel-2 L2A"
+  final double? ndviChange; // ΔNDVI value (legacy field)
+  final String? imagerySource; // e.g. "Sentinel-2 L2A" or "synthetic"
   final DateTime? imageryDate;
 
   // Description
@@ -76,6 +120,20 @@ class BoundaryAlert {
   final bool isReported;
   final String? reportedTo; // "District Office" / "NGO"
   final DateTime? reportedAt;
+
+  // ── Module B §4.1 — new fields from ozar_alerts.csv ─────────────────────
+  final int? landownerId;
+  final String? claimantName;
+  final int? surveyNo;
+  final double? declaredAreaSqm;
+  final String? landUseType;       // "Agricultural/Farmland" | "Domestic/Homestead"
+  final ResolutionFeasibility? resolutionFeasibility;
+  final double? areaAffectedSqm;
+  final String? likelyCause;       // "No change detected" | "Illegal Clearing / Logging" | …
+  final double? confidence;        // 0–1
+  final double? ndviMean;          // −1–1
+  final String? modelVersion;      // "demo-v1-synthetic" | "ee-v1"
+  final String? boundarySource;    // "FALLBACK" | "OSM"
 
   const BoundaryAlert({
     required this.id,
@@ -94,10 +152,30 @@ class BoundaryAlert {
     this.isReported = false,
     this.reportedTo,
     this.reportedAt,
+    // Module B fields
+    this.landownerId,
+    this.claimantName,
+    this.surveyNo,
+    this.declaredAreaSqm,
+    this.landUseType,
+    this.resolutionFeasibility,
+    this.areaAffectedSqm,
+    this.likelyCause,
+    this.confidence,
+    this.ndviMean,
+    this.modelVersion,
+    this.boundarySource,
   });
 
   bool get isResolved => resolvedAt != null;
   bool get isActive => !isResolved;
+
+  /// True when this alert was produced from synthetic/demo data rather than
+  /// real Sentinel-2 imagery via Earth Engine.
+  bool get isSyntheticData =>
+      modelVersion == 'demo-v1-synthetic' ||
+      boundarySource == 'FALLBACK' ||
+      imagerySource == 'synthetic';
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -116,6 +194,18 @@ class BoundaryAlert {
     'isReported': isReported,
     'reportedTo': reportedTo,
     'reportedAt': reportedAt?.toIso8601String(),
+    'landownerId': landownerId,
+    'claimantName': claimantName,
+    'surveyNo': surveyNo,
+    'declaredAreaSqm': declaredAreaSqm,
+    'landUseType': landUseType,
+    'resolutionFeasibility': resolutionFeasibility?.name,
+    'areaAffectedSqm': areaAffectedSqm,
+    'likelyCause': likelyCause,
+    'confidence': confidence,
+    'ndviMean': ndviMean,
+    'modelVersion': modelVersion,
+    'boundarySource': boundarySource,
   };
 
   factory BoundaryAlert.fromJson(Map<String, dynamic> json) => BoundaryAlert(
@@ -141,5 +231,19 @@ class BoundaryAlert {
     reportedAt: json['reportedAt'] != null
         ? DateTime.parse(json['reportedAt'] as String)
         : null,
+    landownerId: json['landownerId'] as int?,
+    claimantName: json['claimantName'] as String?,
+    surveyNo: json['surveyNo'] as int?,
+    declaredAreaSqm: (json['declaredAreaSqm'] as num?)?.toDouble(),
+    landUseType: json['landUseType'] as String?,
+    resolutionFeasibility: json['resolutionFeasibility'] != null
+        ? ResolutionFeasibility.values.byName(json['resolutionFeasibility'] as String)
+        : null,
+    areaAffectedSqm: (json['areaAffectedSqm'] as num?)?.toDouble(),
+    likelyCause: json['likelyCause'] as String?,
+    confidence: (json['confidence'] as num?)?.toDouble(),
+    ndviMean: (json['ndviMean'] as num?)?.toDouble(),
+    modelVersion: json['modelVersion'] as String?,
+    boundarySource: json['boundarySource'] as String?,
   );
 }
